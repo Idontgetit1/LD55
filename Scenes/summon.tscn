@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://caflfl0tgoyh2"]
+[gd_scene load_steps=3 format=3 uid="uid://caflfl0tgoyh2"]
+
+[ext_resource type="Script" path="res://Scripts/summon.cs" id="1_gmtrt"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i24p"]
 size = Vector2(32, 32)
 
 [node name="Summon" type="CharacterBody2D"]
+script = ExtResource("1_gmtrt")
 
 [node name="SummonTexture" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_7i24p")
+
+[node name="NameTag" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -56.0
+offset_right = 21.0
+offset_bottom = -33.0

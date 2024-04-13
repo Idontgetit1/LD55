@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=5 format=3 uid="uid://t1do8xrhsq4l"]
 
+[ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
 
 [sub_resource type="Gradient" id="Gradient_fwdqp"]
@@ -8,7 +9,10 @@ colors = PackedColorArray(0, 0.184314, 0.0117647, 1, 0.207031, 0.207031, 0.20703
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v053y"]
 gradient = SubResource("Gradient_fwdqp")
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker")]
+script = ExtResource("1_5een2")
+LeftSummonMarker = NodePath("LeftSummonCircle")
+RightSummonMarker = NodePath("RightSummonCircle")
 
 [node name="Floor" type="Sprite2D" parent="."]
 position = Vector2(577.5, 597)
@@ -27,3 +31,9 @@ position = Vector2(112, 540)
 
 [node name="RightSummonCircle" type="Marker2D" parent="."]
 position = Vector2(1053, 540)
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
