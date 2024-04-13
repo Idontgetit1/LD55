@@ -50,7 +50,8 @@ public partial class summon : CharacterBody2D
 			ShouldMoveNextTick = false;
 			FieldIndex = NextFieldIndex;
 			FieldMarker = NextFieldMarker;
-			GlobalPosition = NextPosition;
+			Move(NextPosition);
+
 		}
 
 		if (ShouldAttackNextTick) {
@@ -139,7 +140,23 @@ public partial class summon : CharacterBody2D
 	}
 
 	public void Move(Vector2 Position) {
-		// Placeholder
+		var startPosition = GlobalPosition;
+		var endPosition = Position;
+		var jumpHeight = 20;
+		var duration = 0.15f;
+
+		var midJump = (startPosition + endPosition) / 2;
+		midJump.Y -= jumpHeight;
+
+		var tween = GetTree().CreateTween();
+
+		tween.TweenProperty(this, "global_position", midJump, duration)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenProperty(this, "global_position", endPosition, duration)
+			.SetEase(Tween.EaseType.In);
+
+		tween.Play();
 	}
 
 	public Marker2D GetMarker() {
