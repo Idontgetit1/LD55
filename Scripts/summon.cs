@@ -8,66 +8,48 @@ public enum SummonType {
 
 public partial class summon : CharacterBody2D
 {
-	[Export]
-	public int MoveEvery = 1;
-	[Export]
-	public int Damage = 1;
-	[Export]
-	public int Health = 1;
-	[Export]
-	public int Area = 1;
-	[Export]
-	public SummonType Type = SummonType.Wolf;
-	[Export]
-	public bool IsPlayer = false;
-	public Marker2D SummonMarker;
+	private Game Game;
 
-	private int TickCounter = 0;
-	private bool Moving = false;
-	private Vector2 MovingTo = new Vector2();
+	// Summon Attributes
+	public SummonType Type;
+	public bool IsPlayer;
+	public int FieldIndex;
+	public Marker2D FieldMarker;
+
+	// Buffer for next Tick
+	public bool ShouldMoveNextTick = false;
+	public Vector2 NextPosition;
+	public int NextFieldIndex;
+	public Marker2D NextFieldMarker;
+	public int TakingDamage = 0;
 
 	public override void _Ready()
 	{
-		string Name = Type.ToString();
+		Game = GetNode<Game>("/root/Game");
 
-		if (!IsPlayer) {
-			Name = "E:" + Name;
-		}
-
-		GetNode<Label>("NameTag").Text = Name;
+		GetNode<Label>("NameTag").Text = "summon";
 	}
 
 	public override void _Process(double delta)
 	{
-		if (Moving) {
-			var diff = MovingTo - GlobalPosition;
-			var dir = diff.Normalized();
-			var speed = 500 * (float)delta;
-
-			if (diff.Length() > speed) {
-				GlobalPosition += dir * speed;
-			} else {
-				GlobalPosition = MovingTo;
-				Moving = false;
-			}
-		}
 	}
 
 	public void Tick() {
-		TickCounter++;
+		// Placeholder
 	}
 
 	public bool ShouldMove() {
-		return TickCounter % MoveEvery == 0;
+		// Placeholder
+		return false;
 	}
 
 	public void Move(Vector2 Position) {
-		Moving = true;
-		MovingTo = Position;
+		// Placeholder
 	}
 
 	public Marker2D GetMarker() {
-		return SummonMarker;
+		// Placeholder
+		return null;
 	}
 
 	public void GetReadyToAttack() {
@@ -79,10 +61,7 @@ public partial class summon : CharacterBody2D
 	}
 
 	public void TakeDamage(int Damage) {
-		Health -= Damage;
-		if (Health <= 0) {
-			Die();
-		}
+		// Placeholder
 	}
 
 	public void Die() {

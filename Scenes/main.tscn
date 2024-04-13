@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=6 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
+[ext_resource type="AudioStream" uid="uid://y1ogafhfdkp1" path="res://Resources/Sounds/click.wav" id="3_tewli"]
 
 [sub_resource type="Gradient" id="Gradient_fwdqp"]
 colors = PackedColorArray(0, 0.184314, 0.0117647, 1, 0.207031, 0.207031, 0.207031, 1)
@@ -9,10 +10,11 @@ colors = PackedColorArray(0, 0.184314, 0.0117647, 1, 0.207031, 0.207031, 0.20703
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v053y"]
 gradient = SubResource("Gradient_fwdqp")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "ClickSound")]
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
 RightSummonMarker = NodePath("RightSummonCircle")
+ClickSound = NodePath("ClickSound")
 
 [node name="Floor" type="Sprite2D" parent="."]
 position = Vector2(577.5, 597)
@@ -35,5 +37,8 @@ position = Vector2(1053, 540)
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tewli")
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
