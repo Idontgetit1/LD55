@@ -25,9 +25,9 @@ public partial class main : Node2D
 		var left = LeftSummonMarker.GlobalPosition;
 		var right = RightSummonMarker.GlobalPosition;
 		var diff = right - left;
-		var step = diff / 8;
+		var step = diff / Game.Fields;
 
-		for (int i = 0; i <= 8; i++)
+		for (int i = 0; i <= Game.Fields; i++)
 		{
 			// Add marker
 			var marker = new Marker2D();
@@ -57,7 +57,29 @@ public partial class main : Node2D
 
 	public void _OnTick() {
 		GD.Print("Tick");
+
+
+		// Acting (Execute Buffer from last Tick)
+		foreach (var summon in Game.Summons)
+		{
+			summon.Act();
+		}
+
+		// Planning
+		// Plan Movement
+		foreach (var summon in Game.Summons)
+		{
+			summon.PlanMove();
+		}
+
+		// Plan Attack
+		foreach (var summon in Game.Summons)
+		{
+			summon.PlanAttack();
+		}
 		
+		// Remove Summons
+		Game.RemoveTick();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
