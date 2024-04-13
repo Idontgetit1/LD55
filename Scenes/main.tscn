@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=7 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
 [ext_resource type="AudioStream" uid="uid://y1ogafhfdkp1" path="res://Resources/Sounds/click.wav" id="3_tewli"]
+[ext_resource type="PackedScene" uid="uid://dp4evyon2kiay" path="res://Scenes/MagicBook.tscn" id="4_a5a6v"]
 
 [sub_resource type="Gradient" id="Gradient_fwdqp"]
 colors = PackedColorArray(0, 0.184314, 0.0117647, 1, 0.207031, 0.207031, 0.207031, 1)
@@ -17,22 +18,22 @@ RightSummonMarker = NodePath("RightSummonCircle")
 ClickSound = NodePath("ClickSound")
 
 [node name="Floor" type="Sprite2D" parent="."]
-position = Vector2(577.5, 597)
+position = Vector2(583, 568)
 rotation = 1.5708
-scale = Vector2(1.48438, 18.125)
+scale = Vector2(1.25169, 20.1022)
 texture = SubResource("GradientTexture2D_v053y")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(31, 529)
+position = Vector2(29, 508)
 
 [node name="Player2" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(1131, 527)
+position = Vector2(943, 496)
 
 [node name="LeftSummonCircle" type="Marker2D" parent="."]
-position = Vector2(112, 540)
+position = Vector2(142, 505)
 
 [node name="RightSummonCircle" type="Marker2D" parent="."]
-position = Vector2(1053, 540)
+position = Vector2(878, 500)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -40,5 +41,8 @@ autostart = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_tewli")
+
+[node name="TopLeftSpellMenu" parent="." instance=ExtResource("4_a5a6v")]
+position = Vector2(142, 142)
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
