@@ -164,16 +164,20 @@ public partial class summon : CharacterBody2D
 		return null;
 	}
 
-	public void GetReadyToAttack() {
-		// Placeholder
-	}
-
-	public void Attack() {
-		// Placeholder
-	}
-
 	public void Die() {
-		// Placeholder for cool death animation
+
+		var duration = 0.1f;
+
+		var tween = GetTree().CreateTween();
+		// Smash Summon at left or right side of screen
+		var endPosition = IsPlayer ? new Vector2(-100, 0) : new Vector2(100, 0);
+		tween.TweenProperty(this, "global_position", endPosition, duration)
+			.SetEase(Tween.EaseType.In);
+
+		// Run Delete after animation
+		tween.TweenCallback(Callable.From(QueueFree));
+
+		tween.Play();
 
 		Game.MarkForDeletion(this);
 	}

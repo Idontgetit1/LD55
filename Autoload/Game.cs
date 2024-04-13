@@ -29,7 +29,6 @@ public partial class Game : Node
 	{
 		foreach (var summon in SummonsToRemove) {
 			Summons.Remove(summon);
-			summon.Delete();
 		}
 
 		SummonsToRemove.Clear();
