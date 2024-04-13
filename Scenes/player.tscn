@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c02fi2bhqwuxc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ei5fm"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_ei5fm")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://t1do8xrhsq4l"]
+
+[ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
+
+[sub_resource type="Gradient" id="Gradient_fwdqp"]
+colors = PackedColorArray(0, 0.184314, 0.0117647, 1, 0.207031, 0.207031, 0.207031, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v053y"]
+gradient = SubResource("Gradient_fwdqp")
+
+[node name="Main" type="Node2D"]
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(577.5, 597)
+rotation = 1.5708
+scale = Vector2(1.48438, 18.125)
+texture = SubResource("GradientTexture2D_v053y")
+
+[node name="Player" parent="." instance=ExtResource("1_h6ddt")]
+position = Vector2(31, 529)
+
+[node name="Player2" parent="." instance=ExtResource("1_h6ddt")]
+position = Vector2(1131, 527)
+
+[node name="LeftSummonCircle" type="Marker2D" parent="."]
+position = Vector2(112, 540)
+
+[node name="RightSummonCircle" type="Marker2D" parent="."]
+position = Vector2(1053, 540)
