@@ -21,10 +21,17 @@ public partial class summon : CharacterBody2D
 
 	// Buffer for next Tick
 	public bool ShouldMoveNextTick = false;
+	public bool ShouldAttackNextTick = false;
 	public Vector2 NextPosition;
 	public int NextFieldIndex;
 	public Marker2D NextFieldMarker;
 	public int DamageTaken = 0;
+
+	// Stuff for Attack Animation
+	public bool IsAttacking = false;
+	public Vector2 ForwardPosition;
+	public Vector2 StartPosition;
+	[Export] public Sprite2D SummonSprite;
 
 	public override void _Ready()
 	{
@@ -44,6 +51,11 @@ public partial class summon : CharacterBody2D
 			FieldIndex = NextFieldIndex;
 			FieldMarker = NextFieldMarker;
 			GlobalPosition = NextPosition;
+		}
+
+		if (ShouldAttackNextTick) {
+			ShouldAttackNextTick = false;
+			AttackAnimation();
 		}
 
 		if (DamageTaken > 0) {
@@ -86,6 +98,7 @@ public partial class summon : CharacterBody2D
 			if (summon.FieldIndex == NextFieldIndex || summon.NextFieldIndex == NextFieldIndex) {
 				summon.DamageTaken += AttackPower;
 				ShouldMoveNextTick = false;
+				ShouldAttackNextTick = true;
 
 				GD.Print("Enemy is attacking " + summon.Type);
 				return;
@@ -98,6 +111,31 @@ public partial class summon : CharacterBody2D
 		if (Health <= 0) {
 			Die();
 		}
+	}
+
+	public void AttackAnimation() {
+		// Move forward fast and back to original position
+		IsAttacking = true;
+		var Offset = new Vector2(50, 0);
+		if (!IsPlayer) {
+			Offset *= -1;
+		}
+		ForwardPosition = SummonSprite.Position + Offset;
+		StartPosition = SummonSprite.Position;
+
+		var duration = 0.2f;
+		var delay = 0.02f;
+
+		var tween = GetTree().CreateTween();
+		tween.TweenProperty(SummonSprite, "position", ForwardPosition, duration)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenInterval(delay);
+
+		tween.TweenProperty(SummonSprite, "position", StartPosition, duration)
+			.SetEase(Tween.EaseType.In);
+
+		tween.Play();
 	}
 
 	public void Move(Vector2 Position) {
