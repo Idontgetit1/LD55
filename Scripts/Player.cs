@@ -13,12 +13,12 @@ public partial class Player : CharacterBody2D
 		var BaseScale = 1f;
 		if (IsPlayer)
 		{
-			PlayerSprite.Texture = GD.Load<Texture2D>("res://Resources/Assets/Summoner/Summoner.png");
+			PlayerSprite.Texture = GD.Load<Texture2D>("res://Resources/Assets/Summoner/Summoner1.png");
 			PlayerSprite.Scale *= BaseScale;
 		}
 		else
 		{
-			PlayerSprite.Texture = GD.Load<Texture2D>("res://Resources/Assets/Summoner/SummonerEnemy.png");
+			PlayerSprite.Texture = GD.Load<Texture2D>("res://Resources/Assets/Summoner/SummonerEnemy1.png");
 			PlayerSprite.Scale *= BaseScale;
 			PlayerSprite.FlipH = false;
 		}

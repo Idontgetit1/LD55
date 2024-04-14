@@ -5,10 +5,11 @@ using System.Security.Cryptography.X509Certificates;
 public enum SummonType {
 	FlameWolf,
 	Slime,
-	Spider,
-	Whatever,
-	Placeholder1,
-	Placeholder2
+	Slimeloon,
+	Tree,
+	GrassBoi,
+	IceMouse,
+	MagmaPuddle
 }
 
 public partial class summon : CharacterBody2D

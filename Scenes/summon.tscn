@@ -7,11 +7,11 @@
 size = Vector2(32, 32)
 
 [node name="Summon" type="CharacterBody2D" node_paths=PackedStringArray("SummonSprite")]
-scale = Vector2(1.5, 1.5)
 script = ExtResource("1_gmtrt")
 SummonSprite = NodePath("SummonTexture")
 
 [node name="SummonTexture" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = SubResource("PlaceholderTexture2D_7i24p")
 
 [node name="NameTag" type="Label" parent="."]

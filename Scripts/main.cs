@@ -21,8 +21,8 @@ public partial class main : Node2D
 	[Export]
 	public AudioStreamPlayer ClickSound;
 
-	[Export]
-	public MagicBook Book;
+	// [Export]
+	// public MagicBook Book;
 
 	private PackedScene SummonScene = GD.Load<PackedScene>("res://Scenes/summon.tscn");
 	private PackedScene RuneActivator = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
@@ -42,31 +42,31 @@ public partial class main : Node2D
 		SummonMonster(SummonType.FlameWolf, true);
 		SummonMonster(SummonType.Slime, false);
 
-		SummonMonster(SummonType.Placeholder1, true);
+		SummonMonster(SummonType.Tree, true);
 		SummonMonster(SummonType.Slime, false);
 		SummonMonster(SummonType.Slime, false);
 
 		// Set Rune Activators
-		SetSummonActivatorRunes();
+		// SetSummonActivatorRunes();
 	}
 
 	private void SetSummonActivatorRunes() {
 		// Summon Wolf
-		Book.CreateRuneActivator(new List<RuneType> {
-			RuneType.Up,
-			RuneType.Down,
-			RuneType.Left,
-			RuneType.Right
-		}, "Wolf", SummonType.FlameWolf, Callable.From(() => {SummonMonster(SummonType.FlameWolf, true); Game.ActivatedRunes(true);}));
+		// Book.CreateRuneActivator(new List<RuneType> {
+		// 	RuneType.Up,
+		// 	RuneType.Down,
+		// 	RuneType.Left,
+		// 	RuneType.Right
+		// }, "Wolf", SummonType.FlameWolf, Callable.From(() => {SummonMonster(SummonType.FlameWolf, true); Game.ActivatedRunes(true);}));
 
-		// Summon Slime
-		Book.CreateRuneActivator(new List<RuneType> {
-			RuneType.Down,
-			RuneType.Right,
-			RuneType.Right,
-			RuneType.Up,
-			RuneType.Down
-		}, "Slime", SummonType.Slime, Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
+		// // Summon Slime
+		// Book.CreateRuneActivator(new List<RuneType> {
+		// 	RuneType.Down,
+		// 	RuneType.Right,
+		// 	RuneType.Right,
+		// 	RuneType.Up,
+		// 	RuneType.Down
+		// }, "Slime", SummonType.Slime, Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
 	}
 
 	private void SummonMonster(SummonType type, bool IsPlayer)

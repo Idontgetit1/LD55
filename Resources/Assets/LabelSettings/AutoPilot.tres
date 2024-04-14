@@ -3,5 +3,6 @@
 [ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="1_facvw"]
 
 [resource]
+line_spacing = 5.0
 font = ExtResource("1_facvw")
 font_size = 32
