@@ -41,7 +41,8 @@ public static partial class TypeStats
                     TexturePath = "res://Resources/Assets/Summons/Slimeloon.png",
                     Name = "Slimeloon",
                     Description = "A slime with a balloon. It's slimy.\n50% Chance to not be hit by an attack.",
-                    Code = new RuneCode("wswsawd")
+                    Code = new RuneCode("wswsawd"),
+                    BaseScale = 0.5f
                 };
             case SummonType.Tree:
                 return new Stats {
@@ -54,7 +55,8 @@ public static partial class TypeStats
                     TexturePath = "res://Resources/Assets/Summons/Tree.png",
                     Name = "Tree",
                     Description = "A tree. It's woody.\nHeals the Summon in front of it for 1 health every 2 seconds.",
-                    Code = new RuneCode("ddawdss")
+                    Code = new RuneCode("ddawdss"),
+                    Mirrored = true
                 };
             case SummonType.GrassBoi:
                 return new Stats {
@@ -67,7 +69,8 @@ public static partial class TypeStats
                     TexturePath = "res://Resources/Assets/Summons/GrassBoi.png",
                     Name = "Grass Boi",
                     Description = "A grass boi. It's grassy.\nIncreases the attack power of the summon in front of it by 1.",
-                    Code = new RuneCode("adwdsdssa")
+                    Code = new RuneCode("adwdsdssa"),
+                    Mirrored = true
                 };
             case SummonType.IceMouse:
                 return new Stats {
@@ -80,7 +83,8 @@ public static partial class TypeStats
                     TexturePath = "res://Resources/Assets/Summons/IceMouse.png",
                     Name = "Ice Mouse",
                     Description = "An ice mouse. It's icy.\n5% Chance to freeze the enemy for 3 seconds.",
-                    Code = new RuneCode("dadawdsd")
+                    Code = new RuneCode("dadawdsd"),
+                    Mirrored = true
                 };
             case SummonType.MagmaPuddle:
                 return new Stats {
@@ -93,7 +97,8 @@ public static partial class TypeStats
                     TexturePath = "res://Resources/Assets/Summons/MagmaPuddle.png",
                     Name = "Magma Puddle",
                     Description = "A magma puddle. It's hot.\nCauses the enemy to burn for 3 seconds.",
-                    Code = new RuneCode("sswwdadsd")
+                    Code = new RuneCode("sswwdadsd"),
+                    Mirrored = true
                 };
             default:
                 return new Stats {
@@ -119,6 +124,8 @@ public partial class Stats {
     public string Name = null;
     public string Description;
     public RuneCode Code;
+    public float BaseScale = 1f;
+    public bool Mirrored = false;
 }
 
 public partial class RuneCode {

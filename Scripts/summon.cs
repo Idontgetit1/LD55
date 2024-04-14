@@ -36,9 +36,15 @@ public partial class summon : CharacterBody2D
 		// Set stats
 		Stats = TypeStats.GetStats(Type);
 
+		Scale *= Stats.BaseScale;
+
 		// Set Texture if present
 		if (Stats.TexturePath != null) {
 			SummonSprite.Texture = GD.Load<Texture2D>(Stats.TexturePath);
+		}
+
+		if (IsPlayer) {
+			SummonSprite.FlipH = true && Stats.Mirrored;
 		}
 	}
 
@@ -46,7 +52,7 @@ public partial class summon : CharacterBody2D
 	{
 	}
 
-	public void Attack(summon target) {
+	public async void Attack(summon target) {
 		// Move forward fast and back to original position
 		var Offset = new Vector2(50, 0);
 		var BackOffset = new Vector2(-10, 0); // Kleine Bewegung nach hinten
@@ -74,8 +80,13 @@ public partial class summon : CharacterBody2D
 		tween.TweenProperty(SummonSprite, "position", ForwardPosition, duration)
 			.SetEase(Tween.EaseType.Out);
 
+		tween.TweenCallback(Callable.From(() => {
+			Game.ShakeNode(Game.Main, 0.1f, 10);
+			target.TakeDamage(Stats.AtkPower);
+		}));
+
 		tween.TweenInterval(delay);
-		target.TakeDamage(Stats.AtkPower);
+		// await ToSignal(GetTree().CreateTimer(delay), "timeout");
 
 		// Und zurück zur Startposition
 		tween.TweenProperty(SummonSprite, "position", StartPosition, duration)
@@ -123,6 +134,8 @@ public partial class summon : CharacterBody2D
 		Stats.Health -= damage;
 		if (Stats.Health <= 0) {
 			Die();
+		} else {
+			// Game.ShakeNode(SummonSprite, 0.1f, 5);
 		}
 	}
 

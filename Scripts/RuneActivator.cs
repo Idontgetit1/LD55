@@ -30,8 +30,11 @@ public partial class RuneActivator : Node2D
 
 	public SummonType Type;
 
-	public void Init(List<RuneType> runeTypes, SummonType type, Callable onActivationCallback) {
+	private SummonPage Page;
+
+	public void Init(List<RuneType> runeTypes, SummonType type, SummonPage summonPage, Callable onActivationCallback) {
 		Type = type;
+		Page = summonPage;
 		var position = new Vector2(0, 0);
 		var spacing = 4;
 		foreach (var runeType in runeTypes) {
@@ -47,13 +50,18 @@ public partial class RuneActivator : Node2D
 		this.onActivationCallback = onActivationCallback;
 	}
 
-	public void onRunePressed(RuneType runeType) {
+	public bool onRunePressed(RuneType runeType) {
 		if (Game.WasAnotherRuneActivatorActivatedPreviously(this)) {
 			lastPressedRune = -1;
 			foreach (var rune in runeSprites) {
 				makeRuneNormal(runeSprites.IndexOf(rune));
 			}
+
+
+			return true;
 		}
+
+		
 		if (runes[lastPressedRune + 1] == runeType) {
 			lastPressedRune++;
 			makeRuneGlow(lastPressedRune);
@@ -69,7 +77,15 @@ public partial class RuneActivator : Node2D
 			foreach (var rune in runeSprites) {
 				makeRuneNormal(runeSprites.IndexOf(rune));
 			}
+
+			if (!Game.IsRuneActivatorInAction()) {
+				GD.Print("Failed");
+				Game.FailActivation();
+				return false;
+			}
 		}
+
+		return true;
 	}
 
 	public void ActivateCalledFromGame() {
@@ -77,11 +93,19 @@ public partial class RuneActivator : Node2D
 	}
 
 	private void makeRuneGlow(int index) {
-		runeSprites[index].Modulate = new Color(212f/255f, 175f/255f, 55f/255f, 1f);
+		runeSprites[index].Modulate = new Color(0.831f, 0.686f, 0.216f);
+		Page.Highlight(true);
 	}
 
 	private void makeRuneNormal(int index) {
-		runeSprites[index].Modulate = new Color(1, 1, 1, 0.5f);
+		runeSprites[index].Modulate = new Color(1, 1, 1);
+		Page.Highlight(false);
+	}
+
+	public void MakeAllRunesNormal() {
+		foreach (var rune in runeSprites) {
+			makeRuneNormal(runeSprites.IndexOf(rune));
+		}
 	}
 
 	public override void _Ready()

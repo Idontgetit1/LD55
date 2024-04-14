@@ -45,6 +45,7 @@ public partial class main : Node2D
 		SummonMonster(SummonType.Tree, true);
 		SummonMonster(SummonType.Slime, false);
 		SummonMonster(SummonType.Slime, false);
+		SummonMonster(SummonType.IceMouse, false);
 
 		// Set Rune Activators
 		// SetSummonActivatorRunes();
@@ -99,6 +100,10 @@ public partial class main : Node2D
 	public void _OnTick() {
 		GD.Print("Tick");
 
+		// Remove Summons
+		Game.RemoveTick();
+
+
 		// If two monsters in middle
 		var monsterLeft = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_LEFT);
 		var monsterRight = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_RIGHT);
@@ -108,11 +113,9 @@ public partial class main : Node2D
 			monsterRight.Attack(monsterLeft);
 		}
 		
-		// Remove Summons
-		Game.RemoveTick();
-
 		// Move Summons
 		MoveSummonsToMiddle();
+
 	}
 
 	public void MoveSummonsToMiddle() {

@@ -16,6 +16,7 @@ public partial class SummonPage : Area2D
 	[Export] Label DescriptionLabel;
 	[Export] Sprite2D SummonIconSprite;
 	[Export] Marker2D RuneActivatorMarker;
+	[Export] Sprite2D HighlightSprite;
 
 	PackedScene ActivatorScene = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
 
@@ -26,7 +27,7 @@ public partial class SummonPage : Area2D
 		ZIndex = 1;
 
 		var activator = (RuneActivator)ActivatorScene.Instantiate();
-		activator.Init(TypeStats.GetStats(Type).Code.runes, Type, Callable.From(() => { Game.Main.SummonMonster(Type, true); Game.ActivatedRunes(true); }));
+		activator.Init(TypeStats.GetStats(Type).Code.runes, Type, this, Callable.From(() => { Game.Main.SummonMonster(Type, true); Game.ActivatedRunes(true); }));
 		activator.Scale *= 2.5f;
 		RuneActivatorMarker.AddChild(activator);
 		Game.RuneActivators.Add(activator);
@@ -38,6 +39,7 @@ public partial class SummonPage : Area2D
 		NameLabel.Text = Type.ToString();
 		DescriptionLabel.Text = TypeStats.GetStats(Type).Description;
 		SummonIconSprite.Texture = GD.Load<Texture2D>(TypeStats.GetStats(Type).TexturePath);
+		SummonIconSprite.Scale *= TypeStats.GetStats(Type).BaseScale;
 
 	}
 
@@ -52,11 +54,16 @@ public partial class SummonPage : Area2D
 		if (Dragging)
 		{
 			Position = GetGlobalMousePosition() - GrabPoint;
+			InfoPanel.Visible = false;
 		}
 
 		if (Dragging && Input.IsActionJustReleased("click"))
 		{
 			Dragging = false;
+		}
+
+		if (MouseOver) {
+			InfoPanel.Position = GetLocalMousePosition();
 		}
 	}
 
@@ -79,6 +86,16 @@ public partial class SummonPage : Area2D
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			GetViewport().SetInputAsHandled();
+		}
+	}
+
+	public void Highlight(bool highlight)
+	{
+		HighlightSprite.Visible = highlight;
+		if (highlight) {
+			Modulate = new Color(0.988f, 1f, 0.6f);
+		} else {
+			Modulate = new Color(1, 1, 1);
 		}
 	}
 }

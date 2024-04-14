@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d13d5pfliklvl"]
+[gd_scene load_steps=12 format=3 uid="uid://d13d5pfliklvl"]
 
 [ext_resource type="Script" path="res://Scenes/SummonPage.cs" id="1_4xy5y"]
 [ext_resource type="Texture2D" uid="uid://creb1eob7e7g5" path="res://Resources/Assets/Textures/ZettelNeuter.png" id="1_63xgi"]
@@ -6,6 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://cry463j6lgfl" path="res://Resources/Assets/SpellMenuTopLeft.png" id="3_bwu07"]
 [ext_resource type="Texture2D" uid="uid://sls2jytmpuce" path="res://Resources/Assets/SpellMenuTopRight.png" id="4_c2thy"]
 [ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="5_ixgsb"]
+
+[sub_resource type="Shader" id="Shader_k8axu"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable.mono's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdw3j"]
+shader = SubResource("Shader_k8axu")
 
 [sub_resource type="LabelSettings" id="LabelSettings_k57nw"]
 font = ExtResource("5_ixgsb")
@@ -18,7 +28,7 @@ size = Vector2(98, 130)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ju1u"]
 size = Vector2(32, 32)
 
-[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker")]
+[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker", "HighlightSprite")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_4xy5y")
 InfoPanel = NodePath("HoverInfo")
@@ -26,10 +36,32 @@ NameLabel = NodePath("HoverInfo/Name")
 DescriptionLabel = NodePath("HoverInfo/Description")
 SummonIconSprite = NodePath("SummonIcon")
 RuneActivatorMarker = NodePath("RuneActivatorMarker")
+HighlightSprite = NodePath("Highlight")
 
 [node name="ZettelTexture" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_xdw3j")
 position = Vector2(48, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("1_63xgi")
+
+[node name="Highlight" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.67451, 0.65098, 0.14902, 1)
+show_behind_parent = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_xdw3j")
+position = Vector2(48, 64)
+scale = Vector2(2.05, 2.05)
+texture = ExtResource("1_63xgi")
+
+[node name="ZettelTexture2" type="Sprite2D" parent="."]
+modulate = Color(0.321569, 0.321569, 0.321569, 1)
+show_behind_parent = true
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_xdw3j")
+position = Vector2(50.6667, 65.3333)
 scale = Vector2(2, 2)
 texture = ExtResource("1_63xgi")
 
@@ -40,6 +72,7 @@ position = Vector2(60, 6)
 visible = false
 z_index = 5
 position = Vector2(32, 16)
+scale = Vector2(0.5, 0.5)
 
 [node name="SpellMenuBottomLeft" type="Sprite2D" parent="HoverInfo"]
 texture_filter = 1
@@ -89,7 +122,6 @@ position = Vector2(47, 63)
 shape = SubResource("RectangleShape2D_vnk2q")
 
 [node name="SummonIcon" type="Sprite2D" parent="."]
-z_index = 1
 position = Vector2(74, 15)
 texture = SubResource("PlaceholderTexture2D_3ju1u")
 

@@ -19,6 +19,8 @@ public partial class Game : Node
 	// Rune Activation Stuff
 	public List<RuneActivator> RuneActivators = new List<RuneActivator>();
 
+	public List<RuneType> CurrentRuneSequence = new List<RuneType>();
+
 
 	public main Main;
 
@@ -96,11 +98,11 @@ public partial class Game : Node
 			if (activator == currentRuneActivator) {
 				continue;
 			}
-			if (activator.lastPressedRune <= 0) {
-				return false;
+			if (activator.lastPressedRune >= 1) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public bool IsRuneActivatorInAction() {
@@ -111,6 +113,16 @@ public partial class Game : Node
 			}
 		}
 		return false;
+	}
+
+	public void FailActivation() {
+		var circle = Main.RuneSummoningCircleLeft;
+		circle.ActivationFailedAnimation();
+
+		foreach(var activator in RuneActivators) {
+			activator.lastPressedRune = -1;
+			activator.MakeAllRunesNormal();
+		}
 	}
 
 	public void ActivationSuccessful(RuneActivator activator) {
@@ -134,6 +146,24 @@ public partial class Game : Node
 		}
 	}
 
+	private int CompareRuneSequencesBeginsWith(List<RuneType> input, List<RuneType> fullSequence) {
+		if (input.Count > fullSequence.Count) {
+			return -1;
+		}
+
+		if (input == fullSequence) {
+			return 0;
+		}
+
+		for (int i = 0; i < input.Count; i++) {
+			if (input[i] != fullSequence[i]) {
+				return -1;
+			}
+		}
+
+		return 1;
+	}
+
     public override void _Process(double delta)
     {
 		RuneType runePressed = RuneType.None;
@@ -141,15 +171,19 @@ public partial class Game : Node
 		if (Input.IsActionPressed("SwitchMeditate")) {
 			if (Input.IsActionJustPressed("up")) {
 				runePressed = RuneType.Up;
+				Main.ClickSound.Play();
 			}
 			if (Input.IsActionJustPressed("down")) {
 				runePressed = RuneType.Down;
+				Main.ClickSound.Play();
 			}
 			if (Input.IsActionJustPressed("left")) {
 				runePressed = RuneType.Left;
+				Main.ClickSound.Play();
 			}
 			if (Input.IsActionJustPressed("right")) {
 				runePressed = RuneType.Right;
+				Main.ClickSound.Play();
 			}
 
 			ManaBar.onRunePressed(runePressed);
@@ -175,11 +209,15 @@ public partial class Game : Node
 		}
 
 		if (runePressed != RuneType.None) {
+
+			CurrentRuneSequence.Add(runePressed);
+
 			Main.RuneSummoningCircleLeft.AddRune(runePressed);
 			foreach (var activator in RuneActivators) {
-				activator.onRunePressed(runePressed);
+				var success = activator.onRunePressed(runePressed);
 			}
 			// If no activator is active, summoning failed
+			GD.Print("Test");
 			if (!IsRuneActivatorInAction() && !SummoningSuccessful) {
 				Main.RuneSummoningCircleLeft.ActivationFailedAnimation();
 			}
@@ -188,4 +226,19 @@ public partial class Game : Node
 		}
 
     }
+
+	public async void ShakeNode(Node2D node, float duration, float intensity) {
+		var originalPosition = node.GlobalPosition;
+		var timer = new Timer();
+		AddChild(timer);
+		timer.WaitTime = duration;
+		timer.OneShot = true;
+		timer.Start();
+		while (!timer.IsStopped()) {
+			node.Position = originalPosition + new Vector2((float)GD.RandRange(-intensity, intensity), (float)GD.RandRange(-intensity, intensity));
+			await ToSignal(GetTree().CreateTimer(0.05f), "timeout"); // Warte kurz zwischen den Vibrationen
+		}
+		node.GlobalPosition = originalPosition; // Sicherstellen, dass die Position am Ende zurückgesetzt wird
+	}
+
 }
