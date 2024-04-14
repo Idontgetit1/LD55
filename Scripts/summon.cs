@@ -24,18 +24,6 @@ public partial class summon : CharacterBody2D
 	// Stats
 	public Stats Stats;
 
-	// Buffer for next Tick
-	public bool ShouldMoveNextTick = false;
-	public bool ShouldAttackNextTick = false;
-	public Vector2 NextPosition;
-	public int NextFieldIndex;
-	public Marker2D NextFieldMarker;
-	public int DamageTaken = 0;
-
-	// Stuff for Attack Animation
-	public bool IsAttacking = false;
-	public Vector2 ForwardPosition;
-	public Vector2 StartPosition;
 	[Export] public Sprite2D SummonSprite;
 
 	public override void _Ready()
@@ -55,7 +43,6 @@ public partial class summon : CharacterBody2D
 
 	public void AttackAnimation() {
 		// Move forward fast and back to original position
-		IsAttacking = true;
 		var Offset = new Vector2(50, 0);
 		var BackOffset = new Vector2(-10, 0); // Kleine Bewegung nach hinten
 		if (!IsPlayer) {
@@ -92,7 +79,8 @@ public partial class summon : CharacterBody2D
 	}
 
 
-	public void Move(Vector2 Position) {
+	public void Move(Marker2D PositionMarker) {
+		var Position = PositionMarker.GlobalPosition;
 		var startPosition = GlobalPosition;
 		var endPosition = Position;
 		var bounceHeight = 10; // Höhe des Bounces
@@ -118,11 +106,6 @@ public partial class summon : CharacterBody2D
 			.SetEase(Tween.EaseType.In);
 
 		tween.Play();
-	}
-
-	public Marker2D GetMarker() {
-		// Placeholder
-		return null;
 	}
 
 	public void Die() {

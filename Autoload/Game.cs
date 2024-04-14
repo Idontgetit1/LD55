@@ -11,6 +11,7 @@ public partial class Game : Node
 	// Summons
 	public List<summon> Summons = new List<summon>();
 	public List <summon> SummonsToRemove = new List<summon>();
+	public Dictionary<int, summon> SummonsByFieldIndex = new Dictionary<int, summon>();
 
 	// Game
 	public int Tick = 0;
@@ -21,10 +22,35 @@ public partial class Game : Node
 
 
 	public main Main;
+
+	private const int MiddleMarkerIndexLeft = 4;
+	private const int MiddleMarkerIndexRight = 5;
+
+	// Methods to get the closest Free Field to the Middle Point
+	public int GetNextFreeFieldLeft()
+	{
+		for (int i = MiddleMarkerIndexLeft; i >= 0; i--) {
+			if (!SummonsByFieldIndex.ContainsKey(i)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int GetNextFreeFieldRight()
+	{
+		for (int i = MiddleMarkerIndexRight; i < Fields; i++) {
+			if (!SummonsByFieldIndex.ContainsKey(i)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	public void AddSummon(summon Summon)
 	{
 		Summons.Add(Summon);
+		SummonsByFieldIndex.Add(Summon.FieldIndex, Summon);
 	}
 
 	public void MarkForDeletion(summon Summon)

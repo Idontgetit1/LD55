@@ -29,20 +29,8 @@ public partial class main : Node2D
 		Game = GetNode<Game>("/root/Game");
 		Game.Main = this;
 
-		// Get 10 Positions between Left and Right Marker
-		var left = LeftSummonMarker.GlobalPosition;
-		var right = RightSummonMarker.GlobalPosition;
-		var diff = right - left;
-		var step = diff / Game.Fields;
-
-		for (int i = 0; i <= Game.Fields; i++)
-		{
-			// Add marker
-			var marker = new Marker2D();
-			marker.GlobalPosition = left + step * i;
-
-			AddChild(marker);
-			Game.FieldMarkers.Add(marker);
+		foreach(var field in FieldMarkers) {
+			Game.FieldMarkers.Add(field);
 		}
 
 		// Summon Monster
@@ -72,36 +60,24 @@ public partial class main : Node2D
 		var summon = (summon)SummonScene.Instantiate();
 		summon.Type = type;
 		summon.IsPlayer = IsPlayer;
-		summon.FieldIndex = IsPlayer ? 0 : Game.Fields - 1;
-		summon.FieldMarker = Game.FieldMarkers[summon.FieldIndex];
+		summon.FieldIndex = -1;
+		summon.FieldMarker = IsPlayer ? LeftSummonMarker : RightSummonMarker;
 		summon.GlobalPosition = summon.FieldMarker.GlobalPosition;
 
 		AddChild(summon);
 		Game.AddSummon(summon);
+
+		// Move to Free Field
+		var nextFieldIndex = IsPlayer ? Game.GetNextFreeFieldLeft() : Game.GetNextFreeFieldRight();
+		if (nextFieldIndex != -1) {
+			summon.FieldIndex = nextFieldIndex;
+			summon.FieldMarker = FieldMarkers[nextFieldIndex];
+			summon.Move(Game.FieldMarkers[nextFieldIndex]);
+		}
 	}
 
 	public void _OnTick() {
 		GD.Print("Tick");
-
-
-		// Acting (Execute Buffer from last Tick)
-		foreach (var summon in Game.Summons)
-		{
-			summon.Act();
-		}
-
-		// Planning
-		// Plan Movement
-		foreach (var summon in Game.Summons)
-		{
-			summon.PlanMove();
-		}
-
-		// Plan Attack
-		foreach (var summon in Game.Summons)
-		{
-			summon.PlanAttack();
-		}
 		
 		// Remove Summons
 		Game.RemoveTick();

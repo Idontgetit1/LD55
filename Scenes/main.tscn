@@ -16,18 +16,16 @@ ClickSound = NodePath("ClickSound")
 Book = NodePath("TopLeftSpellMenu")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(29, 508)
+position = Vector2(34, 504)
 
 [node name="Player2" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(943, 496)
+position = Vector2(928, 504)
 
 [node name="LeftSummonCircle" type="Marker2D" parent="."]
-visible = false
-position = Vector2(142, 505)
+position = Vector2(96, 506)
 
 [node name="RightSummonCircle" type="Marker2D" parent="."]
-visible = false
-position = Vector2(878, 505)
+position = Vector2(864, 506)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
