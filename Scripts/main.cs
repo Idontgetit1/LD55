@@ -57,7 +57,7 @@ public partial class main : Node2D
 			RuneType.Down,
 			RuneType.Left,
 			RuneType.Right
-		}, "Wolf", Callable.From(() => {SummonMonster(SummonType.FlameWolf, true); Game.ActivatedRunes(true);}));
+		}, "Wolf", SummonType.FlameWolf, Callable.From(() => {SummonMonster(SummonType.FlameWolf, true); Game.ActivatedRunes(true);}));
 
 		// Summon Slime
 		Book.CreateRuneActivator(new List<RuneType> {
@@ -66,7 +66,7 @@ public partial class main : Node2D
 			RuneType.Right,
 			RuneType.Up,
 			RuneType.Down
-		}, "Slime", Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
+		}, "Slime", SummonType.Slime, Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
 	}
 
 	private void SummonMonster(SummonType type, bool IsPlayer)

@@ -28,7 +28,10 @@ public partial class RuneActivator : Node2D
 
 	private Game Game;
 
-	public void Init(List<RuneType> runeTypes, Callable onActivationCallback) {
+	public SummonType Type;
+
+	public void Init(List<RuneType> runeTypes, SummonType type, Callable onActivationCallback) {
+		Type = type;
 		var position = new Vector2(0, 0);
 		var spacing = 4;
 		foreach (var runeType in runeTypes) {
@@ -55,7 +58,6 @@ public partial class RuneActivator : Node2D
 			lastPressedRune++;
 			makeRuneGlow(lastPressedRune);
 			if (lastPressedRune == runes.Count - 1) {
-				onActivationCallback.Call();
 				Game.ActivationSuccessful(this);
 				lastPressedRune = -1;
 				foreach (var rune in runeSprites) {
@@ -68,6 +70,10 @@ public partial class RuneActivator : Node2D
 				makeRuneNormal(runeSprites.IndexOf(rune));
 			}
 		}
+	}
+
+	public void ActivateCalledFromGame() {
+		onActivationCallback.Call();
 	}
 
 	private void makeRuneGlow(int index) {

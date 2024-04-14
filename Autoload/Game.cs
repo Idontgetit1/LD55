@@ -117,11 +117,46 @@ public partial class Game : Node
 		SummoningSuccessful = true;
 
 		// test if Mana is sufficient
+		int manaCost = TypeStats.GetStats(activator.Type).ManaCost;
+		if (ManaBar.HasMana(manaCost)) {
+			ManaBar.RemoveMana(manaCost);
+			// ManaBar.ActivateManaAnimation();
+
+			// Summon Monster
+			activator.ActivateCalledFromGame();
+
+			GD.Print("Using " + manaCost + " Mana to summon " + activator.Type);
+		} else {
+			// ManaBar.NotEnoughManaAnimation();
+
+			SummoningSuccessful = false;
+			GD.Print("Not enough Mana");
+		}
 	}
 
     public override void _Process(double delta)
     {
 		RuneType runePressed = RuneType.None;
+
+		if (Input.IsActionPressed("SwitchMeditate")) {
+			if (Input.IsActionJustPressed("up")) {
+				runePressed = RuneType.Up;
+			}
+			if (Input.IsActionJustPressed("down")) {
+				runePressed = RuneType.Down;
+			}
+			if (Input.IsActionJustPressed("left")) {
+				runePressed = RuneType.Left;
+			}
+			if (Input.IsActionJustPressed("right")) {
+				runePressed = RuneType.Right;
+			}
+
+			var wasRightRune = ManaBar.onRunePressed(runePressed);
+			
+			return;
+		}
+
 		if (Input.IsActionJustPressed("up")) {
 			Main.ClickSound.Play();
 			runePressed = RuneType.Up;

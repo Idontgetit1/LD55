@@ -15,6 +15,11 @@ public partial class ManaBar : Node2D
 		Game.ManaBar = this;
 	}
 
+	public bool onRunePressed(RuneType rune)
+	{
+		
+	}
+
 	public void AddMana(int amount)
 	{
 		CurrentMana += amount;

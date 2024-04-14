@@ -30,11 +30,11 @@ public partial class MagicBook : Node2D
 		// Game.RuneActivators.Add(activator);
 	}
 
-	public void CreateRuneActivator(List<RuneType> runes, string name, Callable onActivationCallback)
+	public void CreateRuneActivator(List<RuneType> runes, string name, SummonType type, Callable onActivationCallback)
 	{
 		var spacing = 4;
 		var activator = (RuneActivator)RuneActivator.Instantiate();
-		activator.Init(runes, onActivationCallback);
+		activator.Init(runes, type, onActivationCallback);
 		activator.Position = RuneStarter.Position + new Vector2(0, ActivatorIndex * spacing);
 		AddChild(activator);
 		Game.RuneActivators.Add(activator);
