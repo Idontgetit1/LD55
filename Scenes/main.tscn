@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=11 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://3yhigvike6lg" path="res://Scenes/ManaBar.tscn" id="7_q4pel"]
 [ext_resource type="PackedScene" uid="uid://crbsmbfeq4y7t" path="res://Scenes/Backboard.tscn" id="8_yowhb"]
 [ext_resource type="Texture2D" uid="uid://dqpjxtwfn0vit" path="res://Resources/Assets/Textures/Background.png" id="9_bohht"]
+[ext_resource type="AudioStream" uid="uid://cxnprjir11fm4" path="res://Resources/Sounds/Hit.sfxr" id="9_rcp3a"]
+[ext_resource type="AudioStream" uid="uid://ceaseo5i7uaw3" path="res://Resources/Sounds/Death.sfxr" id="10_yjv3u"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
@@ -18,6 +20,8 @@ RuneSummoningCircleLeft = NodePath("RuneSummoningCircle")
 RuneSummoningCircleRight = NodePath("RuneSummoningCircle2")
 FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath("FieldMarkers/2"), NodePath("FieldMarkers/3"), NodePath("FieldMarkers/4"), NodePath("FieldMarkers/5"), NodePath("FieldMarkers/6"), NodePath("FieldMarkers/7"), NodePath("FieldMarkers/8"), NodePath("FieldMarkers/9")]
 ClickSound = NodePath("ClickSound")
+HitSound = NodePath("HitSound")
+DeathSound = NodePath("DeathSound")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(40, 456)
@@ -38,6 +42,7 @@ autostart = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_tl36i")
+pitch_scale = 4.0
 
 [node name="Floor" type="Node" parent="."]
 
@@ -217,5 +222,12 @@ texture_filter = 1
 position = Vector2(480, 448)
 scale = Vector2(3.2, 3.2)
 texture = ExtResource("9_bohht")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_rcp3a")
+volume_db = -10.584
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_yjv3u")
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]

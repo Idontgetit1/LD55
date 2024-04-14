@@ -83,6 +83,7 @@ public partial class summon : CharacterBody2D
 		tween.TweenCallback(Callable.From(() => {
 			Game.ShakeNode(Game.Main, 0.1f, 10);
 			target.TakeDamage(Stats.AtkPower);
+			Game.Main.HitSound.Play();
 		}));
 
 		tween.TweenInterval(delay);
@@ -145,12 +146,12 @@ public partial class summon : CharacterBody2D
 
 		var tween = GetTree().CreateTween();
 		// Smash Summon at left or right side of screen
-		var endPosition = IsPlayer ? new Vector2(-100, 0) : new Vector2(100, 0);
+		var endPosition = IsPlayer ? new Vector2(0, 0) : new Vector2(GetWindow().Size.X, 0);
 		tween.TweenProperty(this, "global_position", endPosition, duration)
 			.SetEase(Tween.EaseType.In);
 
 		// Run Delete after animation
-		tween.TweenCallback(Callable.From(QueueFree));
+		tween.TweenCallback(Callable.From(() => {Game.Main.DeathSound.Play(); QueueFree();}));
 
 		tween.Play();
 

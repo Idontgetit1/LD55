@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cs2gfwvev1600"]
+
+[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="1_lgdca"]
+
+[resource]
+font = ExtResource("1_lgdca")
+font_size = 32
+font_color = Color(0, 0, 0, 1)

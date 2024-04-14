@@ -17,6 +17,9 @@ public partial class SummonPage : Area2D
 	[Export] Sprite2D SummonIconSprite;
 	[Export] Marker2D RuneActivatorMarker;
 	[Export] Sprite2D HighlightSprite;
+	[Export] Label ManaCostLabel;
+	[Export] Label HealthLabel;
+	[Export] Label DamageLabel;
 
 	PackedScene ActivatorScene = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
 
@@ -31,6 +34,9 @@ public partial class SummonPage : Area2D
 		activator.Scale *= 2.5f;
 		RuneActivatorMarker.AddChild(activator);
 		Game.RuneActivators.Add(activator);
+		ManaCostLabel.Text = TypeStats.GetStats(Type).ManaCost.ToString();
+		HealthLabel.Text = TypeStats.GetStats(Type).Health.ToString();
+		DamageLabel.Text = TypeStats.GetStats(Type).AtkPower.ToString();
 	}
 
 	public void Init(SummonType type)
@@ -91,7 +97,7 @@ public partial class SummonPage : Area2D
 
 	public void Highlight(bool highlight)
 	{
-		HighlightSprite.Visible = highlight;
+		// HighlightSprite.Visible = highlight;
 		if (highlight) {
 			Modulate = new Color(0.988f, 1f, 0.6f);
 		} else {

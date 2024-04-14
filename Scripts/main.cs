@@ -20,6 +20,8 @@ public partial class main : Node2D
 
 	[Export]
 	public AudioStreamPlayer ClickSound;
+	[Export] public AudioStreamPlayer HitSound;
+	[Export] public AudioStreamPlayer DeathSound;
 
 	// [Export]
 	// public MagicBook Book;

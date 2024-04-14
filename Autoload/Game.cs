@@ -189,25 +189,34 @@ public partial class Game : Node
 				Main.ClickSound.Play();
 			}
 
-			ManaBar.onRunePressed(runePressed);
-			
+			if (runePressed != RuneType.None) {
+				ManaBar.onRunePressed(runePressed);
+			}
 			return;
 		}
 
 		if (Input.IsActionJustPressed("up")) {
+			Main.ClickSound.PitchScale = 10.5f;
 			Main.ClickSound.Play();
+			Main.ClickSound.PitchScale = 1.0f;
 			runePressed = RuneType.Up;
 		}
 		if (Input.IsActionJustPressed("down")) {
+			Main.ClickSound.PitchScale = 0.5f;
 			Main.ClickSound.Play();
+			Main.ClickSound.PitchScale = 1.0f;
 			runePressed = RuneType.Down;
 		}
 		if (Input.IsActionJustPressed("left")) {
+			Main.ClickSound.PitchScale = 10.25f;
 			Main.ClickSound.Play();
+			Main.ClickSound.PitchScale = 1.0f;
 			runePressed = RuneType.Left;
 		}
 		if (Input.IsActionJustPressed("right")) {
+			Main.ClickSound.PitchScale = 0.75f;
 			Main.ClickSound.Play();
+			Main.ClickSound.PitchScale = 1.0f;
 			runePressed = RuneType.Right;
 		}
 
@@ -251,7 +260,13 @@ public partial class Game : Node
 
     }
 
+	private Dictionary<Node, bool> _shakingNodes = new Dictionary<Node, bool>();
+
 	public async void ShakeNode(Node2D node, float duration, float intensity) {
+		if (_shakingNodes.ContainsKey(node)) {
+			return;
+		}
+		_shakingNodes[node] = true;
 		var originalPosition = node.GlobalPosition;
 		var timer = new Timer();
 		AddChild(timer);
@@ -262,7 +277,9 @@ public partial class Game : Node
 			node.Position = originalPosition + new Vector2((float)GD.RandRange(-intensity, intensity), (float)GD.RandRange(-intensity, intensity));
 			await ToSignal(GetTree().CreateTimer(0.05f), "timeout"); // Warte kurz zwischen den Vibrationen
 		}
-		node.GlobalPosition = originalPosition; // Sicherstellen, dass die Position am Ende zurückgesetzt wird
+		node.GlobalPosition = originalPosition;
+		GD.Print("Shake done");
+		_shakingNodes.Remove(node);
 	}
 
 }

@@ -9,9 +9,10 @@ public partial class ManaBar : Node2D
 	[Export] private Label ManaLabel;
 	[Export] private Marker2D MinigameMarker;
 
-	private const int MANA_PER_RUNE = 10;
+	private const int MANA_PER_RUNE = 1;
 	private const int NO_OF_RUNES_SHOWN = 8;
-	private const int MAX_COMBO = 3;
+	private const int MAX_COMBO = 5;
+	private const int PENALTY = 5;
 
 	private int combo = 0;
 
@@ -101,6 +102,7 @@ public partial class ManaBar : Node2D
 		{
 			combo = 0;
 			// MinigameFailedAnimation();
+			RemoveMana(PENALTY);
 		}
 	}
 

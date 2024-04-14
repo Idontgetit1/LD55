@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://d13d5pfliklvl"]
+[gd_scene load_steps=14 format=3 uid="uid://d13d5pfliklvl"]
 
 [ext_resource type="Script" path="res://Scenes/SummonPage.cs" id="1_4xy5y"]
 [ext_resource type="Texture2D" uid="uid://creb1eob7e7g5" path="res://Resources/Assets/Textures/ZettelNeuter.png" id="1_63xgi"]
 [ext_resource type="Texture2D" uid="uid://dymbp770aftkw" path="res://Resources/Assets/SpellMenuBottomLeft.png" id="2_v5cxc"]
 [ext_resource type="Texture2D" uid="uid://cry463j6lgfl" path="res://Resources/Assets/SpellMenuTopLeft.png" id="3_bwu07"]
 [ext_resource type="Texture2D" uid="uid://sls2jytmpuce" path="res://Resources/Assets/SpellMenuTopRight.png" id="4_c2thy"]
-[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="5_ixgsb"]
+[ext_resource type="LabelSettings" uid="uid://cs2gfwvev1600" path="res://Resources/Assets/LabelSettings/AutoPilotBlack.tres" id="6_mm11j"]
+[ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="7_bfgma"]
+[ext_resource type="Texture2D" uid="uid://dsrhyt77yqsw1" path="res://Resources/Assets/Textures/Mana.png" id="8_hv16x"]
+[ext_resource type="Texture2D" uid="uid://c1vu6wr8oi3uu" path="res://Resources/Assets/Textures/Attack.png" id="9_mivni"]
 
 [sub_resource type="Shader" id="Shader_k8axu"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable.mono's CanvasItemMaterial.
@@ -17,18 +20,13 @@ render_mode blend_mix;
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xdw3j"]
 shader = SubResource("Shader_k8axu")
 
-[sub_resource type="LabelSettings" id="LabelSettings_k57nw"]
-font = ExtResource("5_ixgsb")
-font_size = 32
-font_color = Color(0, 0, 0, 1)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnk2q"]
 size = Vector2(98, 130)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ju1u"]
 size = Vector2(32, 32)
 
-[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker", "HighlightSprite")]
+[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker", "HighlightSprite", "ManaCostLabel", "HealthLabel", "DamageLabel")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_4xy5y")
 InfoPanel = NodePath("HoverInfo")
@@ -37,6 +35,9 @@ DescriptionLabel = NodePath("HoverInfo/Description")
 SummonIconSprite = NodePath("SummonIcon")
 RuneActivatorMarker = NodePath("RuneActivatorMarker")
 HighlightSprite = NodePath("Highlight")
+ManaCostLabel = NodePath("ManaCostLabel")
+HealthLabel = NodePath("HealthLabel")
+DamageLabel = NodePath("AtkPowerLabel")
 
 [node name="ZettelTexture" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -46,7 +47,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_63xgi")
 
 [node name="Highlight" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(0.67451, 0.65098, 0.14902, 1)
 show_behind_parent = true
 texture_filter = 1
@@ -105,7 +105,7 @@ offset_top = 40.0
 offset_right = 240.0
 offset_bottom = 144.0
 text = "Gives"
-label_settings = SubResource("LabelSettings_k57nw")
+label_settings = ExtResource("6_mm11j")
 autowrap_mode = 3
 
 [node name="Name" type="Label" parent="HoverInfo"]
@@ -115,7 +115,7 @@ offset_top = 16.0
 offset_right = 232.0
 offset_bottom = 37.0
 text = "Gives"
-label_settings = SubResource("LabelSettings_k57nw")
+label_settings = ExtResource("6_mm11j")
 
 [node name="HoverDetect" type="CollisionShape2D" parent="."]
 position = Vector2(47, 63)
@@ -126,7 +126,43 @@ position = Vector2(74, 15)
 texture = SubResource("PlaceholderTexture2D_3ju1u")
 
 [node name="RuneActivatorMarker" type="Marker2D" parent="."]
-position = Vector2(8, 76)
+position = Vector2(8, 96)
+
+[node name="ManaCostLabel" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 36.0
+offset_right = 72.0
+offset_bottom = 59.0
+label_settings = ExtResource("6_mm11j")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 52.0
+offset_right = 72.0
+offset_bottom = 75.0
+label_settings = ExtResource("6_mm11j")
+
+[node name="AtkPowerLabel" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 70.0
+offset_right = 72.0
+offset_bottom = 93.0
+label_settings = ExtResource("6_mm11j")
+
+[node name="Health" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 63.3333)
+texture = ExtResource("7_bfgma")
+
+[node name="Mana" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 47.3333)
+texture = ExtResource("8_hv16x")
+
+[node name="Attack" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16.6667, 80)
+texture = ExtResource("9_mivni")
 
 [connection signal="input_event" from="." to="." method="_OnInputEvent"]
 [connection signal="mouse_entered" from="." to="." method="_OnMouseOver"]
