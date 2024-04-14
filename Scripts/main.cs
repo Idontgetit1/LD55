@@ -41,13 +41,13 @@ public partial class main : Node2D
 		}
 
 		// Summon Monster
-		SummonMonster(SummonType.FlameWolf, true);
+		// SummonMonster(SummonType.FlameWolf, true);
 		SummonMonster(SummonType.Slime, false);
 
-		SummonMonster(SummonType.Tree, true);
-		SummonMonster(SummonType.Slime, false);
-		SummonMonster(SummonType.Slime, false);
+		SummonMonster(SummonType.Tree, false);
 		SummonMonster(SummonType.IceMouse, false);
+		SummonMonster(SummonType.Slime, false);
+		SummonMonster(SummonType.Slime, false);
 
 		// Set Rune Activators
 		// SetSummonActivatorRunes();
@@ -105,7 +105,16 @@ public partial class main : Node2D
 		// Remove Summons
 		Game.RemoveTick();
 
+		foreach (var summon in Game.Summons) {
+			summon._OnTick();
+		}
+		
+		// Move Summons
+		MoveSummonsToMiddle();
 
+	}
+
+	public void _OnAtk() {
 		// If two monsters in middle
 		var monsterLeft = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_LEFT);
 		var monsterRight = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_RIGHT);
@@ -114,10 +123,6 @@ public partial class main : Node2D
 			monsterLeft.Attack(monsterRight);
 			monsterRight.Attack(monsterLeft);
 		}
-		
-		// Move Summons
-		MoveSummonsToMiddle();
-
 	}
 
 	public void MoveSummonsToMiddle() {

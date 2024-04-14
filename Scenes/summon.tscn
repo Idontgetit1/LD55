@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://caflfl0tgoyh2"]
+[gd_scene load_steps=5 format=3 uid="uid://caflfl0tgoyh2"]
 
 [ext_resource type="Script" path="res://Scripts/summon.cs" id="1_gmtrt"]
 [ext_resource type="LabelSettings" uid="uid://y8ryv4t3negu" path="res://Resources/Assets/LabelSettings/AutoPilot.tres" id="2_g1h48"]
+[ext_resource type="PackedScene" uid="uid://7xfuwm686bar" path="res://Scenes/FireParticles.tscn" id="3_xilsd"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i24p"]
 size = Vector2(32, 32)
@@ -21,3 +22,7 @@ offset_right = 20.6667
 offset_bottom = -21.6667
 label_settings = ExtResource("2_g1h48")
 horizontal_alignment = 3
+
+[node name="FireParticles" parent="." instance=ExtResource("3_xilsd")]
+position = Vector2(1.52588e-05, 2.38419e-07)
+emitting = false

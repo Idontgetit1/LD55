@@ -8,11 +8,12 @@ public partial class ManaUp : Node2D
 	private float Speed = 1;
 	private Label label;
 
-	public void Init(int amount) {
+	public void Init(int amount, float scale = 1.0f) {
 		label = GetNode<Label>("Label");
 		Amount = amount;
 		var prefix = amount > 0 ? "+" : "";
 		label.Text = prefix + amount.ToString();
+		label.Scale = new Vector2(scale, scale);
 	}
 
     public override void _Ready()

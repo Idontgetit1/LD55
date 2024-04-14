@@ -6,9 +6,9 @@ public static partial class TypeStats
         switch (type) {
             case SummonType.FlameWolf:
                 return new Stats {
-                    Health = 3,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    Health = 5,
+                    AtkPower = 7,
+                    AtkEvery = 5,
                     MoveSpeed = 1,
                     AtkArea = 1,
                     ManaCost = 25,
@@ -19,67 +19,67 @@ public static partial class TypeStats
                 };
             case SummonType.Slime:
                 return new Stats {
-                    Health = 2,
+                    Health = 3,
                     AtkPower = 1,
-                    AtkSpeed = 1,
+                    AtkEvery = 3,
                     MoveSpeed = 1,
                     AtkArea = 1,
                     ManaCost = 10,
                     TexturePath = "res://Resources/Assets/Summons/Slime4.png",
                     Name = "Slime",
-                    Description = "A slime. It's slimy.\nSlows the enemy for 3 seconds.",
+                    Description = "A slime. It's slimy.\nIf killed, slow enemy for 5 Seconds.",
                     Code = new RuneCode("adsswds")
                 };
             case SummonType.Slimeloon:
                 return new Stats {
-                    Health = 1,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    Health = 5,
+                    AtkPower = 5,
+                    AtkEvery = 5,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 10,
+                    ManaCost = 15,
                     TexturePath = "res://Resources/Assets/Summons/Slimeloon.png",
                     Name = "Slimeloon",
-                    Description = "A slime with a balloon. It's slimy.\n50% Chance to not be hit by an attack.",
+                    Description = "A slime with a balloon. It's slimy.\n15% Chance to not be hit by an attack.",
                     Code = new RuneCode("wswsawd"),
                     BaseScale = 0.5f
                 };
             case SummonType.Tree:
                 return new Stats {
-                    Health = 4,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    Health = 20,
+                    AtkPower = 3,
+                    AtkEvery = 5,
                     MoveSpeed = 1,
                     AtkArea = 1,
                     ManaCost = 50,
                     TexturePath = "res://Resources/Assets/Summons/Tree.png",
                     Name = "Tree",
-                    Description = "A tree. It's woody.\nHeals the Summon in front of it for 1 health every 2 seconds.",
+                    Description = "A tree. It's woody.\nHeals the Summon in front of it for 1 health every 3 seconds.",
                     Code = new RuneCode("ddawdss"),
                     Mirrored = true
                 };
             case SummonType.GrassBoi:
                 return new Stats {
                     Health = 5,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    AtkPower = 5,
+                    AtkEvery = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 75,
+                    ManaCost = 25,
                     TexturePath = "res://Resources/Assets/Summons/GrassBoi.png",
                     Name = "Grass Boi",
-                    Description = "A grass boi. It's grassy.\nIncreases the attack power of the summon in front of it by 1.",
+                    Description = "A grass boi. It's grassy.\nSummons in front gain +3 ATK.",
                     Code = new RuneCode("adwdsdssa"),
                     Mirrored = true
                 };
             case SummonType.IceMouse:
                 return new Stats {
                     Health = 6,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    AtkPower = 3,
+                    AtkEvery = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 100,
+                    ManaCost = 50,
                     TexturePath = "res://Resources/Assets/Summons/IceMouse.png",
                     Name = "Ice Mouse",
                     Description = "An ice mouse. It's icy.\n5% Chance to freeze the enemy for 3 seconds.",
@@ -88,43 +88,43 @@ public static partial class TypeStats
                 };
             case SummonType.MagmaPuddle:
                 return new Stats {
-                    Health = 7,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    Health = 10,
+                    AtkPower = 5,
+                    AtkEvery = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 125,
+                    ManaCost = 80,
                     TexturePath = "res://Resources/Assets/Summons/MagmaPuddle.png",
                     Name = "Magma Puddle",
-                    Description = "A magma puddle. It's hot.\nCauses the enemy to burn for 3 seconds.",
+                    Description = "A magma puddle. It's hot.\nCauses the first 3 enemies to burn for 3 seconds. Hurts enemy for 1 HP if hit.",
                     Code = new RuneCode("sswwdadsd"),
                     Mirrored = true
                 };
             case SummonType.Cherry:
                 return new Stats {
-                    Health = 8,
+                    Health = 15,
                     AtkPower = 1,
-                    AtkSpeed = 1,
+                    AtkEvery = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 150,
+                    ManaCost = 100,
                     TexturePath = "res://Resources/Assets/Summons/Cherry.png",
                     Name = "Cherry",
-                    Description = "A cherry. It's fruity.\nHeals the summon in front of it for 1 health every 2 seconds.",
+                    Description = "A cherry. It's fruity.\nSummons behind will eat for +5 HP and +5 ATK.",
                     Code = new RuneCode("ddaadada"),
                     Mirrored = true
                 };
             case SummonType.Bat:
                 return new Stats {
-                    Health = 9,
-                    AtkPower = 1,
-                    AtkSpeed = 1,
+                    Health = 8,
+                    AtkPower = 5,
+                    AtkEvery = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
-                    ManaCost = 175,
+                    ManaCost = 100,
                     TexturePath = "res://Resources/Assets/Summons/Bat.png",
                     Name = "Bat",
-                    Description = "A bat. It's batty.\nIncreases the attack power of the summon in front of it by 1.",
+                    Description = "A bat. It's batty.\nIncreases power of the summon in front of it by 1. Leeches 1 HP every attack.",
                     Code = new RuneCode("wswswsadw"),
                     Mirrored = true
                 };
@@ -132,7 +132,7 @@ public static partial class TypeStats
                 return new Stats {
                     Health = 0,
                     AtkPower = 0,
-                    AtkSpeed = 0,
+                    AtkEvery = 0,
                     MoveSpeed = 0,
                     AtkArea = 0,
                     ManaCost = 0,
@@ -144,7 +144,7 @@ public static partial class TypeStats
 public partial class Stats {
     public int Health;
     public int AtkPower;
-    public int AtkSpeed;
+    public int AtkEvery;
     public int MoveSpeed;
     public int AtkArea;
     public int ManaCost;

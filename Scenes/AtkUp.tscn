@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgttbf0mb2ce8"]
+
+[ext_resource type="Script" path="res://Scripts/ManaUp.cs" id="1_dm5ew"]
+[ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="2_tsn7p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rokqj"]
+font = ExtResource("2_tsn7p")
+font_color = Color(1, 0, 0.141176, 1)
+
+[node name="AtkUp" type="Node2D"]
+script = ExtResource("1_dm5ew")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_rokqj")

@@ -37,7 +37,10 @@ position = Vector2(98, 474)
 position = Vector2(866, 474)
 
 [node name="TickTimer" type="Timer" parent="."]
-wait_time = 2.0
+autostart = true
+
+[node name="AtkTimer" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
@@ -231,3 +234,4 @@ volume_db = -10.584
 stream = ExtResource("10_yjv3u")
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
+[connection signal="timeout" from="AtkTimer" to="." method="_OnAtk"]
