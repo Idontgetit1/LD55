@@ -7,8 +7,19 @@ public partial class Player : CharacterBody2D
 
 	private Sprite2D PlayerSprite;
 
+	private PackedScene ManaUpScene = GD.Load<PackedScene>("res://Scenes/ManaUp.tscn");
+
+	Game Game;
+
 	public override void _Ready()
 	{
+		Game = GetNode<Game>("/root/Game");
+		if (IsPlayer)
+		{
+			Game.Player = this;
+		} else {
+			Game.Enemy = this;
+		}
 		PlayerSprite = GetNode<Sprite2D>("PlayerSprite");
 		var BaseScale = 1f;
 		if (IsPlayer)
@@ -22,5 +33,12 @@ public partial class Player : CharacterBody2D
 			PlayerSprite.Scale *= BaseScale;
 			PlayerSprite.FlipH = false;
 		}
+	}
+
+	public void ManaUp(int Amount) {
+		var manaUp = (ManaUp)ManaUpScene.Instantiate();
+		manaUp.Init(Amount);
+		manaUp.Position = IsPlayer ? new Vector2(5, -20) : new Vector2(-5, -20);
+		AddChild(manaUp);
 	}
 }

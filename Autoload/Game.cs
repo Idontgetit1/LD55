@@ -33,6 +33,9 @@ public partial class Game : Node
 	// Mana
 	public ManaBar ManaBar;
 
+	public Player Player;
+	public Player Enemy;
+
 	// Methods to get the closest Free Field to the Middle Point
 	public int GetNextFreeFieldLeft()
 	{

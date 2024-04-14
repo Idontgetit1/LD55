@@ -7,6 +7,7 @@ public partial class ManaBar : Node2D
 	[Export] private int MaxMana = 100;
 	[Export] private int CurrentMana = 100;
 	[Export] private Label ManaLabel;
+	[Export] private TextureProgressBar ManaProgressBar;
 	[Export] private Marker2D MinigameMarker;
 	[Export] private ComboBox ComboLabel;
 
@@ -151,6 +152,10 @@ public partial class ManaBar : Node2D
 		{
 			CurrentMana = MaxMana;
 		}
+
+		ManaProgressBar.Value = CurrentMana;
+
+		Game.Player.ManaUp(amount);
 	}
 
 	public void RemoveMana(int amount)
@@ -160,6 +165,10 @@ public partial class ManaBar : Node2D
 		{
 			CurrentMana = 0;
 		}
+
+		ManaProgressBar.Value = CurrentMana;
+
+		Game.Player.ManaUp(-amount);
 	}
 
 	public bool HasMana(int amount)
@@ -178,6 +187,8 @@ public partial class ManaBar : Node2D
 		{
 			CurrentMana = 0;
 		}
+
+		ManaProgressBar.Value = CurrentMana;
 	}
 
 	public void SetMaxMana(int amount)

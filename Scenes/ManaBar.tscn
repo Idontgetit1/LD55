@@ -1,22 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://3yhigvike6lg"]
+[gd_scene load_steps=8 format=3 uid="uid://3yhigvike6lg"]
 
 [ext_resource type="Script" path="res://Scripts/ManaBar.cs" id="1_hxplx"]
 [ext_resource type="LabelSettings" uid="uid://vmcci3ap5qp3" path="res://Resources/Assets/LabelSettings/Alagard.tres" id="2_ee318"]
 [ext_resource type="PackedScene" uid="uid://bnykyvtc2sv7w" path="res://Scenes/ComboBox.tscn" id="3_5omv0"]
+[ext_resource type="Texture2D" uid="uid://c8h47jm7i62gd" path="res://Resources/Assets/Textures/ProgressBarUnder.png" id="4_fr1ov"]
+[ext_resource type="Texture2D" uid="uid://c1kpw4a2reor2" path="res://Resources/Assets/Textures/ProgressBarOver.png" id="5_4xev5"]
+[ext_resource type="Texture2D" uid="uid://bp5quxcjnytsk" path="res://Resources/Assets/Textures/ProgressBarProgress.png" id="6_r3n1i"]
+[ext_resource type="Texture2D" uid="uid://b5ou57qjapg5c" path="res://Resources/Assets/Textures/MinigameBar.png" id="7_qai66"]
 
-[node name="ManaBar" type="Node2D" node_paths=PackedStringArray("ManaLabel", "MinigameMarker", "ComboLabel")]
+[node name="ManaBar" type="Node2D" node_paths=PackedStringArray("ManaLabel", "ManaProgressBar", "MinigameMarker", "ComboLabel")]
 script = ExtResource("1_hxplx")
 ManaLabel = NodePath("ManaLabel")
+ManaProgressBar = NodePath("TextureProgressBar")
 MinigameMarker = NodePath("RuneMinigameMarker")
 ComboLabel = NodePath("ComboBox")
 
 [node name="ManaLabel" type="Label" parent="."]
+z_index = 2
+offset_top = -8.0
 offset_right = 72.0
-offset_bottom = 23.0
+offset_bottom = 15.0
 label_settings = ExtResource("2_ee318")
 
 [node name="RuneMinigameMarker" type="Marker2D" parent="."]
-position = Vector2(-96, 32)
+position = Vector2(-195, 24)
 
 [node name="ComboBox" parent="." instance=ExtResource("3_5omv0")]
-position = Vector2(-48, 88)
+position = Vector2(-28, 66)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+offset_left = -216.0
+offset_top = -16.0
+offset_right = -116.0
+offset_bottom = -6.0
+scale = Vector2(3, 3)
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("4_fr1ov")
+texture_over = ExtResource("5_4xev5")
+texture_progress = ExtResource("6_r3n1i")
+
+[node name="MinigameBar" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(-66, 26)
+scale = Vector2(3, 3)
+texture = ExtResource("7_qai66")

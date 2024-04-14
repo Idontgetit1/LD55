@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d13d5pfliklvl"]
+[gd_scene load_steps=17 format=3 uid="uid://d13d5pfliklvl"]
 
 [ext_resource type="Script" path="res://Scenes/SummonPage.cs" id="1_4xy5y"]
 [ext_resource type="Texture2D" uid="uid://creb1eob7e7g5" path="res://Resources/Assets/Textures/ZettelNeuter.png" id="1_63xgi"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="7_bfgma"]
 [ext_resource type="Texture2D" uid="uid://dsrhyt77yqsw1" path="res://Resources/Assets/Textures/Mana.png" id="8_hv16x"]
 [ext_resource type="Texture2D" uid="uid://c1vu6wr8oi3uu" path="res://Resources/Assets/Textures/Attack.png" id="9_mivni"]
+[ext_resource type="Texture2D" uid="uid://dfttrpcy65gru" path="res://Resources/Assets/Textures/Nail.png" id="11_qf1ob"]
 
 [sub_resource type="Shader" id="Shader_k8axu"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable.mono's CanvasItemMaterial.
@@ -179,6 +180,20 @@ texture = ExtResource("8_hv16x")
 texture_filter = 1
 position = Vector2(16.6667, 80)
 texture = ExtResource("9_mivni")
+
+[node name="Nail" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(58, 4)
+scale = Vector2(2, 2)
+texture = ExtResource("11_qf1ob")
+
+[node name="Nail2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(8, -0.666667)
+scale = Vector2(2, 2)
+texture = ExtResource("11_qf1ob")
 
 [connection signal="input_event" from="." to="." method="_OnInputEvent"]
 [connection signal="mouse_entered" from="." to="." method="_OnMouseOver"]
