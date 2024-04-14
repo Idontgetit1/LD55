@@ -44,31 +44,6 @@ public partial class summon : CharacterBody2D
 
 		GetNode<Label>("NameTag").Text = Type.ToString();
 
-		// Set Sprite
-		var spritePath = "res://Resources/Assets/Summons/";
-		// switch (Type) {
-		// 	case SummonType.Wolf:
-		// 		spritePath += "Wolf.png";
-		// 		break;
-		// 	case SummonType.Slime:
-		// 		spritePath += "Slime.png";
-		// 		break;
-		// 	case SummonType.Spider:
-		// 		spritePath += "Spider.png";
-		// 		break;
-		// 	case SummonType.Whatever:
-		// 		spritePath += "Whatever.png";
-		// 		break;
-		// 	case SummonType.Placeholder1:
-		// 		spritePath += "Placeholder1.png";
-		// 		break;
-		// 	case SummonType.Placeholder2:
-		// 		spritePath += "Placeholder2.png";
-		// 		break;
-		// }
-
-		// SummonSprite.Texture = GD.Load<Texture2D>(spritePath);
-
 		// Set stats
 		Stats = TypeStats.GetStats(Type);
 
@@ -78,115 +53,67 @@ public partial class summon : CharacterBody2D
 	{
 	}
 
-	public void Act() {
-		// Acting
-		if (ShouldMoveNextTick) {
-			ShouldMoveNextTick = false;
-			FieldIndex = NextFieldIndex;
-			FieldMarker = NextFieldMarker;
-			Move(NextPosition);
-
-		}
-
-		if (ShouldAttackNextTick) {
-			ShouldAttackNextTick = false;
-			AttackAnimation();
-		}
-
-		if (DamageTaken > 0) {
-			TakeDamage(DamageTaken);
-			DamageTaken = 0;
-		}
-	}
-
-    public void PlanMove()
-    {
-		// Check if is at end of field, if not move forward (depending on IsPlayer)
-		if (IsPlayer) {
-			if (FieldIndex < Game.Fields - 1) {
-				NextFieldIndex = FieldIndex + 1;
-				NextFieldMarker = Game.FieldMarkers[NextFieldIndex];
-				NextPosition = NextFieldMarker.GlobalPosition;
-				ShouldMoveNextTick = true;
-
-				GD.Print("Player is moving from " + FieldIndex + " to " + NextFieldIndex);
-			}
-		} else {
-			if (FieldIndex > 0) {
-				NextFieldIndex = FieldIndex - 1;
-				NextFieldMarker = Game.FieldMarkers[NextFieldIndex];
-				NextPosition = NextFieldMarker.GlobalPosition;
-				ShouldMoveNextTick = true;
-
-				GD.Print("Enemy is moving from " + FieldIndex + " to " + NextFieldIndex);
-			}
-		}
-    }
-
-    public void PlanAttack()
-    {
-		// Check if enemy is in range (Check if another Summon has nextField or currentField Index at nextFieldIndex)
-		foreach (var summon in Game.Summons) {
-			if (summon == this) {
-				continue;
-			}
-			if (summon.FieldIndex == NextFieldIndex || summon.NextFieldIndex == NextFieldIndex) {
-				summon.DamageTaken += Stats.AtkPower;
-				ShouldMoveNextTick = false;
-				ShouldAttackNextTick = true;
-
-				GD.Print("Enemy is attacking " + summon.Type);
-				return;
-			}
-		}
-    }
-
-	public void TakeDamage(int Damage) {
-		Stats.Health -= Damage;
-		if (Stats.Health <= 0) {
-			Die();
-		}
-	}
-
 	public void AttackAnimation() {
 		// Move forward fast and back to original position
 		IsAttacking = true;
 		var Offset = new Vector2(50, 0);
+		var BackOffset = new Vector2(-10, 0); // Kleine Bewegung nach hinten
 		if (!IsPlayer) {
 			Offset *= -1;
+			BackOffset *= -1;
 		}
-		ForwardPosition = SummonSprite.Position + Offset;
-		StartPosition = SummonSprite.Position;
+		var BackPosition = SummonSprite.Position + BackOffset;
+		var ForwardPosition = SummonSprite.Position + Offset;
+		var StartPosition = SummonSprite.Position;
 
 		var duration = 0.2f;
+		var backDuration = 0.05f; // Kurze Dauer für den Rückzug
 		var delay = 0.02f;
 
 		var tween = GetTree().CreateTween();
+		
+		// Kurz nach hinten bewegen
+		tween.TweenProperty(SummonSprite, "position", BackPosition, backDuration)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenInterval(delay);
+
+		// Dann schnell nach vorne
 		tween.TweenProperty(SummonSprite, "position", ForwardPosition, duration)
 			.SetEase(Tween.EaseType.Out);
 
 		tween.TweenInterval(delay);
 
+		// Und zurück zur Startposition
 		tween.TweenProperty(SummonSprite, "position", StartPosition, duration)
 			.SetEase(Tween.EaseType.In);
 
 		tween.Play();
 	}
 
+
 	public void Move(Vector2 Position) {
 		var startPosition = GlobalPosition;
 		var endPosition = Position;
+		var bounceHeight = 10; // Höhe des Bounces
 		var jumpHeight = 20;
 		var duration = 0.15f;
 
+		var bounceBack = startPosition - new Vector2(0, bounceHeight);
 		var midJump = (startPosition + endPosition) / 2;
 		midJump.Y -= jumpHeight;
 
 		var tween = GetTree().CreateTween();
 
+		// Erst nach hinten bewegen
+		tween.TweenProperty(this, "global_position", bounceBack, duration * 0.5)
+			.SetEase(Tween.EaseType.Out);
+
+		// Dann zum höchsten Punkt des Sprungs
 		tween.TweenProperty(this, "global_position", midJump, duration)
 			.SetEase(Tween.EaseType.Out);
 
+		// Und schließlich zur Endposition
 		tween.TweenProperty(this, "global_position", endPosition, duration)
 			.SetEase(Tween.EaseType.In);
 
