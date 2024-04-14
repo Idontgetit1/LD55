@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class Game : Node
 {
 	// Fields
-	public const int Fields = 10;
+	public const int Fields = 25;
 	public List<Marker2D> FieldMarkers = new List<Marker2D>();
 	
 	// Summons
@@ -14,6 +14,13 @@ public partial class Game : Node
 
 	// Game
 	public int Tick = 0;
+
+
+	// Rune Activation Stuff
+	public List<RuneActivator> RuneActivators = new List<RuneActivator>();
+
+
+	public main Main;
 	
 	public void AddSummon(summon Summon)
 	{
@@ -33,4 +40,31 @@ public partial class Game : Node
 
 		SummonsToRemove.Clear();
 	}
+
+    public override void _Process(double delta)
+    {
+		RuneType runePressed = RuneType.None;
+		if (Input.IsActionJustPressed("up")) {
+			Main.ClickSound.Play();
+			runePressed = RuneType.Up;
+		}
+		if (Input.IsActionJustPressed("down")) {
+			Main.ClickSound.Play();
+			runePressed = RuneType.Down;
+		}
+		if (Input.IsActionJustPressed("left")) {
+			Main.ClickSound.Play();
+			runePressed = RuneType.Left;
+		}
+		if (Input.IsActionJustPressed("right")) {
+			Main.ClickSound.Play();
+			runePressed = RuneType.Right;
+		}
+
+		if (runePressed != RuneType.None) {
+			foreach (var activator in RuneActivators) {
+				activator.onRunePressed(runePressed);
+			}
+		}
+    }
 }

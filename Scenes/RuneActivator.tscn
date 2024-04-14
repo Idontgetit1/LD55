@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cojvanxicgj5n"]
+
+[ext_resource type="Script" path="res://Scripts/RuneActivator.cs" id="1_3xbu3"]
+
+[node name="RuneActivator" type="Node2D"]
+script = ExtResource("1_3xbu3")

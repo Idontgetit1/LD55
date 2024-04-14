@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dp4evyon2kiay"]
+[gd_scene load_steps=5 format=3 uid="uid://dp4evyon2kiay"]
 
+[ext_resource type="Script" path="res://Scripts/MagicBook.cs" id="1_us1m4"]
 [ext_resource type="Texture2D" uid="uid://cry463j6lgfl" path="res://Resources/Assets/SpellMenuTopLeft.png" id="1_vxx6r"]
 [ext_resource type="Texture2D" uid="uid://sls2jytmpuce" path="res://Resources/Assets/SpellMenuTopRight.png" id="2_xdynr"]
 [ext_resource type="Texture2D" uid="uid://dymbp770aftkw" path="res://Resources/Assets/SpellMenuBottomLeft.png" id="3_e3qgh"]
 
-[node name="TopLeftSpellMenu" type="Node2D"]
+[node name="TopLeftSpellMenu" type="Node2D" node_paths=PackedStringArray("RuneStarter")]
 scale = Vector2(4.39021, 4.39021)
+script = ExtResource("1_us1m4")
+RuneStarter = NodePath("RuneStarter")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -28,3 +31,6 @@ texture = ExtResource("2_xdynr")
 texture_filter = 1
 position = Vector2(-16, 16)
 texture = ExtResource("3_e3qgh")
+
+[node name="RuneStarter" type="Marker2D" parent="."]
+position = Vector2(-24.6002, -20.9557)

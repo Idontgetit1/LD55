@@ -11,15 +11,20 @@ public partial class main : Node2D
 	private Marker2D RightSummonMarker;
 
 	[Export]
-	private AudioStreamPlayer ClickSound;
+	public AudioStreamPlayer ClickSound;
+
+	[Export]
+	public MagicBook Book;
 
 	private PackedScene SummonScene = GD.Load<PackedScene>("res://Scenes/summon.tscn");
+	private PackedScene RuneActivator = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
 
 	private Game Game;
 
 	public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
+		Game.Main = this;
 
 		// Get 10 Positions between Left and Right Marker
 		var left = LeftSummonMarker.GlobalPosition;
@@ -40,6 +45,23 @@ public partial class main : Node2D
 		// Summon Monster
 		SummonMonster(SummonType.Wolf, true);
 		SummonMonster(SummonType.Slime, false);
+
+		// Test
+		Book.CreateRuneActivator(new List<RuneType> {
+			RuneType.Up,
+			RuneType.Down,
+			RuneType.Left,
+			RuneType.Right
+		}, Callable.From(() => GD.Print("Activated No 1")));
+
+		Book.CreateRuneActivator(new List<RuneType> {
+			RuneType.Up,
+			RuneType.Down,
+			RuneType.Left,
+			RuneType.Right,
+			RuneType.Left,
+			RuneType.Right
+		}, Callable.From(() => GD.Print("Activated No 2")));
 	}
 
 	private void SummonMonster(SummonType type, bool IsPlayer)
@@ -85,17 +107,6 @@ public partial class main : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("up")) {
-			ClickSound.Play();
-		}
-		if (Input.IsActionJustPressed("down")) {
-			ClickSound.Play();
-		}
-		if (Input.IsActionJustPressed("left")) {
-			ClickSound.Play();
-		}
-		if (Input.IsActionJustPressed("right")) {
-			ClickSound.Play();
-		}
+		
 	}
 }

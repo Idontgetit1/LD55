@@ -4,7 +4,11 @@ using System.Security.Cryptography.X509Certificates;
 
 public enum SummonType {
 	Wolf,
-	Slime
+	Slime,
+	Spider,
+	Whatever,
+	Placeholder1,
+	Placeholder2
 }
 
 public partial class summon : CharacterBody2D
@@ -16,8 +20,9 @@ public partial class summon : CharacterBody2D
 	public bool IsPlayer;
 	public int FieldIndex;
 	public Marker2D FieldMarker;
-	public int AttackPower = 1;
-	public int Health = 3;
+
+	// Stats
+	public Stats Stats;
 
 	// Buffer for next Tick
 	public bool ShouldMoveNextTick = false;
@@ -37,7 +42,36 @@ public partial class summon : CharacterBody2D
 	{
 		Game = GetNode<Game>("/root/Game");
 
-		GetNode<Label>("NameTag").Text = "summon";
+		GetNode<Label>("NameTag").Text = Type.ToString();
+
+		// Set Sprite
+		var spritePath = "res://Resources/Assets/Summons/";
+		// switch (Type) {
+		// 	case SummonType.Wolf:
+		// 		spritePath += "Wolf.png";
+		// 		break;
+		// 	case SummonType.Slime:
+		// 		spritePath += "Slime.png";
+		// 		break;
+		// 	case SummonType.Spider:
+		// 		spritePath += "Spider.png";
+		// 		break;
+		// 	case SummonType.Whatever:
+		// 		spritePath += "Whatever.png";
+		// 		break;
+		// 	case SummonType.Placeholder1:
+		// 		spritePath += "Placeholder1.png";
+		// 		break;
+		// 	case SummonType.Placeholder2:
+		// 		spritePath += "Placeholder2.png";
+		// 		break;
+		// }
+
+		// SummonSprite.Texture = GD.Load<Texture2D>(spritePath);
+
+		// Set stats
+		Stats = TypeStats.GetStats(Type);
+
 	}
 
 	public override void _Process(double delta)
