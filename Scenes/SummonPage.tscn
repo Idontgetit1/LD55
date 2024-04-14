@@ -18,12 +18,14 @@ size = Vector2(98, 130)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ju1u"]
 size = Vector2(32, 32)
 
-[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite")]
+[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker")]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_4xy5y")
 InfoPanel = NodePath("HoverInfo")
 NameLabel = NodePath("HoverInfo/Name")
 DescriptionLabel = NodePath("HoverInfo/Description")
 SummonIconSprite = NodePath("SummonIcon")
+RuneActivatorMarker = NodePath("RuneActivatorMarker")
 
 [node name="ZettelTexture" type="Sprite2D" parent="."]
 texture_filter = 1

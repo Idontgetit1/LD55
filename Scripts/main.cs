@@ -69,7 +69,7 @@ public partial class main : Node2D
 		// }, "Slime", SummonType.Slime, Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
 	}
 
-	private void SummonMonster(SummonType type, bool IsPlayer)
+	public void SummonMonster(SummonType type, bool IsPlayer)
 	{
 		var canSpawn = IsPlayer ? Game.GetNextFreeFieldLeft() != -1 : Game.GetNextFreeFieldRight() != -1;
 		if (!canSpawn) {

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://crbsmbfeq4y7t" path="res://Scenes/Backboard.tscn" id="8_yowhb"]
 [ext_resource type="Texture2D" uid="uid://dqpjxtwfn0vit" path="res://Resources/Assets/Textures/Background.png" id="9_bohht"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "Book")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
@@ -18,7 +18,6 @@ RuneSummoningCircleLeft = NodePath("RuneSummoningCircle")
 RuneSummoningCircleRight = NodePath("RuneSummoningCircle2")
 FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath("FieldMarkers/2"), NodePath("FieldMarkers/3"), NodePath("FieldMarkers/4"), NodePath("FieldMarkers/5"), NodePath("FieldMarkers/6"), NodePath("FieldMarkers/7"), NodePath("FieldMarkers/8"), NodePath("FieldMarkers/9")]
 ClickSound = NodePath("ClickSound")
-Book = NodePath("")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(40, 456)

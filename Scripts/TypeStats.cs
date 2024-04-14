@@ -122,7 +122,7 @@ public partial class Stats {
 }
 
 public partial class RuneCode {
-    List<RuneType> runes = new List<RuneType>();
+    public List<RuneType> runes = new List<RuneType>();
     
     // Constructor to take wasd string and convert it to RuneType
     public RuneCode(string wasd) {

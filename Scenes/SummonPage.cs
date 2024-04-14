@@ -17,11 +17,19 @@ public partial class SummonPage : Area2D
 	[Export] Sprite2D SummonIconSprite;
 	[Export] Marker2D RuneActivatorMarker;
 
+	PackedScene ActivatorScene = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
+
 	public override void _Ready()
 	{
 		
 		Game = GetNode<Game>("/root/Game");
 		ZIndex = 1;
+
+		var activator = (RuneActivator)ActivatorScene.Instantiate();
+		activator.Init(TypeStats.GetStats(Type).Code.runes, Type, Callable.From(() => { Game.Main.SummonMonster(Type, true); Game.ActivatedRunes(true); }));
+		activator.Scale *= 2.5f;
+		RuneActivatorMarker.AddChild(activator);
+		Game.RuneActivators.Add(activator);
 	}
 
 	public void Init(SummonType type)
@@ -30,6 +38,7 @@ public partial class SummonPage : Area2D
 		NameLabel.Text = Type.ToString();
 		DescriptionLabel.Text = TypeStats.GetStats(Type).Description;
 		SummonIconSprite.Texture = GD.Load<Texture2D>(TypeStats.GetStats(Type).TexturePath);
+
 	}
 
 	public override void _Process(double delta)
