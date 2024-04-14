@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class Game : Node
 {
 	// Fields
-	public const int Fields = 25;
+	public const int Fields = 10;
 	public List<Marker2D> FieldMarkers = new List<Marker2D>();
 	
 	// Summons

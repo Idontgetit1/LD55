@@ -60,7 +60,7 @@ public partial class main : Node2D
 		var summon = (summon)SummonScene.Instantiate();
 		summon.Type = type;
 		summon.IsPlayer = IsPlayer;
-		summon.FieldIndex = -1;
+		summon.FieldIndex = IsPlayer ? -1 : -2;
 		summon.FieldMarker = IsPlayer ? LeftSummonMarker : RightSummonMarker;
 		summon.GlobalPosition = summon.FieldMarker.GlobalPosition;
 
