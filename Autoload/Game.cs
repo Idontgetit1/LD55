@@ -27,7 +27,7 @@ public partial class Game : Node
 	public const int MIDDLE_MARKER_INDEX_LEFT = 4;
 	public const int MIDDLE_MARKER_INDEX_RIGHT = 5;
 
-	public bool SummoningSuccessful = false;
+	public bool SummoningSuccessful = true;
 
 
 	// Mana
@@ -125,7 +125,7 @@ public partial class Game : Node
 		}
 	}
 
-	public void ActivationSuccessful(RuneActivator activator) {
+	public bool ActivationSuccessful(RuneActivator activator) {
 		SummoningSuccessful = true;
 
 		// test if Mana is sufficient
@@ -138,11 +138,13 @@ public partial class Game : Node
 			activator.ActivateCalledFromGame();
 
 			GD.Print("Using " + manaCost + " Mana to summon " + activator.Type);
+			return true;
 		} else {
 			// ManaBar.NotEnoughManaAnimation();
 
 			SummoningSuccessful = false;
 			GD.Print("Not enough Mana");
+			return false;
 		}
 	}
 
@@ -151,8 +153,9 @@ public partial class Game : Node
 			return -1;
 		}
 
-		if (input == fullSequence) {
-			return 0;
+		bool isEqual = false;
+		if (input.Count == fullSequence.Count) {
+			isEqual = true;
 		}
 
 		for (int i = 0; i < input.Count; i++) {
@@ -161,7 +164,7 @@ public partial class Game : Node
 			}
 		}
 
-		return 1;
+		return isEqual ? 0 : 1;
 	}
 
     public override void _Process(double delta)
@@ -213,16 +216,37 @@ public partial class Game : Node
 			CurrentRuneSequence.Add(runePressed);
 
 			Main.RuneSummoningCircleLeft.AddRune(runePressed);
+			bool sequenceFound = false;
 			foreach (var activator in RuneActivators) {
-				var success = activator.onRunePressed(runePressed);
+				// var success = activator.onRunePressed(runePressed);
+				var compare = CompareRuneSequencesBeginsWith(CurrentRuneSequence, activator.runes);
+				if (compare == 0) {
+					var success = ActivationSuccessful(activator);
+					if (success) {
+						sequenceFound = true;
+						CurrentRuneSequence.Clear();
+						break;
+					}
+					compare = -1;
+				}
+				if (compare == -1) {
+					// Rune sequence does not match
+					activator.MakeAllRunesNormal();
+				}
+				if (compare == 1) {
+					// Rune sequence is a prefix of the full sequence
+					activator.MarkFirstNRunesAsPressed(CurrentRuneSequence.Count);
+					sequenceFound = true;
+				}
 			}
 			// If no activator is active, summoning failed
 			GD.Print("Test");
-			if (!IsRuneActivatorInAction() && !SummoningSuccessful) {
+			if (!sequenceFound) {
 				Main.RuneSummoningCircleLeft.ActivationFailedAnimation();
+				CurrentRuneSequence.Clear();
 			}
 
-			SummoningSuccessful = false;
+			SummoningSuccessful = true;
 		}
 
     }

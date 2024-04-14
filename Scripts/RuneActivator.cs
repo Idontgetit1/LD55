@@ -20,7 +20,7 @@ public partial class RuneActivator : Node2D
 		{ RuneType.Right, "RightRune2.png" }
 	};
 
-	private List<RuneType> runes = new List<RuneType>();
+	public List<RuneType> runes = new List<RuneType>();
 	private List<Sprite2D> runeSprites = new List<Sprite2D>();
 	public int lastPressedRune = -1;
 
@@ -88,7 +88,18 @@ public partial class RuneActivator : Node2D
 		return true;
 	}
 
+	public void MarkFirstNRunesAsPressed(int n) {
+		for (int i = 0; i < n; i++) {
+			makeRuneGlow(i);
+		}
+		lastPressedRune = n - 1;
+	}
+
 	public void ActivateCalledFromGame() {
+		lastPressedRune = -1;
+		foreach (var rune in runeSprites) {
+			makeRuneNormal(runeSprites.IndexOf(rune));
+		}
 		onActivationCallback.Call();
 	}
 
