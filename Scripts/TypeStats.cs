@@ -100,6 +100,34 @@ public static partial class TypeStats
                     Code = new RuneCode("sswwdadsd"),
                     Mirrored = true
                 };
+            case SummonType.Cherry:
+                return new Stats {
+                    Health = 8,
+                    AtkPower = 1,
+                    AtkSpeed = 1,
+                    MoveSpeed = 1,
+                    AtkArea = 1,
+                    ManaCost = 150,
+                    TexturePath = "res://Resources/Assets/Summons/Cherry.png",
+                    Name = "Cherry",
+                    Description = "A cherry. It's fruity.\nHeals the summon in front of it for 1 health every 2 seconds.",
+                    Code = new RuneCode("ddaadada"),
+                    Mirrored = true
+                };
+            case SummonType.Bat:
+                return new Stats {
+                    Health = 9,
+                    AtkPower = 1,
+                    AtkSpeed = 1,
+                    MoveSpeed = 1,
+                    AtkArea = 1,
+                    ManaCost = 175,
+                    TexturePath = "res://Resources/Assets/Summons/Bat.png",
+                    Name = "Bat",
+                    Description = "A bat. It's batty.\nIncreases the attack power of the summon in front of it by 1.",
+                    Code = new RuneCode("wswswsadw"),
+                    Mirrored = true
+                };
             default:
                 return new Stats {
                     Health = 0,

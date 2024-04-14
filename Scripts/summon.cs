@@ -9,7 +9,9 @@ public enum SummonType {
 	Tree,
 	GrassBoi,
 	IceMouse,
-	MagmaPuddle
+	MagmaPuddle,
+	Cherry,
+	Bat
 }
 
 public partial class summon : CharacterBody2D

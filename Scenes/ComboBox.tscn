@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnykyvtc2sv7w"]
+
+[ext_resource type="LabelSettings" uid="uid://wqtbmiwkw80b" path="res://Resources/Assets/LabelSettings/04B30.tres" id="1_8lhwm"]
+[ext_resource type="Script" path="res://Scripts/ComboBox.cs" id="1_akq71"]
+
+[node name="ComboBox" type="Node2D"]
+rotation = -0.514872
+script = ExtResource("1_akq71")
+
+[node name="ComboLabel" type="Label" parent="."]
+offset_left = -95.3723
+offset_top = -26.3841
+offset_right = 91.6277
+offset_bottom = 29.6159
+label_settings = ExtResource("1_8lhwm")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://d13d5pfliklvl"]
+[gd_scene load_steps=16 format=3 uid="uid://d13d5pfliklvl"]
 
 [ext_resource type="Script" path="res://Scenes/SummonPage.cs" id="1_4xy5y"]
 [ext_resource type="Texture2D" uid="uid://creb1eob7e7g5" path="res://Resources/Assets/Textures/ZettelNeuter.png" id="1_63xgi"]
 [ext_resource type="Texture2D" uid="uid://dymbp770aftkw" path="res://Resources/Assets/SpellMenuBottomLeft.png" id="2_v5cxc"]
 [ext_resource type="Texture2D" uid="uid://cry463j6lgfl" path="res://Resources/Assets/SpellMenuTopLeft.png" id="3_bwu07"]
 [ext_resource type="Texture2D" uid="uid://sls2jytmpuce" path="res://Resources/Assets/SpellMenuTopRight.png" id="4_c2thy"]
+[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="5_ixgsb"]
 [ext_resource type="LabelSettings" uid="uid://cs2gfwvev1600" path="res://Resources/Assets/LabelSettings/AutoPilotBlack.tres" id="6_mm11j"]
 [ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="7_bfgma"]
 [ext_resource type="Texture2D" uid="uid://dsrhyt77yqsw1" path="res://Resources/Assets/Textures/Mana.png" id="8_hv16x"]
@@ -26,7 +27,12 @@ size = Vector2(98, 130)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ju1u"]
 size = Vector2(32, 32)
 
-[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker", "HighlightSprite", "ManaCostLabel", "HealthLabel", "DamageLabel")]
+[sub_resource type="LabelSettings" id="LabelSettings_g5ysq"]
+font = ExtResource("5_ixgsb")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[node name="SummonPage" type="Area2D" node_paths=PackedStringArray("InfoPanel", "NameLabel", "DescriptionLabel", "SummonIconSprite", "RuneActivatorMarker", "HighlightSprite", "ManaCostLabel", "HealthLabel", "DamageLabel", "NameLabel2")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_4xy5y")
 InfoPanel = NodePath("HoverInfo")
@@ -38,6 +44,7 @@ HighlightSprite = NodePath("Highlight")
 ManaCostLabel = NodePath("ManaCostLabel")
 HealthLabel = NodePath("HealthLabel")
 DamageLabel = NodePath("AtkPowerLabel")
+NameLabel2 = NodePath("NameLabel")
 
 [node name="ZettelTexture" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -134,6 +141,15 @@ offset_top = 36.0
 offset_right = 72.0
 offset_bottom = 59.0
 label_settings = ExtResource("6_mm11j")
+
+[node name="NameLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 23.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 35.0
+label_settings = SubResource("LabelSettings_g5ysq")
+autowrap_mode = 3
 
 [node name="HealthLabel" type="Label" parent="."]
 offset_left = 32.0

@@ -104,12 +104,12 @@ public partial class RuneActivator : Node2D
 	}
 
 	private void makeRuneGlow(int index) {
-		runeSprites[index].Modulate = new Color(0.831f, 0.686f, 0.216f);
+		runeSprites[index].Modulate = new Color(0.831f, 0.686f, 0.216f, 1f);
 		Page.Highlight(true);
 	}
 
 	private void makeRuneNormal(int index) {
-		runeSprites[index].Modulate = new Color(1, 1, 1);
+		runeSprites[index].Modulate = new Color(1, 1, 1, 1f);
 		Page.Highlight(false);
 	}
 

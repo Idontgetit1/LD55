@@ -20,6 +20,7 @@ public partial class SummonPage : Area2D
 	[Export] Label ManaCostLabel;
 	[Export] Label HealthLabel;
 	[Export] Label DamageLabel;
+	[Export] Label NameLabel2;
 
 	PackedScene ActivatorScene = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
 
@@ -42,7 +43,8 @@ public partial class SummonPage : Area2D
 	public void Init(SummonType type)
 	{
 		Type = type;
-		NameLabel.Text = Type.ToString();
+		NameLabel.Text = TypeStats.GetStats(Type).Name;
+		NameLabel2.Text = TypeStats.GetStats(Type).Name;
 		DescriptionLabel.Text = TypeStats.GetStats(Type).Description;
 		SummonIconSprite.Texture = GD.Load<Texture2D>(TypeStats.GetStats(Type).TexturePath);
 		SummonIconSprite.Scale *= TypeStats.GetStats(Type).BaseScale;

@@ -8,10 +8,11 @@ public partial class ManaBar : Node2D
 	[Export] private int CurrentMana = 100;
 	[Export] private Label ManaLabel;
 	[Export] private Marker2D MinigameMarker;
+	[Export] private ComboBox ComboLabel;
 
 	private const int MANA_PER_RUNE = 1;
 	private const int NO_OF_RUNES_SHOWN = 8;
-	private const int MAX_COMBO = 5;
+	private const int MAX_COMBO = 50;
 	private const int PENALTY = 5;
 
 	private int combo = 0;
@@ -26,10 +27,18 @@ public partial class ManaBar : Node2D
 	private Texture2D LeftRune = GD.Load<Texture2D>("res://Resources/Assets/Runes/LeftRune.png");
 	private Texture2D RightRune = GD.Load<Texture2D>("res://Resources/Assets/Runes/RightRune2.png");
 
+	private Timer ComboTimer = new Timer();
+
 	public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
 		Game.ManaBar = this;
+
+		ComboTimer.OneShot = false;
+		ComboTimer.WaitTime = 2f;
+		ComboTimer.Connect("timeout", Callable.From(DecreaseCombo));
+		AddChild(ComboTimer);
+		ComboTimer.Start();
 
 		// Create Rune Sprites
 		var position = MinigameMarker.Position;
@@ -51,7 +60,28 @@ public partial class ManaBar : Node2D
 		}
 	}
 
-	private void NewRuneToMinigame() {
+	private void SetTimer() {
+		float time = 2f - (0.1f * combo);
+		ComboTimer.WaitTime = time;
+		ComboTimer.Start();
+
+		// Also set pulse speed
+		var pulseSpeed = 0.5f + (0.01f * combo);
+		ComboLabel.PulseSpeed = pulseSpeed;
+	}
+
+    private void DecreaseCombo()
+    {
+		combo--;
+		if (combo < 0)
+		{
+			combo = 0;
+		}
+		ComboLabel.SetCombo(combo);
+		SetTimer();
+    }
+
+    private void NewRuneToMinigame() {
 		// Change Sprite Textures, move textures one place further and load a random new rune to the last sprite
 		var newRuneType = GetRandomRune();
 		
@@ -94,13 +124,21 @@ public partial class ManaBar : Node2D
 		if (runes[0] == rune)
 		{
 			// Calculate the mana obtained (for max mana) and then calculate the combo for next input
-			AddMana(MANA_PER_RUNE);
-			Math.Min(combo++, MAX_COMBO);
+			AddMana(MANA_PER_RUNE * combo);
+			combo++;
+			if (combo > MAX_COMBO)
+			{
+				combo = MAX_COMBO;
+			}
+			ComboLabel.SetCombo(combo);
+			SetTimer();
 			NewRuneToMinigame();
 		}
 		else
 		{
 			combo = 0;
+			ComboLabel.SetCombo("");
+			SetTimer();
 			// MinigameFailedAnimation();
 			RemoveMana(PENALTY);
 		}
