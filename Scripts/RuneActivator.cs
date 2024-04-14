@@ -56,7 +56,7 @@ public partial class RuneActivator : Node2D
 			makeRuneGlow(lastPressedRune);
 			if (lastPressedRune == runes.Count - 1) {
 				onActivationCallback.Call();
-				Game.SummoningSuccessful = true;
+				Game.ActivationSuccessful(this);
 				lastPressedRune = -1;
 				foreach (var rune in runeSprites) {
 					makeRuneNormal(runeSprites.IndexOf(rune));

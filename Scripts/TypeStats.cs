@@ -9,6 +9,7 @@ public static partial class TypeStats
                     AtkSpeed = 1,
                     MoveSpeed = 1,
                     AtkArea = 1,
+                    ManaCost = 25,
                     TexturePath = "res://Resources/Assets/Summons/FlameWolf.png"
                 };
             case SummonType.Slime:
@@ -17,7 +18,8 @@ public static partial class TypeStats
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    ManaCost = 10,
                 };
             case SummonType.Spider:
                 return new Stats {
@@ -25,7 +27,8 @@ public static partial class TypeStats
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    ManaCost = 10,
                 };
             case SummonType.Whatever:
                 return new Stats {
@@ -33,7 +36,8 @@ public static partial class TypeStats
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    ManaCost = 50,
                 };
             case SummonType.Placeholder1:
                 return new Stats {
@@ -41,7 +45,8 @@ public static partial class TypeStats
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    ManaCost = 75,
                 };
             case SummonType.Placeholder2:
                 return new Stats {
@@ -49,7 +54,8 @@ public static partial class TypeStats
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    ManaCost = 100,
                 };
             default:
                 return new Stats {
@@ -57,7 +63,8 @@ public static partial class TypeStats
                     AtkPower = 0,
                     AtkSpeed = 0,
                     MoveSpeed = 0,
-                    AtkArea = 0
+                    AtkArea = 0,
+                    ManaCost = 0,
                 };
         }
     }
@@ -69,5 +76,6 @@ public partial class Stats {
     public int AtkSpeed;
     public int MoveSpeed;
     public int AtkArea;
+    public int ManaCost;
     public string TexturePath = null;
 }

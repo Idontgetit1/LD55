@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=8 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dp4evyon2kiay" path="res://Scenes/MagicBook.tscn" id="4_a5a6v"]
 [ext_resource type="Texture2D" uid="uid://dbe1rojys46qd" path="res://Resources/Assets/FloorTop.png" id="5_gjnil"]
 [ext_resource type="PackedScene" uid="uid://blhu0jsl4a2vg" path="res://Scenes/rune_summoning_circle.tscn" id="6_nlp1k"]
+[ext_resource type="PackedScene" uid="uid://3yhigvike6lg" path="res://Scenes/ManaBar.tscn" id="7_q4pel"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "Book")]
 texture_filter = 1
@@ -19,17 +20,17 @@ ClickSound = NodePath("ClickSound")
 Book = NodePath("TopLeftSpellMenu")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(34, 504)
+position = Vector2(32, 488)
 
 [node name="Enemy" parent="." instance=ExtResource("1_h6ddt")]
-position = Vector2(928, 504)
+position = Vector2(926, 488)
 IsPlayer = false
 
 [node name="LeftSummonCircle" type="Marker2D" parent="."]
-position = Vector2(96, 506)
+position = Vector2(98, 474)
 
 [node name="RightSummonCircle" type="Marker2D" parent="."]
-position = Vector2(864, 506)
+position = Vector2(866, 474)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -178,39 +179,42 @@ texture = ExtResource("5_gjnil")
 [node name="FieldMarkers" type="Node" parent="."]
 
 [node name="0" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(162, 506)
+position = Vector2(162, 498)
 
 [node name="1" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(226, 506)
+position = Vector2(226, 498)
 
 [node name="2" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(290, 506)
+position = Vector2(290, 498)
 
 [node name="3" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(354, 506)
+position = Vector2(354, 498)
 
 [node name="4" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(418, 506)
+position = Vector2(418, 498)
 
 [node name="5" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(546, 506)
+position = Vector2(546, 498)
 
 [node name="6" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(610, 506)
+position = Vector2(610, 498)
 
 [node name="7" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(674, 506)
+position = Vector2(674, 498)
 
 [node name="8" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(738, 506)
+position = Vector2(738, 498)
 
 [node name="9" type="Marker2D" parent="FieldMarkers"]
-position = Vector2(802, 506)
+position = Vector2(802, 498)
 
 [node name="RuneSummoningCircle" parent="." instance=ExtResource("6_nlp1k")]
 position = Vector2(120, 456)
 
 [node name="RuneSummoningCircle2" parent="." instance=ExtResource("6_nlp1k")]
 position = Vector2(840, 456)
+
+[node name="ManaBar" parent="." instance=ExtResource("7_q4pel")]
+position = Vector2(864, 32)
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]

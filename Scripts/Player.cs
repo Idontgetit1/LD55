@@ -10,7 +10,7 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		PlayerSprite = GetNode<Sprite2D>("PlayerSprite");
-		var BaseScale = 2f;
+		var BaseScale = 1f;
 		if (IsPlayer)
 		{
 			PlayerSprite.Texture = GD.Load<Texture2D>("res://Resources/Assets/Summoner/Summoner.png");

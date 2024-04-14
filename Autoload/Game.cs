@@ -27,6 +27,10 @@ public partial class Game : Node
 
 	public bool SummoningSuccessful = false;
 
+
+	// Mana
+	public ManaBar ManaBar;
+
 	// Methods to get the closest Free Field to the Middle Point
 	public int GetNextFreeFieldLeft()
 	{
@@ -107,6 +111,12 @@ public partial class Game : Node
 			}
 		}
 		return false;
+	}
+
+	public void ActivationSuccessful(RuneActivator activator) {
+		SummoningSuccessful = true;
+
+		// test if Mana is sufficient
 	}
 
     public override void _Process(double delta)

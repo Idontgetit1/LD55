@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://3yhigvike6lg"]
+
+[ext_resource type="Script" path="res://Scripts/ManaBar.cs" id="1_hxplx"]
+
+[node name="ManaBar" type="Node2D" node_paths=PackedStringArray("ManaLabel")]
+script = ExtResource("1_hxplx")
+ManaLabel = NodePath("ManaLabel")
+
+[node name="ManaLabel" type="Label" parent="."]
+offset_right = 72.0
+offset_bottom = 23.0

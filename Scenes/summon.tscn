@@ -6,6 +6,7 @@
 size = Vector2(32, 32)
 
 [node name="Summon" type="CharacterBody2D" node_paths=PackedStringArray("SummonSprite")]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_gmtrt")
 SummonSprite = NodePath("SummonTexture")
 
