@@ -131,7 +131,7 @@ public partial class summon : CharacterBody2D
 				continue;
 			}
 			if (summon.FieldIndex == NextFieldIndex || summon.NextFieldIndex == NextFieldIndex) {
-				summon.DamageTaken += AttackPower;
+				summon.DamageTaken += Stats.AtkPower;
 				ShouldMoveNextTick = false;
 				ShouldAttackNextTick = true;
 
@@ -142,8 +142,8 @@ public partial class summon : CharacterBody2D
     }
 
 	public void TakeDamage(int Damage) {
-		Health -= Damage;
-		if (Health <= 0) {
+		Stats.Health -= Damage;
+		if (Stats.Health <= 0) {
 			Die();
 		}
 	}
