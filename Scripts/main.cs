@@ -11,6 +11,11 @@ public partial class main : Node2D
 	private Marker2D RightSummonMarker;
 
 	[Export]
+	public RuneSummoningCircle RuneSummoningCircleLeft;
+	[Export]
+	public RuneSummoningCircle RuneSummoningCircleRight;
+
+	[Export]
 	private Marker2D[] FieldMarkers = new Marker2D[10];
 
 	[Export]
@@ -37,26 +42,40 @@ public partial class main : Node2D
 		SummonMonster(SummonType.Wolf, true);
 		SummonMonster(SummonType.Slime, false);
 
-		// Test
-		Book.CreateRuneActivator(new List<RuneType> {
-			RuneType.Up,
-			RuneType.Down,
-			RuneType.Left,
-			RuneType.Right
-		}, Callable.From(() => GD.Print("Activated No 1")));
+		SummonMonster(SummonType.Placeholder1, true);
+		SummonMonster(SummonType.Slime, false);
+		SummonMonster(SummonType.Slime, false);
 
+		// Set Rune Activators
+		SetSummonActivatorRunes();
+	}
+
+	private void SetSummonActivatorRunes() {
+		// Summon Wolf
 		Book.CreateRuneActivator(new List<RuneType> {
 			RuneType.Up,
 			RuneType.Down,
 			RuneType.Left,
-			RuneType.Right,
-			RuneType.Left,
 			RuneType.Right
-		}, Callable.From(() => GD.Print("Activated No 2")));
+		}, "Wolf", Callable.From(() => {SummonMonster(SummonType.Wolf, true); Game.ActivatedRunes(true);}));
+
+		// Summon Slime
+		Book.CreateRuneActivator(new List<RuneType> {
+			RuneType.Up,
+			RuneType.Right,
+			RuneType.Right,
+			RuneType.Down
+		}, "Slime", Callable.From(() => {SummonMonster(SummonType.Slime, true); Game.ActivatedRunes(true);}));
 	}
 
 	private void SummonMonster(SummonType type, bool IsPlayer)
 	{
+		var canSpawn = IsPlayer ? Game.GetNextFreeFieldLeft() != -1 : Game.GetNextFreeFieldRight() != -1;
+		if (!canSpawn) {
+			GD.Print("No free field to summon");
+			return;
+		}
+
 		var summon = (summon)SummonScene.Instantiate();
 		summon.Type = type;
 		summon.IsPlayer = IsPlayer;
@@ -72,15 +91,54 @@ public partial class main : Node2D
 		if (nextFieldIndex != -1) {
 			summon.FieldIndex = nextFieldIndex;
 			summon.FieldMarker = FieldMarkers[nextFieldIndex];
-			summon.Move(Game.FieldMarkers[nextFieldIndex]);
+			summon.Move(nextFieldIndex);
 		}
 	}
 
 	public void _OnTick() {
 		GD.Print("Tick");
+
+		// If two monsters in middle
+		var monsterLeft = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_LEFT);
+		var monsterRight = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_RIGHT);
+
+		if (monsterLeft != null && monsterRight != null) {
+			monsterLeft.Attack(monsterRight);
+			monsterRight.Attack(monsterLeft);
+		}
 		
 		// Remove Summons
 		Game.RemoveTick();
+
+		// Move Summons
+		MoveSummonsToMiddle();
+	}
+
+	public void MoveSummonsToMiddle() {
+		// Move Summons to next Free Field in Middle
+		// First Left (Count from middle outwards)
+		for (int i = Game.MIDDLE_MARKER_INDEX_LEFT; i >= 0; i--) {
+			var summon = Game.GetSummonAtField(i);
+			if (summon != null) {
+				var index = Game.GetNextFreeFieldLeft();
+				// Check if new index is larger than current index
+				if (index > i) {
+					summon.Move(index);
+				}
+			}
+		}
+
+		// Then Right
+		for (int i = Game.MIDDLE_MARKER_INDEX_RIGHT; i < Game.Fields; i++) {
+			var summon = Game.GetSummonAtField(i);
+			if (summon != null) {
+				var index = Game.GetNextFreeFieldRight();
+				// Check if new index is smaller than current index
+				if (index < i) {
+					summon.Move(index);
+				}
+			}
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

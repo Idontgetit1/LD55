@@ -33,4 +33,4 @@ position = Vector2(-16, 16)
 texture = ExtResource("3_e3qgh")
 
 [node name="RuneStarter" type="Marker2D" parent="."]
-position = Vector2(-24.6002, -20.9557)
+position = Vector2(0, -20.7279)

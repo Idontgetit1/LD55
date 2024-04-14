@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=7 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
 [ext_resource type="AudioStream" uid="uid://ldjmxeav7s1o" path="res://Resources/Sounds/typewriter.wav" id="3_tl36i"]
 [ext_resource type="PackedScene" uid="uid://dp4evyon2kiay" path="res://Scenes/MagicBook.tscn" id="4_a5a6v"]
 [ext_resource type="Texture2D" uid="uid://dbe1rojys46qd" path="res://Resources/Assets/FloorTop.png" id="5_gjnil"]
+[ext_resource type="PackedScene" uid="uid://blhu0jsl4a2vg" path="res://Scenes/rune_summoning_circle.tscn" id="6_nlp1k"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "FieldMarkers", "ClickSound", "Book")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "Book")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
 RightSummonMarker = NodePath("RightSummonCircle")
+RuneSummoningCircleLeft = NodePath("RuneSummoningCircle")
+RuneSummoningCircleRight = NodePath("RuneSummoningCircle2")
 FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath("FieldMarkers/2"), NodePath("FieldMarkers/3"), NodePath("FieldMarkers/4"), NodePath("FieldMarkers/5"), NodePath("FieldMarkers/6"), NodePath("FieldMarkers/7"), NodePath("FieldMarkers/8"), NodePath("FieldMarkers/9")]
 ClickSound = NodePath("ClickSound")
 Book = NodePath("TopLeftSpellMenu")
@@ -202,5 +205,11 @@ position = Vector2(738, 506)
 
 [node name="9" type="Marker2D" parent="FieldMarkers"]
 position = Vector2(802, 506)
+
+[node name="RuneSummoningCircle" parent="." instance=ExtResource("6_nlp1k")]
+position = Vector2(120, 456)
+
+[node name="RuneSummoningCircle2" parent="." instance=ExtResource("6_nlp1k")]
+position = Vector2(840, 456)
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]

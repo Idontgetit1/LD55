@@ -41,7 +41,7 @@ public partial class summon : CharacterBody2D
 	{
 	}
 
-	public void AttackAnimation() {
+	public void Attack(summon target) {
 		// Move forward fast and back to original position
 		var Offset = new Vector2(50, 0);
 		var BackOffset = new Vector2(-10, 0); // Kleine Bewegung nach hinten
@@ -69,6 +69,7 @@ public partial class summon : CharacterBody2D
 		tween.TweenProperty(SummonSprite, "position", ForwardPosition, duration)
 			.SetEase(Tween.EaseType.Out);
 
+		target.TakeDamage(Stats.AtkPower);
 		tween.TweenInterval(delay);
 
 		// Und zurück zur Startposition
@@ -76,11 +77,16 @@ public partial class summon : CharacterBody2D
 			.SetEase(Tween.EaseType.In);
 
 		tween.Play();
+
 	}
 
 
-	public void Move(Marker2D PositionMarker) {
-		var Position = PositionMarker.GlobalPosition;
+	public void Move(int index) {
+
+		GD.Print("[" + this.Name + "] Moving from " + FieldIndex + " to " + index);
+		FieldMarker = Game.FieldMarkers[index];
+		FieldIndex = index;
+		var Position = FieldMarker.GlobalPosition;
 		var startPosition = GlobalPosition;
 		var endPosition = Position;
 		var bounceHeight = 10; // Höhe des Bounces
@@ -108,6 +114,13 @@ public partial class summon : CharacterBody2D
 		tween.Play();
 	}
 
+	public void TakeDamage(int damage) {
+		Stats.Health -= damage;
+		if (Stats.Health <= 0) {
+			Die();
+		}
+	}
+
 	public void Die() {
 
 		var duration = 0.1f;
@@ -123,7 +136,7 @@ public partial class summon : CharacterBody2D
 
 		tween.Play();
 
-		Game.MarkForDeletion(this);
+		Game.SummonDied(this);
 	}
 
 	public void Delete() {

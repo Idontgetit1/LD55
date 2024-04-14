@@ -11,7 +11,6 @@ public partial class Game : Node
 	// Summons
 	public List<summon> Summons = new List<summon>();
 	public List <summon> SummonsToRemove = new List<summon>();
-	public Dictionary<int, summon> SummonsByFieldIndex = new Dictionary<int, summon>();
 
 	// Game
 	public int Tick = 0;
@@ -23,37 +22,56 @@ public partial class Game : Node
 
 	public main Main;
 
-	private const int MiddleMarkerIndexLeft = 4;
-	private const int MiddleMarkerIndexRight = 5;
+	public const int MIDDLE_MARKER_INDEX_LEFT = 4;
+	public const int MIDDLE_MARKER_INDEX_RIGHT = 5;
 
 	// Methods to get the closest Free Field to the Middle Point
 	public int GetNextFreeFieldLeft()
 	{
-		for (int i = MiddleMarkerIndexLeft; i >= 0; i--) {
-			if (!SummonsByFieldIndex.ContainsKey(i)) {
+		// Count from middle outwards
+		for (int i = MIDDLE_MARKER_INDEX_LEFT; i >= 0; i--) {
+			if (GetSummonAtField(i) == null) {
 				return i;
 			}
 		}
+
 		return -1;
 	}
 
 	public int GetNextFreeFieldRight()
 	{
-		for (int i = MiddleMarkerIndexRight; i < Fields; i++) {
-			if (!SummonsByFieldIndex.ContainsKey(i)) {
+		// Count from middle outwards
+		for (int i = MIDDLE_MARKER_INDEX_RIGHT; i < Fields; i++) {
+			if (GetSummonAtField(i) == null) {
 				return i;
 			}
 		}
+
 		return -1;
+	}
+
+	public summon GetSummonAtField(int fieldIndex)
+	{
+		foreach (var summon in Summons) {
+			if (summon.FieldIndex == fieldIndex) {
+				return summon;
+			}
+		}
+		return null;
+	}
+
+	public void ActivatedRunes(bool IsPlayer) {
+		var runeSummoningCircle = IsPlayer ? Main.RuneSummoningCircleLeft : Main.RuneSummoningCircleRight;
+
+		runeSummoningCircle.SummonAnimation();
 	}
 	
 	public void AddSummon(summon Summon)
 	{
 		Summons.Add(Summon);
-		SummonsByFieldIndex.Add(Summon.FieldIndex, Summon);
 	}
 
-	public void MarkForDeletion(summon Summon)
+	public void SummonDied(summon Summon)
 	{
 		SummonsToRemove.Add(Summon);
 	}
@@ -88,6 +106,7 @@ public partial class Game : Node
 		}
 
 		if (runePressed != RuneType.None) {
+			Main.RuneSummoningCircleLeft.AddRune(runePressed);
 			foreach (var activator in RuneActivators) {
 				activator.onRunePressed(runePressed);
 			}
