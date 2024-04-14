@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dp4evyon2kiay" path="res://Scenes/MagicBook.tscn" id="4_a5a6v"]
 [ext_resource type="Texture2D" uid="uid://dbe1rojys46qd" path="res://Resources/Assets/FloorTop.png" id="5_gjnil"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "ClickSound", "Book")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "FieldMarkers", "ClickSound", "Book")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
 RightSummonMarker = NodePath("RightSummonCircle")
+FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath("FieldMarkers/2"), NodePath("FieldMarkers/3"), NodePath("FieldMarkers/4"), NodePath("FieldMarkers/5"), NodePath("FieldMarkers/6"), NodePath("FieldMarkers/7"), NodePath("FieldMarkers/8"), NodePath("FieldMarkers/9")]
 ClickSound = NodePath("ClickSound")
 Book = NodePath("TopLeftSpellMenu")
 
@@ -21,9 +22,11 @@ position = Vector2(29, 508)
 position = Vector2(943, 496)
 
 [node name="LeftSummonCircle" type="Marker2D" parent="."]
+visible = false
 position = Vector2(142, 505)
 
 [node name="RightSummonCircle" type="Marker2D" parent="."]
+visible = false
 position = Vector2(878, 505)
 
 [node name="TickTimer" type="Timer" parent="."]
@@ -169,5 +172,37 @@ texture = ExtResource("5_gjnil")
 [node name="FloorTop33" type="Sprite2D" parent="Floor"]
 position = Vector2(752, 536)
 texture = ExtResource("5_gjnil")
+
+[node name="FieldMarkers" type="Node" parent="."]
+
+[node name="0" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(162, 506)
+
+[node name="1" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(226, 506)
+
+[node name="2" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(290, 506)
+
+[node name="3" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(354, 506)
+
+[node name="4" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(418, 506)
+
+[node name="5" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(546, 506)
+
+[node name="6" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(610, 506)
+
+[node name="7" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(674, 506)
+
+[node name="8" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(738, 506)
+
+[node name="9" type="Marker2D" parent="FieldMarkers"]
+position = Vector2(802, 506)
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]

@@ -11,6 +11,9 @@ public partial class main : Node2D
 	private Marker2D RightSummonMarker;
 
 	[Export]
+	private Marker2D[] FieldMarkers = new Marker2D[10];
+
+	[Export]
 	public AudioStreamPlayer ClickSound;
 
 	[Export]
