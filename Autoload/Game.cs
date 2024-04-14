@@ -152,7 +152,7 @@ public partial class Game : Node
 				runePressed = RuneType.Right;
 			}
 
-			var wasRightRune = ManaBar.onRunePressed(runePressed);
+			ManaBar.onRunePressed(runePressed);
 			
 			return;
 		}

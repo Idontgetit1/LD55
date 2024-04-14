@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://y8ryv4t3negu"]
+
+[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="1_facvw"]
+
+[resource]
+font = ExtResource("1_facvw")
+font_size = 32

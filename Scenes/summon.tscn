@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://caflfl0tgoyh2"]
+[gd_scene load_steps=4 format=3 uid="uid://caflfl0tgoyh2"]
 
 [ext_resource type="Script" path="res://Scripts/summon.cs" id="1_gmtrt"]
+[ext_resource type="LabelSettings" uid="uid://y8ryv4t3negu" path="res://Resources/Assets/LabelSettings/AutoPilot.tres" id="2_g1h48"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i24p"]
 size = Vector2(32, 32)
@@ -14,7 +15,9 @@ SummonSprite = NodePath("SummonTexture")
 texture = SubResource("PlaceholderTexture2D_7i24p")
 
 [node name="NameTag" type="Label" parent="."]
-offset_left = -19.0
-offset_top = -56.0
-offset_right = 21.0
-offset_bottom = -33.0
+offset_left = -19.3333
+offset_top = -44.6667
+offset_right = 20.6667
+offset_bottom = -21.6667
+label_settings = ExtResource("2_g1h48")
+horizontal_alignment = 3

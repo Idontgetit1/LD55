@@ -1,11 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://3yhigvike6lg"]
+[gd_scene load_steps=3 format=3 uid="uid://3yhigvike6lg"]
 
 [ext_resource type="Script" path="res://Scripts/ManaBar.cs" id="1_hxplx"]
+[ext_resource type="LabelSettings" uid="uid://vmcci3ap5qp3" path="res://Resources/Assets/LabelSettings/Alagard.tres" id="2_ee318"]
 
-[node name="ManaBar" type="Node2D" node_paths=PackedStringArray("ManaLabel")]
+[node name="ManaBar" type="Node2D" node_paths=PackedStringArray("ManaLabel", "MinigameMarker")]
 script = ExtResource("1_hxplx")
 ManaLabel = NodePath("ManaLabel")
+MinigameMarker = NodePath("RuneMinigameMarker")
 
 [node name="ManaLabel" type="Label" parent="."]
 offset_right = 72.0
 offset_bottom = 23.0
+label_settings = ExtResource("2_ee318")
+
+[node name="RuneMinigameMarker" type="Marker2D" parent="."]
+position = Vector2(-96, 32)
