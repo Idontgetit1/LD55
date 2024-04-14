@@ -22,9 +22,11 @@ public partial class RuneActivator : Node2D
 
 	private List<RuneType> runes = new List<RuneType>();
 	private List<Sprite2D> runeSprites = new List<Sprite2D>();
-	private int lastPressedRune = -1;
+	public int lastPressedRune = -1;
 
 	private Callable onActivationCallback;
+
+	private Game Game;
 
 	public void Init(List<RuneType> runeTypes, Callable onActivationCallback) {
 		var position = new Vector2(0, 0);
@@ -43,11 +45,18 @@ public partial class RuneActivator : Node2D
 	}
 
 	public void onRunePressed(RuneType runeType) {
+		if (Game.WasAnotherRuneActivatorActivatedPreviously(this)) {
+			lastPressedRune = -1;
+			foreach (var rune in runeSprites) {
+				makeRuneNormal(runeSprites.IndexOf(rune));
+			}
+		}
 		if (runes[lastPressedRune + 1] == runeType) {
 			lastPressedRune++;
 			makeRuneGlow(lastPressedRune);
 			if (lastPressedRune == runes.Count - 1) {
 				onActivationCallback.Call();
+				Game.SummoningSuccessful = true;
 				lastPressedRune = -1;
 				foreach (var rune in runeSprites) {
 					makeRuneNormal(runeSprites.IndexOf(rune));
@@ -71,6 +80,7 @@ public partial class RuneActivator : Node2D
 
 	public override void _Ready()
 	{
+		Game = GetNode<Game>("/root/Game");
 	}
 
 	public override void _Process(double delta)

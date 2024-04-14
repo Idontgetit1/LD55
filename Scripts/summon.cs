@@ -3,7 +3,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 
 public enum SummonType {
-	Wolf,
+	FlameWolf,
 	Slime,
 	Spider,
 	Whatever,
@@ -35,6 +35,10 @@ public partial class summon : CharacterBody2D
 		// Set stats
 		Stats = TypeStats.GetStats(Type);
 
+		// Set Texture if present
+		if (Stats.TexturePath != null) {
+			SummonSprite.Texture = GD.Load<Texture2D>(Stats.TexturePath);
+		}
 	}
 
 	public override void _Process(double delta)
@@ -69,8 +73,8 @@ public partial class summon : CharacterBody2D
 		tween.TweenProperty(SummonSprite, "position", ForwardPosition, duration)
 			.SetEase(Tween.EaseType.Out);
 
-		target.TakeDamage(Stats.AtkPower);
 		tween.TweenInterval(delay);
+		target.TakeDamage(Stats.AtkPower);
 
 		// Und zurück zur Startposition
 		tween.TweenProperty(SummonSprite, "position", StartPosition, duration)

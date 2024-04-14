@@ -2,13 +2,14 @@ public static partial class TypeStats
 {
     public static Stats GetStats(SummonType type) {
         switch (type) {
-            case SummonType.Wolf:
+            case SummonType.FlameWolf:
                 return new Stats {
                     Health = 3,
                     AtkPower = 1,
                     AtkSpeed = 1,
                     MoveSpeed = 1,
-                    AtkArea = 1
+                    AtkArea = 1,
+                    TexturePath = "res://Resources/Assets/Summons/FlameWolf.png"
                 };
             case SummonType.Slime:
                 return new Stats {
@@ -68,5 +69,5 @@ public partial class Stats {
     public int AtkSpeed;
     public int MoveSpeed;
     public int AtkArea;
-
+    public string TexturePath = null;
 }

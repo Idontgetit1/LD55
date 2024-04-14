@@ -25,6 +25,8 @@ public partial class Game : Node
 	public const int MIDDLE_MARKER_INDEX_LEFT = 4;
 	public const int MIDDLE_MARKER_INDEX_RIGHT = 5;
 
+	public bool SummoningSuccessful = false;
+
 	// Methods to get the closest Free Field to the Middle Point
 	public int GetNextFreeFieldLeft()
 	{
@@ -85,6 +87,28 @@ public partial class Game : Node
 		SummonsToRemove.Clear();
 	}
 
+	public bool WasAnotherRuneActivatorActivatedPreviously(RuneActivator currentRuneActivator) {
+		foreach (var activator in RuneActivators) {
+			if (activator == currentRuneActivator) {
+				continue;
+			}
+			if (activator.lastPressedRune <= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public bool IsRuneActivatorInAction() {
+		foreach (var activator in RuneActivators) {
+			if (activator.lastPressedRune != -1) {
+				GD.Print("Activator in Action");
+				return true;
+			}
+		}
+		return false;
+	}
+
     public override void _Process(double delta)
     {
 		RuneType runePressed = RuneType.None;
@@ -110,6 +134,13 @@ public partial class Game : Node
 			foreach (var activator in RuneActivators) {
 				activator.onRunePressed(runePressed);
 			}
+			// If no activator is active, summoning failed
+			if (!IsRuneActivatorInAction() && !SummoningSuccessful) {
+				Main.RuneSummoningCircleLeft.ActivationFailedAnimation();
+			}
+
+			SummoningSuccessful = false;
 		}
+
     }
 }

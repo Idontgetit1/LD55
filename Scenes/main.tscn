@@ -21,8 +21,9 @@ Book = NodePath("TopLeftSpellMenu")
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(34, 504)
 
-[node name="Player2" parent="." instance=ExtResource("1_h6ddt")]
+[node name="Enemy" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(928, 504)
+IsPlayer = false
 
 [node name="LeftSummonCircle" type="Marker2D" parent="."]
 position = Vector2(96, 506)

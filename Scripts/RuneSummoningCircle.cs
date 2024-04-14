@@ -85,7 +85,7 @@ public partial class RuneSummoningCircle : Node2D
 		foreach (var rune in RuneSprites)
 		{
 			var VectorToCenter = (lokalCenterPosition - rune.Position).Normalized();
-			var targetPosition = rune.Position + VectorToCenter * outwardsRadius;
+			var targetPosition = rune.Position + VectorToCenter * -outwardsRadius;
 
 			var tween = GetTree().CreateTween();
 			tween.TweenProperty(rune, "position", targetPosition, duration)
