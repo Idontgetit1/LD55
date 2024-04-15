@@ -84,8 +84,10 @@ public partial class Backboard : Sprite2D
 					hoveredPage.ZIndex = summonPages.Count;
 				}
 			} else {
-				Dragging = false;
-				hoveredPage.ShowInfo();
+				if (hoveredPage != null) {
+					Dragging = false;
+					hoveredPage.ShowInfo();
+				}
 				foreach (SummonPage page in summonPages)
 				{
 					page.Dragging = false;

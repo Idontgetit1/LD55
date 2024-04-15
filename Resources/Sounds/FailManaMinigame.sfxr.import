@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://fq8un2e1isoa"
+path="res://.godot/imported/FailManaMinigame.sfxr-683efd30cb5729630c5e3a53cae16fa7.sample"
+
+[deps]
+
+source_file="res://Resources/Sounds/FailManaMinigame.sfxr"
+dest_files=["res://.godot/imported/FailManaMinigame.sfxr-683efd30cb5729630c5e3a53cae16fa7.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

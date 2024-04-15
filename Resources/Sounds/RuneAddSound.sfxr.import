@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://dslmyxmg8xeqx"
+path="res://.godot/imported/RuneAddSound.sfxr-9a5a97b0f21e0d7794324aab35920544.sample"
+
+[deps]
+
+source_file="res://Resources/Sounds/RuneAddSound.sfxr"
+dest_files=["res://.godot/imported/RuneAddSound.sfxr-9a5a97b0f21e0d7794324aab35920544.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

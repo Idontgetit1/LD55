@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://lwleo3txvmfr"
+path="res://.godot/imported/SpellFail.sfxr-becc8ca177f03504976a5b5abeff8e8a.sample"
+
+[deps]
+
+source_file="res://Resources/Sounds/SpellFail.sfxr"
+dest_files=["res://.godot/imported/SpellFail.sfxr-becc8ca177f03504976a5b5abeff8e8a.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

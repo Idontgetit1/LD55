@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b34w1o6ijt3uv"]
+[gd_scene load_steps=12 format=3 uid="uid://b34w1o6ijt3uv"]
 
 [ext_resource type="Script" path="res://Scripts/CreditsMenu.cs" id="1_lhv60"]
 [ext_resource type="Texture2D" uid="uid://befc662f27a4e" path="res://Resources/Assets/Textures/CustomBackboard.png" id="2_qrj83"]
@@ -13,6 +13,11 @@
 [sub_resource type="LabelSettings" id="LabelSettings_swhlu"]
 font = ExtResource("5_a23rt")
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ivgb"]
+line_spacing = -3.0
+font = ExtResource("5_a23rt")
+font_color = Color(0, 0, 0, 1)
 
 [node name="CreditsMenu" type="Node2D"]
 texture_filter = 1
@@ -61,6 +66,16 @@ offset_bottom = -23.0
 text = "Idontgetit"
 label_settings = ExtResource("7_hf546")
 
+[node name="Label2" type="Label" parent="ZettelRight"]
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 16.0
+offset_bottom = 7.0
+text = "Code
+Sfx
+Art"
+label_settings = SubResource("LabelSettings_8ivgb")
+
 [node name="ZettelUp" type="Sprite2D" parent="."]
 position = Vector2(416, 280)
 scale = Vector2(4, 4)
@@ -73,6 +88,15 @@ offset_right = 40.0
 offset_bottom = -23.0
 text = "Sandauer"
 label_settings = ExtResource("7_hf546")
+
+[node name="Label3" type="Label" parent="ZettelUp"]
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 23.0
+text = "Art
+Music"
+label_settings = SubResource("LabelSettings_8ivgb")
 
 [node name="ZetteLeft" type="Sprite2D" parent="."]
 position = Vector2(672, 188)
@@ -87,5 +111,13 @@ offset_right = 53.0
 offset_bottom = -22.0
 text = "Spacephoenix"
 label_settings = ExtResource("7_hf546")
+
+[node name="Label4" type="Label" parent="ZetteLeft"]
+offset_left = -22.0
+offset_top = -15.0
+offset_right = 21.0
+offset_bottom = 24.0
+text = "Art"
+label_settings = SubResource("LabelSettings_8ivgb")
 
 [connection signal="pressed" from="Control/CloseSettingsButton" to="." method="OnBackButtonPressed"]

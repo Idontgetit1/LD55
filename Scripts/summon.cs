@@ -35,16 +35,41 @@ public partial class summon : CharacterBody2D
 
 	private float CurrentBobbing = 0f;
 
+	private Sprite2D HealthPanel;
+	private Sprite2D AtkPanel;
+
+	private Label HealthLabel;
+	private Label AtkLabel;
+
 	public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
 
 		GetNode<Label>("NameTag").Text = Type.ToString();
 
+		// Set Health and Atk Panel
+		HealthPanel = GetNode<Sprite2D>("HealthPanel");
+		AtkPanel = GetNode<Sprite2D>("AtkPanel");
+
+		HealthLabel = GetNode<Label>("HealthPanel/Label");
+		AtkLabel = GetNode<Label>("AtkPanel/Label");
+
 		// Set stats
 		Stats = TypeStats.GetStats(Type);
 
+		HealthLabel.Text = Stats.Health.ToString();
+		AtkLabel.Text = Stats.AtkPower.ToString();
+
 		Scale *= Stats.BaseScale;
+
+		// Scale Health and Atk Panel
+
+		if (Type == SummonType.Slimeloon) {
+			HealthPanel.Scale /= Stats.BaseScale;
+			HealthPanel.Position += new Vector2(-16, 32);
+			AtkPanel.Scale /= Stats.BaseScale;
+			AtkPanel.Position += new Vector2(16, 32);
+		}
 
 		// Set Texture if present
 		if (Stats.TexturePath != null) {
@@ -155,6 +180,8 @@ public partial class summon : CharacterBody2D
 		atkUp.Position = new Vector2(-15, -20);
 
 		AddChild(atkUp);
+
+		AtkLabel.Text = Stats.AtkPower.ToString();
 	}
 
 	private void GainHealth(int amount) {
@@ -165,6 +192,8 @@ public partial class summon : CharacterBody2D
 		hpUp.Position = new Vector2(15, -20);
 
 		AddChild(hpUp);
+
+		HealthLabel.Text = Stats.Health.ToString();
 	}
 
 	private void AtkAnimation(Callable callback) {
@@ -370,6 +399,8 @@ public partial class summon : CharacterBody2D
 
 		Game.Main.HitSound.Play();
 		Stats.Health -= damage;
+
+		HealthLabel.Text = Stats.Health.ToString();
 		if (Stats.Health <= 0) {
 			Die();
 		} else {

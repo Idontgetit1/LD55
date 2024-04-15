@@ -154,9 +154,21 @@ public partial class main : Node2D
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void onMusicButtonToggled(bool pressed)
 	{
-		
+		if (!pressed) {
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), false);
+		} else {
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), true);
+		}
+	}
+
+	public void onSfxButtonToggled(bool pressed)
+	{
+		if (!pressed) {
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("Sfx"), false);
+		} else {
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("Sfx"), true);
+		}
 	}
 }

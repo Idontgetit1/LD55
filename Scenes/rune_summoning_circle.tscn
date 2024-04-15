@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://blhu0jsl4a2vg"]
+[gd_scene load_steps=5 format=3 uid="uid://blhu0jsl4a2vg"]
 
 [ext_resource type="Script" path="res://Scripts/RuneSummoningCircle.cs" id="1_0heqr"]
+[ext_resource type="AudioStream" uid="uid://lwleo3txvmfr" path="res://Resources/Sounds/SpellFail.sfxr" id="2_vdrgx"]
+[ext_resource type="AudioStream" uid="uid://kih6lr4m381t" path="res://Resources/Sounds/Summon.sfxr" id="3_4iyti"]
+[ext_resource type="AudioStream" uid="uid://dslmyxmg8xeqx" path="res://Resources/Sounds/RuneAddSound.sfxr" id="3_4kk0s"]
 
-[node name="RuneSummoningCircle" type="Node2D"]
+[node name="RuneSummoningCircle" type="Node2D" node_paths=PackedStringArray("SpellFailSound", "SpellSuccessSound", "RuneAddSound")]
 script = ExtResource("1_0heqr")
+SpellFailSound = NodePath("SpellFailSound")
+SpellSuccessSound = NodePath("SpellSuccessSound")
+RuneAddSound = NodePath("RuneAddSound")
+
+[node name="SpellFailSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vdrgx")
+volume_db = -10.0
+bus = &"Sfx"
+
+[node name="RuneAddSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4kk0s")
+volume_db = -10.0
+bus = &"Sfx"
+
+[node name="SpellSuccessSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4iyti")
+volume_db = -10.0

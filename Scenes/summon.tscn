@@ -1,13 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://caflfl0tgoyh2"]
+[gd_scene load_steps=12 format=3 uid="uid://caflfl0tgoyh2"]
 
 [ext_resource type="Script" path="res://Scripts/summon.cs" id="1_gmtrt"]
 [ext_resource type="LabelSettings" uid="uid://y8ryv4t3negu" path="res://Resources/Assets/LabelSettings/AutoPilot.tres" id="2_g1h48"]
 [ext_resource type="PackedScene" uid="uid://7xfuwm686bar" path="res://Scenes/FireParticles.tscn" id="3_xilsd"]
 [ext_resource type="Texture2D" uid="uid://dfypmvw8aaio7" path="res://Resources/Assets/Textures/IceBlock.png" id="4_ow6op"]
 [ext_resource type="PackedScene" uid="uid://bx462bjahcigu" path="res://Resources/fire_animation.tscn" id="5_ro54p"]
+[ext_resource type="Texture2D" uid="uid://dwdtsxe5a56r7" path="res://Resources/Assets/Textures/StatPanel.png" id="6_b6w2c"]
+[ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="7_q6knw"]
+[ext_resource type="Texture2D" uid="uid://c1vu6wr8oi3uu" path="res://Resources/Assets/Textures/Attack.png" id="8_7m52k"]
+[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="8_xc4js"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i24p"]
 size = Vector2(32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gags5"]
+line_spacing = 5.0
+font = ExtResource("8_xc4js")
+font_size = 20
 
 [node name="Summon" type="CharacterBody2D" node_paths=PackedStringArray("SummonSprite")]
 script = ExtResource("1_gmtrt")
@@ -37,3 +46,46 @@ texture = ExtResource("4_ow6op")
 
 [node name="FireAnimation" parent="." instance=ExtResource("5_ro54p")]
 visible = false
+
+[node name="HealthPanel" type="Sprite2D" parent="."]
+z_index = 950
+z_as_relative = false
+texture_filter = 1
+position = Vector2(-18, 36)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_b6w2c")
+
+[node name="Health" type="Sprite2D" parent="HealthPanel"]
+position = Vector2(-6, 0.666667)
+scale = Vector2(0.538565, 0.538565)
+texture = ExtResource("7_q6knw")
+
+[node name="Label" type="Label" parent="HealthPanel"]
+offset_left = -5.33333
+offset_top = -6.0
+offset_right = 34.6667
+offset_bottom = 17.0
+text = "10"
+label_settings = SubResource("LabelSettings_gags5")
+metadata/_edit_use_anchors_ = true
+
+[node name="AtkPanel" type="Sprite2D" parent="."]
+z_index = 950
+z_as_relative = false
+texture_filter = 1
+position = Vector2(18, 36)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_b6w2c")
+
+[node name="Attack" type="Sprite2D" parent="AtkPanel"]
+position = Vector2(-5.33333, -0.666666)
+scale = Vector2(0.504065, 0.504065)
+texture = ExtResource("8_7m52k")
+
+[node name="Label" type="Label" parent="AtkPanel"]
+offset_left = -4.66667
+offset_top = -6.0
+offset_right = 35.3333
+offset_bottom = 17.0
+text = "10"
+label_settings = SubResource("LabelSettings_gags5")

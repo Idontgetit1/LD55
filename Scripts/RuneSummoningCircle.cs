@@ -14,6 +14,11 @@ public partial class RuneSummoningCircle : Node2D
 
 	private string RunePath = "res://Resources/Assets/Runes/";
 
+	[Export] private AudioStreamPlayer SpellFailSound;
+	[Export] private AudioStreamPlayer SpellSuccessSound;
+	[Export] private AudioStreamPlayer RuneAddSound;
+	
+
 	private Dictionary<RuneType, string> RunePaths = new Dictionary<RuneType, string>{
 		{ RuneType.Up, "UpRune.png" },
 		{ RuneType.Down, "DownRune.png" },
@@ -28,6 +33,8 @@ public partial class RuneSummoningCircle : Node2D
 
 	public void AddRune(RuneType runeType)
 	{
+		RuneAddSound.Play();
+
 		// Add Rune Sprite to circle and update all previous runes
 		var rune = new Sprite2D();
 		rune.Scale *= 1f;
@@ -60,6 +67,8 @@ public partial class RuneSummoningCircle : Node2D
 	}
 
 	public async void SummonAnimation() {
+		SpellSuccessSound.Play();
+
 		// Move sprites to the center and then remove them
 		var lokalCenterPosition = new Vector2(0, 0);
 		var duration = 0.5f;
@@ -77,6 +86,7 @@ public partial class RuneSummoningCircle : Node2D
 	}
 
 	public async void ActivationFailedAnimation() {
+		SpellFailSound.Play();
 		// Move sprited outwards and make them red and remove them
 		var lokalCenterPosition = new Vector2(0, 0);
 		var duration = 0.5f;
