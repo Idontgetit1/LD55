@@ -396,7 +396,10 @@ position = Vector2(872, 416)
 Text = "Thats it for the Tutorial. To start a Game press Escape and go to the Main Menu."
 
 [node name="GameEndMenu" parent="." instance=ExtResource("22_gbcr3")]
+process_mode = 3
 visible = false
+z_index = 1000
+z_as_relative = false
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
 [connection signal="timeout" from="AtkTimer" to="." method="_OnAtk"]

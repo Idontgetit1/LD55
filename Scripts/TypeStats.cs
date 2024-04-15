@@ -74,7 +74,7 @@ public static partial class TypeStats
                     Name = "Grass Boi",
                     Description = "A grass boi. It's grassy.\nSummons in front gain +3 ATK.",
                     Code = new RuneCode("adwdsdssa"),
-                    Mirrored = true
+                    Mirrored = false
                 };
             case SummonType.IceMouse:
                 return new Stats {

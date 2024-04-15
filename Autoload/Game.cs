@@ -109,16 +109,16 @@ public partial class Game : Node
 		GD.Print("Game Over");
 		Main.GameEndMenu.StatusLabel.Text = "You Lost";
 		Main.GameEndMenu.EnemiesKilledLabel.Text = EnemiesDefeated.ToString();
-		Main.GameEndMenu.Show();
-		GetTree().Paused = true;
+		Main.GameEndMenu.ShowMenu();
+		// GetTree().Paused = true;
 	}
 
 	public void Win() {
 		GD.Print("You Win");
 		Main.GameEndMenu.StatusLabel.Text = "You Win";
 		Main.GameEndMenu.EnemiesKilledLabel.Text = EnemiesDefeated.ToString();
-		Main.GameEndMenu.Show();
-		GetTree().Paused = true;
+		Main.GameEndMenu.ShowMenu();
+		// GetTree().Paused = true;
 	}
 
 	// Methods to get the closest Free Field to the Middle Point
@@ -237,6 +237,8 @@ public partial class Game : Node
 
 			SummoningSuccessful = false;
 			GD.Print("Not enough Mana");
+
+			Player.TextUp("Not enough Mana");
 			return false;
 		}
 	}

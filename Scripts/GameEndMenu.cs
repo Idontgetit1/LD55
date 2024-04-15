@@ -11,6 +11,10 @@ public partial class GameEndMenu : Node2D
 		var tween = GetTree().CreateTween();
 		tween.TweenProperty(this, "position", new Vector2(0, 0), 0.5f)
 			.SetEase(Tween.EaseType.InOut);
+		
+		tween.TweenCallback(Callable.From(() => {
+			GetTree().Paused = true;
+		}));
 		tween.Play();
 	}
 
@@ -40,6 +44,7 @@ public partial class GameEndMenu : Node2D
 
 	public override void _Ready()
 	{
+		ProcessMode = ProcessModeEnum.Always;
 		Game = GetNode<Game>("/root/Game");
 		Visible = false;
 		HideMenu();

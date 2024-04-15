@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://Scripts/ComboBox.cs" id="1_akq71"]
 
 [node name="ComboBox" type="Node2D"]
+z_index = 50
+z_as_relative = false
 rotation = -0.514872
 script = ExtResource("1_akq71")
 

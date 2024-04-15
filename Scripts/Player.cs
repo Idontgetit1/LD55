@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
 
 	private PackedScene ManaUpScene = GD.Load<PackedScene>("res://Scenes/ManaUp.tscn");
 	private PackedScene HPUpScene = GD.Load<PackedScene>("res://Scenes/HPUp.tscn");
+	private PackedScene TextUpScene = GD.Load<PackedScene>("res://Scenes/TextUp.tscn");
 
 	Game Game;
 
@@ -152,6 +153,13 @@ public partial class Player : CharacterBody2D
 			}
 		}
     }
+
+	public void TextUp(string text) {
+		var textUp = (ManaUp)TextUpScene.Instantiate();
+		textUp.Init(text);
+		textUp.Position = IsPlayer ? new Vector2(0, -20) : new Vector2(0, -20);
+		AddChild(textUp);
+	}
 
 	public void HealthUp(int Amount) {
 		var hpUp = (ManaUp)HPUpScene.Instantiate();

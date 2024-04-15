@@ -32,6 +32,7 @@ public partial class summon : CharacterBody2D
 
 	private PackedScene HPUpScene = GD.Load<PackedScene>("res://Scenes/HPUp.tscn");
 	private PackedScene AtkUpScene = GD.Load<PackedScene>("res://Scenes/AtkUp.tscn");
+	private PackedScene TextUpScene = GD.Load<PackedScene>("res://Scenes/TextUp.tscn");
 
 	private float CurrentBobbing = 0f;
 
@@ -79,7 +80,14 @@ public partial class summon : CharacterBody2D
 		if (IsPlayer) {
 			SummonSprite.FlipH = true && Stats.Mirrored;
 		} else {
-			SummonSprite.FlipH = false && Stats.Mirrored;
+			SummonSprite.FlipH = !(Stats.Mirrored || true);
+		}
+
+		if (!IsPlayer) {
+			if (Type == SummonType.FlameWolf) {
+				// FlameWolf is always mirrored
+				SummonSprite.FlipH = true;
+			}
 		}
 
 		SummonSprite.Offset = new Vector2(0, Stats.HeightOffset);
@@ -401,6 +409,11 @@ public partial class summon : CharacterBody2D
 		if (Type == SummonType.Slimeloon) {
 			// 15% chance to dodge
 			if (new Random().Next(0, 100) < 15) {
+				// Textup
+				var textUp = (ManaUp)TextUpScene.Instantiate();
+				textUp.Init("Dodge");
+				textUp.Position = IsPlayer ? new Vector2(0, -20) : new Vector2(0, -20);
+				AddChild(textUp);
 				return;
 			}
 		}

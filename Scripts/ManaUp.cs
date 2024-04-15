@@ -16,6 +16,12 @@ public partial class ManaUp : Node2D
 		label.Scale = new Vector2(scale, scale);
 	}
 
+	public void Init(string text, float scale = 1.0f) {
+		label = GetNode<Label>("Label");
+		label.Text = text;
+		label.Scale = new Vector2(scale, scale);
+	}
+	
     public override void _Ready()
     {
 		var tween = GetTree().CreateTween();
