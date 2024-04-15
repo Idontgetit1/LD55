@@ -79,6 +79,8 @@ public partial class summon : CharacterBody2D
 			if (BurnCounter >= BurnDuration && BurnDuration != -1) {
 				Burning = false;
 				BurnCounter = 0;
+				GetNode<Node2D>("FireAnimation").Visible = false;
+				// GetNode<CpuParticles2D>("FireParticles").Emitting = false;
 			}
 		}
 
@@ -121,6 +123,9 @@ public partial class summon : CharacterBody2D
 
 		if (FrozenFor > 0) {
 			FrozenFor--;
+			if (FrozenFor == 0) {
+				GetNode<Sprite2D>("IceBlock").Visible = false;
+			}
 		}
 
 	}
@@ -236,7 +241,8 @@ public partial class summon : CharacterBody2D
 				target.BurnDuration = -1;
 				target.BurnEvery = 3;
 				target.Burning = true;
-				target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+				// target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+				target.GetNode<Node2D>("FireAnimation").Visible = true;
 			}
 			if (Type == SummonType.MagmaPuddle) {
 				// Get Next 3 Enemies
@@ -249,7 +255,8 @@ public partial class summon : CharacterBody2D
 					target.BurnDuration = -1;
 					target.BurnEvery = 3;
 					target.Burning = true;
-					target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					// target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					enemy1.GetNode<Node2D>("FireAnimation").Visible = true;
 				}
 
 				if (enemy2 != null) {
@@ -257,7 +264,8 @@ public partial class summon : CharacterBody2D
 					enemy2.BurnDuration = -1;
 					enemy2.BurnEvery = 3;
 					enemy2.Burning = true;
-					enemy2.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					// target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					enemy2.GetNode<Node2D>("FireAnimation").Visible = true;
 				}
 
 				if (enemy3 != null) {
@@ -265,13 +273,15 @@ public partial class summon : CharacterBody2D
 					enemy3.BurnDuration = -1;
 					enemy3.BurnEvery = 3;
 					enemy3.Burning = true;
-					enemy3.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					// target.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
+					enemy3.GetNode<Node2D>("FireAnimation").Visible = true;
 				}
 			}
 			if (Type == SummonType.IceMouse) {
 				// 5% chance
 				if (new Random().Next(0, 100) < 5) {
 					target.FrozenFor = 3;
+					target.GetNode<Sprite2D>("IceBlock").Visible = true;
 				}
 			}
 			if (Type == SummonType.Bat) {

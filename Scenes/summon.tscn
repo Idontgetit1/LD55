@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://caflfl0tgoyh2"]
+[gd_scene load_steps=7 format=3 uid="uid://caflfl0tgoyh2"]
 
 [ext_resource type="Script" path="res://Scripts/summon.cs" id="1_gmtrt"]
 [ext_resource type="LabelSettings" uid="uid://y8ryv4t3negu" path="res://Resources/Assets/LabelSettings/AutoPilot.tres" id="2_g1h48"]
 [ext_resource type="PackedScene" uid="uid://7xfuwm686bar" path="res://Scenes/FireParticles.tscn" id="3_xilsd"]
+[ext_resource type="Texture2D" uid="uid://dfypmvw8aaio7" path="res://Resources/Assets/Textures/IceBlock.png" id="4_ow6op"]
+[ext_resource type="PackedScene" uid="uid://bx462bjahcigu" path="res://Resources/fire_animation.tscn" id="5_ro54p"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i24p"]
 size = Vector2(32, 32)
@@ -26,3 +28,12 @@ horizontal_alignment = 3
 [node name="FireParticles" parent="." instance=ExtResource("3_xilsd")]
 position = Vector2(1.52588e-05, 2.38419e-07)
 emitting = false
+
+[node name="IceBlock" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(2, 2)
+texture = ExtResource("4_ow6op")
+
+[node name="FireAnimation" parent="." instance=ExtResource("5_ro54p")]
+visible = false

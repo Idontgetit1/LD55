@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx462bjahcigu"]
+
+[ext_resource type="Texture2D" uid="uid://dpap83reayeoh" path="res://Resources/Assets/Textures/FireAnim1.png" id="1_i1s01"]
+[ext_resource type="Script" path="res://Scripts/fire_animation.cs" id="1_tjqke"]
+[ext_resource type="Texture2D" uid="uid://cuoahkqk8kt4p" path="res://Resources/Assets/Textures/FireAnim2.png" id="2_mwbrv"]
+[ext_resource type="Texture2D" uid="uid://bkcgu15h16iro" path="res://Resources/Assets/Textures/FireAnim3.png" id="3_jrnyu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xnqwr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i1s01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mwbrv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jrnyu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mwbrv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="FireAnimation" type="Node2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+script = ExtResource("1_tjqke")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xnqwr")
+frame_progress = 0.729383
