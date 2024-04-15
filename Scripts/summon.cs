@@ -53,6 +53,8 @@ public partial class summon : CharacterBody2D
 
 		if (IsPlayer) {
 			SummonSprite.FlipH = true && Stats.Mirrored;
+		} else {
+			SummonSprite.FlipH = false && Stats.Mirrored;
 		}
 
 		SummonSprite.Offset = new Vector2(0, Stats.HeightOffset);

@@ -46,6 +46,8 @@ public partial class Game : Node
     public override void _Ready()
     {
 		ProcessMode = ProcessModeEnum.Always;
+
+		GetWindow().Size = new Vector2I(1440, 810);
     }
 
     public void StartGame() {

@@ -6,12 +6,12 @@ public partial class SummonPage : Area2D
 	SummonType Type;
 	private Game Game;
 
-	private Vector2 GrabPoint;
+	public Vector2 GrabPoint;
 
-	private bool MouseOver = false;
-	private bool Dragging = false;
+	public bool MouseOver = false;
+	public bool Dragging = false;
 
-	[Export] Node2D InfoPanel;
+	[Export] public Node2D InfoPanel;
 	[Export] Label NameLabel;
 	[Export] Label DescriptionLabel;
 	[Export] Sprite2D SummonIconSprite;
@@ -24,11 +24,15 @@ public partial class SummonPage : Area2D
 
 	PackedScene ActivatorScene = GD.Load<PackedScene>("res://Scenes/RuneActivator.tscn");
 
+	Backboard backboard;
+
 	public override void _Ready()
 	{
 		
 		Game = GetNode<Game>("/root/Game");
 		ZIndex = 1;
+
+		backboard = GetParent<Backboard>();
 
 		var activator = (RuneActivator)ActivatorScene.Instantiate();
 		activator.Init(TypeStats.GetStats(Type).Code.runes, Type, this, Callable.From(() => { Game.Main.SummonMonster(Type, true); Game.ActivatedRunes(true); }));
@@ -53,21 +57,36 @@ public partial class SummonPage : Area2D
 
 	public override void _Process(double delta)
 	{
-		if (MouseOver && Input.IsActionJustPressed("click"))
-		{
-			GrabPoint = GlobalPosition - GetGlobalMousePosition();
-			Dragging = true;
-		}
+		// if (MouseOver && Input.IsActionJustPressed("click"))
+		// {
+		// 	GrabPoint = GlobalPosition - GetGlobalMousePosition();
+		// 	Dragging = true;
+		// 	backboard.Dragging = true;
+		// 	ZIndex = backboard.HoveredPagez++;
+		// }
 
 		if (Dragging)
 		{
 			GlobalPosition = GetGlobalMousePosition() + GrabPoint;
+			if (GlobalPosition.Y > Backboard.MaxY) {
+				GlobalPosition = new Vector2(GlobalPosition.X, Backboard.MaxY);
+			}
+			if (GlobalPosition.Y < Backboard.MinY) {
+				GlobalPosition = new Vector2(GlobalPosition.X, Backboard.MinY);
+			}
+			if (GlobalPosition.X > Backboard.MaxX) {
+				GlobalPosition = new Vector2(Backboard.MaxX, GlobalPosition.Y);
+			}
+			if (GlobalPosition.X < Backboard.MinX) {
+				GlobalPosition = new Vector2(Backboard.MinX, GlobalPosition.Y);
+			}
 			InfoPanel.Visible = false;
 		}
 
 		if (Dragging && Input.IsActionJustReleased("click"))
 		{
 			Dragging = false;
+			backboard.Dragging = false;
 		}
 
 		if (MouseOver)
@@ -78,16 +97,14 @@ public partial class SummonPage : Area2D
 
 	public void _OnMouseOver()
 	{
-		InfoPanel.Visible = true;
 		MouseOver = true;
-		ZIndex = 2;
+		backboard.MouseOver(this);
 	}
 
 	public void _OnMouseExit()
 	{
-		InfoPanel.Visible = false;
 		MouseOver = false;
-		ZIndex = 1;
+		backboard.MouseOut(this);
 	}
 
 	public void _OnInputEvent(Node viewport, InputEvent @event, int shapeIdx)
@@ -106,5 +123,17 @@ public partial class SummonPage : Area2D
 		} else {
 			Modulate = new Color(1, 1, 1);
 		}
+	}
+
+	public void ShowInfo() {
+		if (backboard.Dragging) {
+			return;
+		}
+
+		InfoPanel.Visible = true;
+	}
+
+	public void HideInfo() {
+		InfoPanel.Visible = false;
 	}
 }

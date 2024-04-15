@@ -23,7 +23,7 @@ render_mode blend_mix;
 shader = SubResource("Shader_k8axu")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnk2q"]
-size = Vector2(98, 130)
+size = Vector2(88, 108.667)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3ju1u"]
 size = Vector2(32, 32)
@@ -78,7 +78,7 @@ position = Vector2(60, 6)
 
 [node name="HoverInfo" type="Node2D" parent="."]
 visible = false
-z_index = 5
+z_index = 100
 position = Vector2(32, 16)
 scale = Vector2(0.5, 0.5)
 
@@ -126,7 +126,7 @@ text = "Gives"
 label_settings = ExtResource("6_mm11j")
 
 [node name="HoverDetect" type="CollisionShape2D" parent="."]
-position = Vector2(47, 63)
+position = Vector2(48, 57.6667)
 shape = SubResource("RectangleShape2D_vnk2q")
 
 [node name="SummonIcon" type="Sprite2D" parent="."]
