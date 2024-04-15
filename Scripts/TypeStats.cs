@@ -27,7 +27,7 @@ public static partial class TypeStats
                     ManaCost = 10,
                     TexturePath = "res://Resources/Assets/Summons/Slime4.png",
                     Name = "Slime",
-                    Description = "A slime. It's slimy.\nIf killed, slow enemy for 5 Seconds.",
+                    Description = "A slime. It's slimy.\nIf killed, slows enemy.",
                     Code = new RuneCode("adsswds")
                 };
             case SummonType.Slimeloon:
@@ -40,7 +40,7 @@ public static partial class TypeStats
                     ManaCost = 15,
                     TexturePath = "res://Resources/Assets/Summons/Slimeloon.png",
                     Name = "Slimeloon",
-                    Description = "A slime with a balloon. It's slimy.\n15% Chance to not be hit by an attack.",
+                    Description = "A slime with a balloon. It's Floaty.\n15% Chance to not be hit by an attack.",
                     Code = new RuneCode("wswsawd"),
                     BaseScale = 0.5f
                 };

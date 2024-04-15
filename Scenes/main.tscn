@@ -40,7 +40,7 @@ position = Vector2(866, 474)
 autostart = true
 
 [node name="AtkTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.5
 autostart = true
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]

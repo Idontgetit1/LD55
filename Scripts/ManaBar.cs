@@ -59,6 +59,10 @@ public partial class ManaBar : Node2D
 		{
 			NewRuneToMinigame();
 		}
+
+		// Set Progress Bar
+		ManaProgressBar.MaxValue = MaxMana;
+		ManaProgressBar.Value = CurrentMana;
 	}
 
 	private void SetTimer() {

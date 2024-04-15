@@ -61,6 +61,15 @@ public partial class summon : CharacterBody2D
 	public int BurnEvery = 0;
 	public bool Burning = false;
 
+	// Freeze Effect
+	public int FrozenFor = 0;
+
+	// Heal Effect
+	public int HealCounter = 0;
+
+	// Strength Effect
+	public bool Strengthened = false;
+
 	public void _OnTick() {
 		if (Burning) {
 			BurnCounter++;
@@ -87,7 +96,33 @@ public partial class summon : CharacterBody2D
 			if (nextSummon.Type == SummonType.Cherry) {
 				AtkAnimation(Callable.From(() => {nextSummon.TakeDamage(99); GainAtk(5); GainHealth(5);}));
 			}
+
+			if (Type == SummonType.Tree) {
+				HealCounter++;
+				if (HealCounter % 3 == 0) {
+					nextSummon.GainHealth(1);
+				}
+			}
+
+			if (Type == SummonType.GrassBoi) {
+				if (!nextSummon.Strengthened) {
+					nextSummon.Strengthened = true;
+					nextSummon.GainAtk(5);
+				}
+			}
+
+			if (Type == SummonType.Bat) {
+				if (!nextSummon.Strengthened) {
+					nextSummon.Strengthened = true;
+					nextSummon.GainAtk(1);
+				}
+			}
 		}
+
+		if (FrozenFor > 0) {
+			FrozenFor--;
+		}
+
 	}
 
 	private void GainAtk(int amount) {
@@ -150,7 +185,22 @@ public partial class summon : CharacterBody2D
 		tween.Play();
 	}
 
+	// Slowed Effect
+	public bool Slowed = false;
+	private int SlowedCounter = 0;
+
 	public void Attack(summon target) {
+		if (FrozenFor > 0) {
+			return;
+		}
+
+		if (Slowed) {
+			SlowedCounter++;
+			if (SlowedCounter % 2 != 0) {
+				return;
+			}
+		}
+
 		// Move forward fast and back to original position
 		var Offset = new Vector2(50, 0);
 		var BackOffset = new Vector2(-10, 0); // Kleine Bewegung nach hinten
@@ -218,6 +268,20 @@ public partial class summon : CharacterBody2D
 					enemy3.GetNode<CpuParticles2D>("FireParticles").Emitting = true;
 				}
 			}
+			if (Type == SummonType.IceMouse) {
+				// 5% chance
+				if (new Random().Next(0, 100) < 5) {
+					target.FrozenFor = 3;
+				}
+			}
+			if (Type == SummonType.Bat) {
+				GainHealth(1);
+			}
+
+			if (target.Type == SummonType.MagmaPuddle) {
+				// Hit self
+				TakeDamage(1);
+			}
 		}));
 
 		tween.TweenInterval(delay);
@@ -270,6 +334,13 @@ public partial class summon : CharacterBody2D
 	}
 
 	public void TakeDamage(int damage) {
+		if (Type == SummonType.Slimeloon) {
+			// 15% chance to dodge
+			if (new Random().Next(0, 100) < 15) {
+				return;
+			}
+		}
+
 		Game.Main.HitSound.Play();
 		Stats.Health -= damage;
 		if (Stats.Health <= 0) {
@@ -281,6 +352,13 @@ public partial class summon : CharacterBody2D
 	}
 
 	public void Die() {
+		
+		if (Type == SummonType.Slime) {
+			var nextEnemy = Game.GetSummonAtField(IsPlayer ? FieldIndex + 1 : FieldIndex - 1);
+			if (nextEnemy != null) {
+				nextEnemy.Slowed = true;
+			}
+		}
 
 		var duration = 0.1f;
 

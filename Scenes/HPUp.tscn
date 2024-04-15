@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsm8ot2xany0x"]
+[gd_scene load_steps=5 format=3 uid="uid://dsm8ot2xany0x"]
 
 [ext_resource type="Script" path="res://Scripts/ManaUp.cs" id="1_pauqa"]
 [ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="2_h6ooc"]
+[ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="3_xa0y7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1syih"]
 font = ExtResource("2_h6ooc")
@@ -15,3 +16,8 @@ texture_filter = 1
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_1syih")
+
+[node name="Health" type="Sprite2D" parent="Label"]
+position = Vector2(-7, 8)
+scale = Vector2(0.78125, 0.78125)
+texture = ExtResource("3_xa0y7")

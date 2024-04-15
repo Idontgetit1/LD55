@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgttbf0mb2ce8"]
+[gd_scene load_steps=5 format=3 uid="uid://dgttbf0mb2ce8"]
 
 [ext_resource type="Script" path="res://Scripts/ManaUp.cs" id="1_dm5ew"]
 [ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="2_tsn7p"]
+[ext_resource type="Texture2D" uid="uid://c1vu6wr8oi3uu" path="res://Resources/Assets/Textures/Attack.png" id="3_8agkg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rokqj"]
 font = ExtResource("2_tsn7p")
@@ -15,3 +16,7 @@ texture_filter = 1
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_rokqj")
+
+[node name="Attack" type="Sprite2D" parent="Label"]
+position = Vector2(-8, 10)
+texture = ExtResource("3_8agkg")
