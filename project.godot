@@ -31,7 +31,7 @@ project/assembly_name="LD55"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/shaker/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg")
 
 [input]
 
