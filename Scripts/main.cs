@@ -23,6 +23,11 @@ public partial class main : Node2D
 	[Export] public AudioStreamPlayer HitSound;
 	[Export] public AudioStreamPlayer DeathSound;
 
+	[Export] public Timer TickTimer;
+	[Export] public Timer AtkTimer;
+
+	[Export] public Node2D PauseMenu;
+
 	// [Export]
 	// public MagicBook Book;
 
@@ -39,18 +44,6 @@ public partial class main : Node2D
 		foreach(var field in FieldMarkers) {
 			Game.FieldMarkers.Add(field);
 		}
-
-		// Summon Monster
-		// SummonMonster(SummonType.FlameWolf, true);
-		SummonMonster(SummonType.Slime, false);
-
-		SummonMonster(SummonType.Tree, false);
-		SummonMonster(SummonType.IceMouse, false);
-		SummonMonster(SummonType.Slime, false);
-		SummonMonster(SummonType.Slime, false);
-
-		// Set Rune Activators
-		// SetSummonActivatorRunes();
 	}
 
 	private void SetSummonActivatorRunes() {
@@ -122,6 +115,15 @@ public partial class main : Node2D
 		if (monsterLeft != null && monsterRight != null) {
 			monsterLeft.Attack(monsterRight);
 			monsterRight.Attack(monsterLeft);
+		}
+
+		// If one monster in middle Attack Players life points directly
+		if (monsterLeft != null && monsterRight == null) {
+			monsterLeft.AsYouHaveNoMonstersOnYourFieldIWillAttackYourLifePointsDirectly();
+		}
+
+		if (monsterLeft == null && monsterRight != null) {
+			monsterRight.AsYouHaveNoMonstersOnYourFieldIWillAttackYourLifePointsDirectly();
 		}
 	}
 

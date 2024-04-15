@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://b34w1o6ijt3uv"]
+
+[ext_resource type="Script" path="res://Scripts/CreditsMenu.cs" id="1_lhv60"]
+[ext_resource type="Texture2D" uid="uid://befc662f27a4e" path="res://Resources/Assets/Textures/CustomBackboard.png" id="2_qrj83"]
+[ext_resource type="Texture2D" uid="uid://cqp5cktgo6tll" path="res://Resources/Assets/Textures/Button1.png" id="3_lnur8"]
+[ext_resource type="Texture2D" uid="uid://dxwd08a750lyh" path="res://Resources/Assets/Textures/Button1Hover.png" id="4_uod72"]
+[ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="5_a23rt"]
+[ext_resource type="Texture2D" uid="uid://dix7rc3f0sbks" path="res://Resources/Assets/Textures/ZettelRight.png" id="6_swnow"]
+[ext_resource type="LabelSettings" uid="uid://vmcci3ap5qp3" path="res://Resources/Assets/LabelSettings/Alagard.tres" id="7_hf546"]
+[ext_resource type="Texture2D" uid="uid://cmaiitjl05ae0" path="res://Resources/Assets/Textures/ZettelUp.png" id="8_5kj3q"]
+[ext_resource type="Texture2D" uid="uid://dsrtmoii8qu20" path="res://Resources/Assets/Textures/ZetteLeft.png" id="9_242re"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_swhlu"]
+font = ExtResource("5_a23rt")
+font_size = 32
+
+[node name="CreditsMenu" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_lhv60")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 400.0
+
+[node name="CustomBackboard" type="Sprite2D" parent="Control"]
+position = Vector2(480, 200)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("2_qrj83")
+
+[node name="CloseSettingsButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+offset_left = 728.0
+offset_top = 280.0
+offset_right = 872.0
+offset_bottom = 350.0
+texture_normal = ExtResource("3_lnur8")
+texture_hover = ExtResource("4_uod72")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="Control/CloseSettingsButton"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 56.0
+text = "Back"
+label_settings = SubResource("LabelSettings_swhlu")
+
+[node name="ZettelRight" type="Sprite2D" parent="."]
+position = Vector2(168, 216)
+scale = Vector2(4, 4)
+texture = ExtResource("6_swnow")
+
+[node name="Label" type="Label" parent="ZettelRight"]
+offset_left = -32.0
+offset_top = -46.0
+offset_right = 40.0
+offset_bottom = -23.0
+text = "Idontgetit"
+label_settings = ExtResource("7_hf546")
+
+[node name="ZettelUp" type="Sprite2D" parent="."]
+position = Vector2(416, 280)
+scale = Vector2(4, 4)
+texture = ExtResource("8_5kj3q")
+
+[node name="Label" type="Label" parent="ZettelUp"]
+offset_left = -32.0
+offset_top = -46.0
+offset_right = 40.0
+offset_bottom = -23.0
+text = "Sandauer"
+label_settings = ExtResource("7_hf546")
+
+[node name="ZetteLeft" type="Sprite2D" parent="."]
+position = Vector2(672, 188)
+scale = Vector2(4, 4)
+texture = ExtResource("9_242re")
+
+[node name="Label" type="Label" parent="ZetteLeft"]
+texture_filter = 1
+offset_left = -50.0
+offset_top = -45.0
+offset_right = 53.0
+offset_bottom = -22.0
+text = "Spacephoenix"
+label_settings = ExtResource("7_hf546")
+
+[connection signal="pressed" from="Control/CloseSettingsButton" to="." method="OnBackButtonPressed"]

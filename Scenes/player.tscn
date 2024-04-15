@@ -11,3 +11,5 @@ script = ExtResource("1_p1scb")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_ort83")
+
+[node name="Timer" type="Timer" parent="."]

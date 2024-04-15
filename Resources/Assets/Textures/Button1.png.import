@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hirxvoi4uaag"
-path="res://.godot/imported/FlameWolf2.png-133594964f41c28080dcb9d2bf2f29ae.ctex"
+uid="uid://cqp5cktgo6tll"
+path="res://.godot/imported/Button1.png-428313c3438fa15e5bafcfbc6529a56f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Assets/Summons/FlameWolf2.png"
-dest_files=["res://.godot/imported/FlameWolf2.png-133594964f41c28080dcb9d2bf2f29ae.ctex"]
+source_file="res://Resources/Assets/Textures/Button1.png"
+dest_files=["res://.godot/imported/Button1.png-428313c3438fa15e5bafcfbc6529a56f.ctex"]
 
 [params]
 

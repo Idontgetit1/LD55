@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class Game : Node
 {
+	private bool GameStarted = false;
+
 	// Fields
 	public const int Fields = 10;
 	public List<Marker2D> FieldMarkers = new List<Marker2D>();
@@ -35,6 +37,48 @@ public partial class Game : Node
 
 	public Player Player;
 	public Player Enemy;
+
+	private PackedScene MainGameScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
+	private PackedScene MainMenuScene = GD.Load<PackedScene>("res://Scenes/MainMenu.tscn");
+
+	public int Difficulty = 1;
+
+    public override void _Ready()
+    {
+		ProcessMode = ProcessModeEnum.Always;
+    }
+
+    public void StartGame() {
+		GameStarted = true;
+
+		// Load Game
+		var MainGame = (main)MainGameScene.Instantiate();
+		if (Difficulty == 1) {
+			MainGame.AtkTimer.WaitTime = 4.5;
+		} else if (Difficulty == 2) {
+			MainGame.AtkTimer.WaitTime = 2.5;
+		} else if (Difficulty == 3) {
+			MainGame.AtkTimer.WaitTime = 1.5;
+		}
+		GetTree().Root.AddChild(MainGame);
+	}
+
+	public void MainMenu() {
+		GameStarted = false;
+		var MainMenu = (MainMenu)MainMenuScene.Instantiate();
+		GetTree().Root.AddChild(MainMenu);
+
+		// Remove Game
+		Main.QueueFree();
+	}
+
+	public void GameOver() {
+		GD.Print("Game Over");
+	}
+
+	public void Win() {
+		GD.Print("Win");
+	}
 
 	// Methods to get the closest Free Field to the Middle Point
 	public int GetNextFreeFieldLeft()
@@ -172,6 +216,20 @@ public partial class Game : Node
 
     public override void _Process(double delta)
     {
+		
+		if (!GameStarted) {
+			return;
+		}
+
+		if (Input.IsActionJustPressed("Escape")) {
+			Main.PauseMenu.Visible = !Main.PauseMenu.Visible;
+			GetTree().Paused = Main.PauseMenu.Visible;
+		}
+
+		if (Main.PauseMenu.Visible) {
+			return;
+		}
+
 		RuneType runePressed = RuneType.None;
 
 		if (Input.IsActionPressed("SwitchMeditate")) {

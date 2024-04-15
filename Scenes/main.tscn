@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t1do8xrhsq4l"]
+[gd_scene load_steps=12 format=3 uid="uid://t1do8xrhsq4l"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
@@ -10,8 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dqpjxtwfn0vit" path="res://Resources/Assets/Textures/Background.png" id="9_bohht"]
 [ext_resource type="AudioStream" uid="uid://cxnprjir11fm4" path="res://Resources/Sounds/Hit.sfxr" id="9_rcp3a"]
 [ext_resource type="AudioStream" uid="uid://ceaseo5i7uaw3" path="res://Resources/Sounds/Death.sfxr" id="10_yjv3u"]
+[ext_resource type="PackedScene" uid="uid://corilv87uq4gj" path="res://Scenes/PauseMenu.tscn" id="11_rk12i"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound", "TickTimer", "AtkTimer", "PauseMenu")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
@@ -22,6 +23,9 @@ FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath
 ClickSound = NodePath("ClickSound")
 HitSound = NodePath("HitSound")
 DeathSound = NodePath("DeathSound")
+TickTimer = NodePath("TickTimer")
+AtkTimer = NodePath("AtkTimer")
+PauseMenu = NodePath("PauseMenu")
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(40, 456)
@@ -232,6 +236,9 @@ volume_db = -10.584
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_yjv3u")
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_rk12i")]
+visible = false
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
 [connection signal="timeout" from="AtkTimer" to="." method="_OnAtk"]

@@ -42,7 +42,11 @@ public static partial class TypeStats
                     Name = "Slimeloon",
                     Description = "A slime with a balloon. It's Floaty.\n15% Chance to not be hit by an attack.",
                     Code = new RuneCode("wswsawd"),
-                    BaseScale = 0.5f
+                    BaseScale = 0.5f,
+                    HeightOffset = -35f,
+                    BobbingStrength = 1.5f,
+                    BobbingSpeed = 2f,
+                    BobbingPause = 0f
                 };
             case SummonType.Tree:
                 return new Stats {
@@ -126,7 +130,10 @@ public static partial class TypeStats
                     Name = "Bat",
                     Description = "A bat. It's batty.\nIncreases power of the summon in front of it by 1. Leeches 1 HP every attack.",
                     Code = new RuneCode("wswswsadw"),
-                    Mirrored = true
+                    Mirrored = true,
+                    BobbingStrength = 1.5f,
+                    BobbingSpeed = 2f,
+                    BobbingPause = 0f
                 };
             default:
                 return new Stats {
@@ -154,6 +161,10 @@ public partial class Stats {
     public RuneCode Code;
     public float BaseScale = 1f;
     public bool Mirrored = false;
+    public float HeightOffset = 0f;
+    public float BobbingStrength = 0.25f;
+    public float BobbingSpeed = 20f;
+    public float BobbingPause = 1f;
 }
 
 public partial class RuneCode {

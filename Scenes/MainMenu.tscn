@@ -1,0 +1,233 @@
+[gd_scene load_steps=23 format=3 uid="uid://jn0jfgk6nru6"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_g6uy3"]
+[ext_resource type="Texture2D" uid="uid://bbhurlvrvwotf" path="res://Resources/Assets/Textures/CustomBackboardFull.png" id="1_p5m2a"]
+[ext_resource type="Texture2D" uid="uid://dsrtmoii8qu20" path="res://Resources/Assets/Textures/ZetteLeft.png" id="2_0g2qt"]
+[ext_resource type="Texture2D" uid="uid://creb1eob7e7g5" path="res://Resources/Assets/Textures/ZettelNeuter.png" id="3_hle6i"]
+[ext_resource type="Texture2D" uid="uid://cmaiitjl05ae0" path="res://Resources/Assets/Textures/ZettelUp.png" id="4_mh8aq"]
+[ext_resource type="Texture2D" uid="uid://b4irxyfoei11r" path="res://Resources/Assets/Summons/Slime4.png" id="5_ibbeu"]
+[ext_resource type="Texture2D" uid="uid://chanstcimkn61" path="res://Resources/Assets/Summons/FlameWolf.png" id="6_n0es7"]
+[ext_resource type="Texture2D" uid="uid://xh44n1tm1bpw" path="res://Resources/Assets/Summons/IceMouse.png" id="7_jwsxx"]
+[ext_resource type="Texture2D" uid="uid://cqp5cktgo6tll" path="res://Resources/Assets/Textures/Button1.png" id="8_qp7bs"]
+[ext_resource type="Texture2D" uid="uid://dxwd08a750lyh" path="res://Resources/Assets/Textures/Button1Hover.png" id="9_2mdtn"]
+[ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="9_frpj6"]
+[ext_resource type="FontFile" uid="uid://ct03ajah8sjl6" path="res://Resources/Assets/Fonts/04B_30__.TTF" id="11_gfkav"]
+[ext_resource type="Texture2D" uid="uid://bimdme4a7jujk" path="res://Resources/Assets/Summons/Cherry.png" id="12_0wjvp"]
+[ext_resource type="LabelSettings" uid="uid://cs2gfwvev1600" path="res://Resources/Assets/LabelSettings/AutoPilotBlack.tres" id="13_p2sa4"]
+[ext_resource type="Texture2D" uid="uid://c67xxejxx1sbf" path="res://Resources/Assets/Summons/Tree.png" id="14_bw88q"]
+[ext_resource type="Texture2D" uid="uid://dqn1e3rsmeqbb" path="res://Resources/Assets/Summons/MagmaPuddle.png" id="15_lf4gl"]
+[ext_resource type="Texture2D" uid="uid://tuf3ia4mk5l3" path="res://Resources/Assets/Summons/Slimeloon.png" id="16_gcdtg"]
+[ext_resource type="PackedScene" uid="uid://bnykyvtc2sv7w" path="res://Scenes/ComboBox.tscn" id="17_3sb5t"]
+[ext_resource type="PackedScene" uid="uid://bhsgevy3u6u1n" path="res://Scenes/SettingsMenu.tscn" id="18_x40ao"]
+[ext_resource type="PackedScene" uid="uid://b34w1o6ijt3uv" path="res://Scenes/CreditsMenu.tscn" id="20_cidvx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dq88l"]
+font = ExtResource("9_frpj6")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_t30ll"]
+font = ExtResource("11_gfkav")
+font_size = 58
+
+[node name="MainMenu" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g6uy3")
+
+[node name="CustomBackboardFull" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(480, 272)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("1_p5m2a")
+
+[node name="ZetteLeft" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(128, 184)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0g2qt")
+
+[node name="ZettelNeuter" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(808, 224)
+scale = Vector2(2, 2)
+texture = ExtResource("3_hle6i")
+
+[node name="ZettelUp" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(328, 408)
+scale = Vector2(2, 2)
+texture = ExtResource("4_mh8aq")
+
+[node name="Slime4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(152, 136)
+texture = ExtResource("5_ibbeu")
+
+[node name="FlameWolf" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(352, 360)
+texture = ExtResource("6_n0es7")
+
+[node name="IceMouse" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(832, 176)
+texture = ExtResource("7_jwsxx")
+
+[node name="StartGameButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 272.0
+offset_top = 144.0
+offset_right = 472.0
+offset_bottom = 214.0
+texture_normal = ExtResource("8_qp7bs")
+texture_hover = ExtResource("9_2mdtn")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="StartGameButton"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "Start Game"
+label_settings = SubResource("LabelSettings_dq88l")
+
+[node name="SettingsButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 352.0
+offset_top = 240.0
+offset_right = 552.0
+offset_bottom = 310.0
+texture_normal = ExtResource("8_qp7bs")
+texture_hover = ExtResource("9_2mdtn")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="SettingsButton"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 232.0
+offset_bottom = 56.0
+text = "Settings
+"
+label_settings = SubResource("LabelSettings_dq88l")
+
+[node name="CreditsButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 464.0
+offset_top = 336.0
+offset_right = 664.0
+offset_bottom = 406.0
+texture_normal = ExtResource("8_qp7bs")
+texture_hover = ExtResource("9_2mdtn")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="CreditsButton"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 56.0
+text = "Credits"
+label_settings = SubResource("LabelSettings_dq88l")
+
+[node name="ExitButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 704.0
+offset_top = 424.0
+offset_right = 904.0
+offset_bottom = 494.0
+texture_normal = ExtResource("8_qp7bs")
+texture_hover = ExtResource("9_2mdtn")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="ExitButton"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 16.0
+offset_right = 256.0
+offset_bottom = 56.0
+text = "Exit"
+label_settings = SubResource("LabelSettings_dq88l")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 924.0
+offset_bottom = 88.0
+text = "Auto Summoner Hero"
+label_settings = SubResource("LabelSettings_t30ll")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 160.0
+offset_right = 132.0
+offset_bottom = 183.0
+text = "Slime"
+label_settings = ExtResource("13_p2sa4")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 384.0
+offset_right = 372.0
+offset_bottom = 407.0
+text = "Flamewolf"
+label_settings = ExtResource("13_p2sa4")
+
+[node name="Label4" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 768.0
+offset_top = 192.0
+offset_right = 840.0
+offset_bottom = 215.0
+text = "Ice Mouse"
+label_settings = ExtResource("13_p2sa4")
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(72, 480)
+scale = Vector2(2, 2)
+texture = ExtResource("14_bw88q")
+
+[node name="Cherry" type="Sprite2D" parent="."]
+position = Vector2(392, 480)
+scale = Vector2(2, 2)
+texture = ExtResource("12_0wjvp")
+
+[node name="MagmaPuddle" type="Sprite2D" parent="."]
+position = Vector2(592, 496)
+scale = Vector2(2, 2)
+texture = ExtResource("15_lf4gl")
+
+[node name="Slimeloon" type="Sprite2D" parent="."]
+position = Vector2(224, 240)
+texture = ExtResource("16_gcdtg")
+
+[node name="ComboBox" parent="." instance=ExtResource("17_3sb5t")]
+position = Vector2(872, 128)
+scale = Vector2(0.35, 0.35)
+StartText = "LD 55"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("18_x40ao")]
+visible = false
+
+[node name="CreditsMenu" parent="." instance=ExtResource("20_cidvx")]
+visible = false
+
+[connection signal="pressed" from="StartGameButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="OnSettingsButtonPressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="OnCreditsButtonPressed"]
+[connection signal="pressed" from="ExitButton" to="." method="OnQuitButtonPressed"]

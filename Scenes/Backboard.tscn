@@ -1,12 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://crbsmbfeq4y7t"]
 
-[ext_resource type="Texture2D" uid="uid://ptwpb2roix34" path="res://Resources/Assets/Textures/BackboardSmolMorePixel.png" id="1_367wx"]
+[ext_resource type="Texture2D" uid="uid://befc662f27a4e" path="res://Resources/Assets/Textures/CustomBackboard.png" id="1_rqh3j"]
 [ext_resource type="Script" path="res://Scripts/Backboard.cs" id="2_y57af"]
 
 [node name="Backboard" type="Sprite2D"]
 modulate = Color(0.94902, 0.94902, 0.94902, 1)
 z_index = -5
 z_as_relative = false
-texture = ExtResource("1_367wx")
+texture_filter = 1
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("1_rqh3j")
 centered = false
 script = ExtResource("2_y57af")

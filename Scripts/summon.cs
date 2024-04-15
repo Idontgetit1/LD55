@@ -33,6 +33,8 @@ public partial class summon : CharacterBody2D
 	private PackedScene HPUpScene = GD.Load<PackedScene>("res://Scenes/HPUp.tscn");
 	private PackedScene AtkUpScene = GD.Load<PackedScene>("res://Scenes/AtkUp.tscn");
 
+	private float CurrentBobbing = 0f;
+
 	public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
@@ -52,6 +54,19 @@ public partial class summon : CharacterBody2D
 		if (IsPlayer) {
 			SummonSprite.FlipH = true && Stats.Mirrored;
 		}
+
+		SummonSprite.Offset = new Vector2(0, Stats.HeightOffset);
+	}
+
+	// Bobbing effect
+	public override void _Process(double delta)
+	{
+		var BobbingStrength = Stats.BobbingStrength;
+		var BobbingSpeed = Stats.BobbingSpeed;
+
+		CurrentBobbing += BobbingSpeed * (float)delta;
+		var bobbing = (float)Math.Sin(CurrentBobbing) * BobbingStrength;
+		SummonSprite.Position = new Vector2(SummonSprite.Position.X, bobbing + Stats.HeightOffset);
 	}
 
 	// Burn Effect
@@ -390,4 +405,14 @@ public partial class summon : CharacterBody2D
 		QueueFree();
 	}
 
+    public void AsYouHaveNoMonstersOnYourFieldIWillAttackYourLifePointsDirectly()
+    {
+		AtkAnimation(Callable.From(() => GD.Print("Attack Players Life Points Directly")));
+
+		if (IsPlayer) {
+			Game.Enemy.TakeDamage(Stats.AtkPower);
+		} else {
+			Game.Player.TakeDamage(Stats.AtkPower);
+		}
+    }
 }

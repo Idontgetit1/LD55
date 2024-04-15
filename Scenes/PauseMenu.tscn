@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://corilv87uq4gj"]
+
+[ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_uj5jr"]
+[ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="1_v8v8l"]
+[ext_resource type="Texture2D" uid="uid://cqp5cktgo6tll" path="res://Resources/Assets/Textures/Button1.png" id="2_ufbr4"]
+[ext_resource type="Texture2D" uid="uid://dxwd08a750lyh" path="res://Resources/Assets/Textures/Button1Hover.png" id="3_5ew02"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tmhru"]
+font = ExtResource("1_v8v8l")
+font_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_673sa"]
+font = ExtResource("1_v8v8l")
+font_size = 32
+
+[node name="PauseMenu" type="Node2D"]
+process_mode = 2
+script = ExtResource("1_uj5jr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 304.0
+offset_top = 232.0
+offset_right = 640.0
+offset_bottom = 352.0
+size_flags_horizontal = 0
+text = "Pause"
+label_settings = SubResource("LabelSettings_tmhru")
+
+[node name="ExitButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 704.0
+offset_top = 424.0
+offset_right = 904.0
+offset_bottom = 494.0
+texture_normal = ExtResource("2_ufbr4")
+texture_hover = ExtResource("3_5ew02")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="ExitButton"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 16.0
+offset_right = 256.0
+offset_bottom = 56.0
+text = "Exit"
+label_settings = SubResource("LabelSettings_673sa")
+
+[node name="MainMenuButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 56.0
+offset_top = 424.0
+offset_right = 256.0
+offset_bottom = 494.0
+texture_normal = ExtResource("2_ufbr4")
+texture_hover = ExtResource("3_5ew02")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="MainMenuButton"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_673sa")
+
+[connection signal="pressed" from="ExitButton" to="." method="OnExitButtonPressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="OnMainMenuButtonPressed"]

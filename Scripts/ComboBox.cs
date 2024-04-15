@@ -6,9 +6,12 @@ public partial class ComboBox : Node2D
 	private Label label;
 	public float PulseSpeed = 1.0f;
 
+	[Export] public string StartText = "";
+
     public override void _Ready()
     {
         label = GetNode<Label>("ComboLabel");
+		label.Text = StartText;
         Pulsieren();
     }
 
@@ -27,8 +30,8 @@ public partial class ComboBox : Node2D
     private void Pulsieren()
     {
 		var tween = GetTree().CreateTween();
-        var startScale = new Vector2(1, 1); // Normale Größe
-        var endScale = new Vector2(1.2f, 1.2f); // 20% größer
+        var startScale = Scale; // Normale Größe
+        var endScale = Scale * 1.2f; // 20% größer
 
 		tween.TweenProperty(this, "scale", endScale, PulseSpeed);
 		tween.TweenProperty(this, "scale", startScale, PulseSpeed);

@@ -55,13 +55,13 @@ public partial class SummonPage : Area2D
 	{
 		if (MouseOver && Input.IsActionJustPressed("click"))
 		{
-			GrabPoint = GetGlobalMousePosition() - Position;
+			GrabPoint = GlobalPosition - GetGlobalMousePosition();
 			Dragging = true;
 		}
 
 		if (Dragging)
 		{
-			Position = GetGlobalMousePosition() - GrabPoint;
+			GlobalPosition = GetGlobalMousePosition() + GrabPoint;
 			InfoPanel.Visible = false;
 		}
 
@@ -70,7 +70,8 @@ public partial class SummonPage : Area2D
 			Dragging = false;
 		}
 
-		if (MouseOver) {
+		if (MouseOver)
+		{
 			InfoPanel.Position = GetLocalMousePosition();
 		}
 	}

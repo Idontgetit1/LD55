@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hirxvoi4uaag"
-path="res://.godot/imported/FlameWolf2.png-133594964f41c28080dcb9d2bf2f29ae.ctex"
+uid="uid://bbhurlvrvwotf"
+path="res://.godot/imported/CustomBackboardFull.png-ed5cd77a14d57a162f83859045bffc78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Assets/Summons/FlameWolf2.png"
-dest_files=["res://.godot/imported/FlameWolf2.png-133594964f41c28080dcb9d2bf2f29ae.ctex"]
+source_file="res://Resources/Assets/Textures/CustomBackboardFull.png"
+dest_files=["res://.godot/imported/CustomBackboardFull.png-ed5cd77a14d57a162f83859045bffc78.ctex"]
 
 [params]
 
