@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=3 uid="uid://busiwrvinthh6"]
+
+[ext_resource type="Script" path="res://Scripts/GameEndMenu.cs" id="1_cer8v"]
+[ext_resource type="Texture2D" uid="uid://befc662f27a4e" path="res://Resources/Assets/Textures/CustomBackboard.png" id="2_023lq"]
+[ext_resource type="Texture2D" uid="uid://cqp5cktgo6tll" path="res://Resources/Assets/Textures/Button1.png" id="3_kaequ"]
+[ext_resource type="Texture2D" uid="uid://dxwd08a750lyh" path="res://Resources/Assets/Textures/Button1Hover.png" id="4_b6eu2"]
+[ext_resource type="FontFile" uid="uid://dvy8vghe83g1c" path="res://Resources/Assets/Fonts/alagard.ttf" id="5_k7p2f"]
+[ext_resource type="Texture2D" uid="uid://dsrtmoii8qu20" path="res://Resources/Assets/Textures/ZetteLeft.png" id="8_gvx5d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_swhlu"]
+font = ExtResource("5_k7p2f")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ivgb"]
+line_spacing = -3.0
+font = ExtResource("5_k7p2f")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2yo5w"]
+line_spacing = -3.0
+font = ExtResource("5_k7p2f")
+font_color = Color(0, 0, 0, 1)
+
+[node name="GameEndMenu" type="Node2D" node_paths=PackedStringArray("StatusLabel", "EnemiesKilledLabel")]
+process_mode = 2
+texture_filter = 1
+script = ExtResource("1_cer8v")
+StatusLabel = NodePath("ZetteLeft/StatusLabel")
+EnemiesKilledLabel = NodePath("ZetteLeft2/EnemiesDefeatedLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 400.0
+
+[node name="CustomBackboard" type="Sprite2D" parent="Control"]
+position = Vector2(480, 200)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("2_023lq")
+
+[node name="MainMenuButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 728.0
+offset_top = 280.0
+offset_right = 920.0
+offset_bottom = 350.0
+texture_normal = ExtResource("3_kaequ")
+texture_hover = ExtResource("4_b6eu2")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="Control/MainMenuButton"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_swhlu")
+
+[node name="ZetteLeft" type="Sprite2D" parent="."]
+position = Vector2(256, 176)
+scale = Vector2(4, 4)
+texture = ExtResource("8_gvx5d")
+
+[node name="StatusLabel" type="Label" parent="ZetteLeft"]
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 23.0
+offset_bottom = 21.0
+text = "You Won"
+label_settings = SubResource("LabelSettings_8ivgb")
+autowrap_mode = 3
+
+[node name="ZetteLeft2" type="Sprite2D" parent="."]
+position = Vector2(536, 224)
+scale = Vector2(4, 4)
+texture = ExtResource("8_gvx5d")
+
+[node name="EnemiesDefeatedLabel" type="Label" parent="ZetteLeft2"]
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 23.0
+offset_bottom = 29.0
+text = "Art"
+label_settings = SubResource("LabelSettings_8ivgb")
+
+[node name="StatusLabel2" type="Label" parent="ZetteLeft2"]
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 33.0
+offset_bottom = 9.0
+scale = Vector2(0.5, 0.5)
+text = "Enemies 
+Defeated"
+label_settings = SubResource("LabelSettings_2yo5w")
+
+[connection signal="pressed" from="Control/MainMenuButton" to="." method="OnMainMenuButtonPressed"]
+[connection signal="pressed" from="Control/MainMenuButton" to="." method="OnBackButtonPressed"]

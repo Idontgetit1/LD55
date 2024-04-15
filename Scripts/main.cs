@@ -30,6 +30,7 @@ public partial class main : Node2D
 	[Export] public Timer AtkTimer;
 
 	[Export] public Node2D PauseMenu;
+	[Export] public GameEndMenu GameEndMenu;
 
 	// [Export]
 	// public MagicBook Book;
@@ -39,10 +40,70 @@ public partial class main : Node2D
 
 	private Game Game;
 
-	public override void _Ready()
+
+	// Tutorial
+
+	[ExportCategory("Tutorial")]
+	[Export] private ChatBox[] TutorialChats = new ChatBox[12];
+	private bool SkipByClick = true;
+	public bool TutorialAllowFight = false;
+	private List<int> SkippableByClick = new List<int> {0, 1, 2, 3, 4, 7, 9, 10};
+
+	public int TutorialChatIndex = -1;
+	public void NextTutorial() {
+		if (TutorialChatIndex >= 0) {
+			TutorialChats[TutorialChatIndex].Hide();
+		}
+		TutorialChatIndex++;
+
+		if (TutorialChatIndex == 1) {
+			Game.Backboard.AddPage(SummonType.Slime);
+		} else if (TutorialChatIndex == 6) {
+			Game.Enemy.TutorialSummonEntity(SummonType.Slime);
+		} else if (TutorialChatIndex == 10) {
+			Game.Backboard.AddAllPages();
+		}
+
+		if (SkippableByClick.Contains(TutorialChatIndex)) {
+			SkipByClick = true;
+		} else {
+			SkipByClick = false;
+		}
+
+		GD.Print("Tutorial No. " + TutorialChatIndex);
+		GD.Print("Tutorial Text: " + TutorialChats[TutorialChatIndex].Text);
+		if (TutorialChatIndex < TutorialChats.Length) {
+			TutorialChats[TutorialChatIndex].Show();
+		} else {
+			Game.TutorialActive = false;
+			Game.StartGame();
+		}
+	}
+
+    public override void _Input(InputEvent @event)
+    {
+		// Left click
+		if (@event is InputEventMouseButton mouseButton && mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
+		{
+			ClickSound.Play();
+			if (TutorialChatIndex >= 0 && TutorialChatIndex < TutorialChats.Length) {
+				if (SkipByClick) {
+					NextTutorial();
+				}
+			}
+		}
+    }
+
+    public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
 		Game.Main = this;
+
+		// Start tutorial ?
+		if (Game.TutorialActive) {
+			NextTutorial();
+		}
+
 
 		foreach(var field in FieldMarkers) {
 			Game.FieldMarkers.Add(field);
@@ -96,6 +157,17 @@ public partial class main : Node2D
 	}
 
 	public void _OnTick() {
+
+		if (Game.TutorialActive && TutorialAllowFight && TutorialChatIndex == 6) {
+			// Check if monsters on field
+			var monsterLeft = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_LEFT);
+			var monsterRight = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_RIGHT);
+
+			if (monsterLeft == null && monsterRight == null) {
+				NextTutorial();
+			}
+		}
+
 		GD.Print("Tick");
 
 		// Remove Summons
@@ -111,6 +183,11 @@ public partial class main : Node2D
 	}
 
 	public void _OnAtk() {
+
+		if (Game.TutorialActive && !TutorialAllowFight) {
+			return;
+		}
+
 		// If two monsters in middle
 		var monsterLeft = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_LEFT);
 		var monsterRight = Game.GetSummonAtField(Game.MIDDLE_MARKER_INDEX_RIGHT);

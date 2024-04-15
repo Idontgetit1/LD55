@@ -126,6 +126,9 @@ public partial class ManaBar : Node2D
 
 	public void onRunePressed(RuneType rune)
 	{
+		if (Game.TutorialActive && Game.Main.TutorialChatIndex != 8) {
+			return;
+		}
 		if (runes[0] == rune)
 		{
 			// Calculate the mana obtained (for max mana) and then calculate the combo for next input
@@ -138,6 +141,10 @@ public partial class ManaBar : Node2D
 			ComboLabel.SetCombo(combo);
 			SetTimer();
 			NewRuneToMinigame();
+
+			if (Game.TutorialActive && Game.Main.TutorialChatIndex == 8) {
+				Game.Main.NextTutorial();
+			}
 		}
 		else
 		{

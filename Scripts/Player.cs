@@ -22,6 +22,9 @@ public partial class Player : CharacterBody2D
 	public const int MAX_MANA = 100;
 	private int MaxCombo = 20;
 
+
+	// Tutorial
+
 	public override void _Ready()
 	{
 		Game = GetNode<Game>("/root/Game");
@@ -49,6 +52,9 @@ public partial class Player : CharacterBody2D
 
 		// enemy stuff
 		if (!IsPlayer) {
+			if (Game.TutorialActive) {
+				return;
+			}
 
 			if (Game.Difficulty == 1) {
 				ActionsPerMinute = 60;
@@ -100,6 +106,20 @@ public partial class Player : CharacterBody2D
 				}
 			}
 		}
+	}
+
+	public async void TutorialSummonEntity(SummonType summonType) {
+		var runes = TypeStats.GetStats(summonType).Code.runes;
+		var RuneCircle = Game.Main.RuneSummoningCircleRight;
+		foreach (var rune in runes) {
+			RuneCircle.AddRune(rune);
+			await ToSignal(GetTree().CreateTimer(1f), "timeout");
+		}
+		Game.Main.SummonMonster(summonType, false);
+		RuneCircle.SummonAnimation();
+
+		// Game.Main.NextTutorial();
+		Game.Main.TutorialAllowFight = true;
 	}
 
 	public void ManaUp(int Amount) {

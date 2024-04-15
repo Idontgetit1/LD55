@@ -14,8 +14,16 @@ public partial class Backboard : Sprite2D
 	public bool Dragging = false;
 
 	public int HoveredPagez = 0;
+
+	private Game Game;
 	public override void _Ready()
 	{
+		Game = GetNode<Game>("/root/Game");
+		Game.Backboard = this;
+
+		if (Game.TutorialActive) {
+			return;
+		}
 		AddAllPages();
 	}
 
@@ -41,7 +49,7 @@ public partial class Backboard : Sprite2D
 	public const int MinY = 25;
 	public const int MinX = 25;
 
-	private void AddAllPages() {
+	public void AddAllPages() {
 
 
 		// Add semi randomly
@@ -61,6 +69,15 @@ public partial class Backboard : Sprite2D
 			summonPage.ZIndex = i;
 			i++;
 		}
+	}
+
+	public void AddPage(SummonType type) {
+		var summonPage = (SummonPage)SummonPageScene.Instantiate();
+		summonPage.Init(type);
+		summonPage.Scale /= BaseScale;
+		summonPage.Position = new Vector2(400 / BaseScale, 120 / BaseScale);
+		AddChild(summonPage);
+		summonPages.Add(summonPage);
 	}
 
     public override void _Input(InputEvent @event)

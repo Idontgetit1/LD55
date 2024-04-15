@@ -113,6 +113,10 @@ public partial class summon : CharacterBody2D
 	public bool Strengthened = false;
 
 	public void _OnTick() {
+		if (Game.TutorialActive) {
+			return;
+		}
+
 		if (Burning) {
 			BurnCounter++;
 			if (BurnCounter % BurnEvery == 0) {
@@ -241,6 +245,10 @@ public partial class summon : CharacterBody2D
 	private int SlowedCounter = 0;
 
 	public void Attack(summon target) {
+		// if (Game.TutorialActive) {
+		// 	return;
+		// }
+
 		if (FrozenFor > 0) {
 			return;
 		}
@@ -410,6 +418,10 @@ public partial class summon : CharacterBody2D
 	}
 
 	public void Die() {
+
+		if (IsPlayer) {
+			Game.EnemiesDefeated++;
+		}
 		
 		if (Type == SummonType.Slime) {
 			var nextEnemy = Game.GetSummonAtField(IsPlayer ? FieldIndex + 1 : FieldIndex - 1);

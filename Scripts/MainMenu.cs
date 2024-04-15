@@ -15,9 +15,16 @@ public partial class MainMenu : Control
 
 	public void OnStartButtonPressed()
 	{
+		Game.TutorialActive = false;
 		Game.StartGame();
 
 		// Hide the main menu
+		Visible = false;
+	}
+
+	public void OnStartTutorialButton() {
+		Game.TutorialActive = true;
+		Game.StartGame();
 		Visible = false;
 	}
 

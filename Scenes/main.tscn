@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://wuxewyfflw1a"]
+[gd_scene load_steps=24 format=3 uid="uid://wuxewyfflw1a"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
@@ -20,12 +20,14 @@
 [ext_resource type="Texture2D" uid="uid://dwdtsxe5a56r7" path="res://Resources/Assets/Textures/StatPanel.png" id="18_w0yha"]
 [ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="19_biu64"]
 [ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="20_peuye"]
+[ext_resource type="PackedScene" uid="uid://dy4e0vwkgxkup" path="res://Scenes/ChatBox.tscn" id="21_k8gh3"]
+[ext_resource type="PackedScene" uid="uid://busiwrvinthh6" path="res://Scenes/GameEndMenu.tscn" id="22_gbcr3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4anxe"]
 font = ExtResource("20_peuye")
 font_size = 20
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "PlayerHealthLabel", "EnemyHealthLabel", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound", "TickTimer", "AtkTimer", "PauseMenu")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "PlayerHealthLabel", "EnemyHealthLabel", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound", "TickTimer", "AtkTimer", "PauseMenu", "GameEndMenu", "TutorialChats")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
@@ -41,6 +43,8 @@ DeathSound = NodePath("DeathSound")
 TickTimer = NodePath("TickTimer")
 AtkTimer = NodePath("AtkTimer")
 PauseMenu = NodePath("PauseMenu")
+GameEndMenu = NodePath("GameEndMenu")
+TutorialChats = [NodePath("TutorialChatWelcome"), NodePath("TutorialChatSeeThatSummon"), NodePath("TutorialChatRuneExplanation"), NodePath("TutorialChatArrowKeysWASD"), NodePath("TutorialChatReadMoreInfo"), NodePath("TutorialChatTrySummonSlime"), NodePath("TutorialChatYouSummonedASlime"), NodePath("TutorialChatLooksLikeBothDied"), NodePath("TutorialChatRegenMana"), NodePath("TutorialChatThisWillRegenMana"), NodePath("TutorialChatPostedNewSummons"), NodePath("TutorialChatEndOfTutorial")]
 
 [node name="Player" parent="." instance=ExtResource("1_h6ddt")]
 position = Vector2(40, 456)
@@ -330,6 +334,69 @@ offset_right = 31.048
 offset_bottom = 16.286
 text = "100"
 label_settings = SubResource("LabelSettings_4anxe")
+
+[node name="TutorialChatWelcome" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Hey, you over there. I see you are a summoner. I can show you the basics of summoning."
+
+[node name="TutorialChatSeeThatSummon" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "You see that post of the creature on your board ?"
+
+[node name="TutorialChatRuneExplanation" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Each of these colorful runes correspond to a direction."
+
+[node name="TutorialChatArrowKeysWASD" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Use your ARROW KEYS or WASD."
+
+[node name="TutorialChatReadMoreInfo" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Try hovering your mouse over the post, it will show you some information."
+
+[node name="TutorialChatTrySummonSlime" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Enough of that. Try to summon a slime. Press Left, Right, Down, Down, Up, Right, Down OR \"ADSSWDS\"."
+
+[node name="TutorialChatYouSummonedASlime" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Great, now it's my turn."
+
+[node name="TutorialChatLooksLikeBothDied" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Looks like they were equally strong. You Might have noticed your mana at the top right."
+
+[node name="TutorialChatRegenMana" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Hold Ctrl and follow the runes from left to right using your Keys."
+
+[node name="TutorialChatThisWillRegenMana" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "You will fill the combo and gain more Mana. Watch out not to use the wrong runes."
+
+[node name="TutorialChatPostedNewSummons" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "I just posted some new summons. It's really cluttered. Try dragging with your mouse."
+
+[node name="TutorialChatEndOfTutorial" parent="." instance=ExtResource("21_k8gh3")]
+visible = false
+position = Vector2(872, 416)
+Text = "Thats it for the Tutorial. To start a Game press Escape and go to the Main Menu."
+
+[node name="GameEndMenu" parent="." instance=ExtResource("22_gbcr3")]
+visible = false
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
 [connection signal="timeout" from="AtkTimer" to="." method="_OnAtk"]

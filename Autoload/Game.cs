@@ -38,10 +38,17 @@ public partial class Game : Node
 	public Player Player;
 	public Player Enemy;
 
+	public Backboard Backboard;
+
 	private PackedScene MainGameScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
 	private PackedScene MainMenuScene = GD.Load<PackedScene>("res://Scenes/MainMenu.tscn");
 
 	public int Difficulty = 1;
+
+
+	// Stats
+	public int EnemiesDefeated = 0;
+
 
     public override void _Ready()
     {
@@ -66,7 +73,31 @@ public partial class Game : Node
 	}
 
 	public void MainMenu() {
+		GetTree().Paused = false;
+		EnemiesDefeated = 0;
 		GameStarted = false;
+
+		// reset everything
+		foreach (var summon in Summons) {
+			summon.QueueFree();
+		}
+		Summons.Clear();
+		SummonsToRemove.Clear();
+		CurrentRuneSequence.Clear();
+
+		// Fields
+		foreach (var marker in FieldMarkers) {
+			marker.QueueFree();
+		}
+		FieldMarkers.Clear();
+
+		// Rune Activators
+		foreach (var activator in RuneActivators) {
+			activator.QueueFree();
+		}
+		RuneActivators.Clear();
+
+
 		var MainMenu = (MainMenu)MainMenuScene.Instantiate();
 		GetTree().Root.AddChild(MainMenu);
 
@@ -76,10 +107,18 @@ public partial class Game : Node
 
 	public void GameOver() {
 		GD.Print("Game Over");
+		Main.GameEndMenu.StatusLabel.Text = "You Lost";
+		Main.GameEndMenu.EnemiesKilledLabel.Text = EnemiesDefeated.ToString();
+		Main.GameEndMenu.Show();
+		GetTree().Paused = true;
 	}
 
 	public void Win() {
-		GD.Print("Win");
+		GD.Print("You Win");
+		Main.GameEndMenu.StatusLabel.Text = "You Win";
+		Main.GameEndMenu.EnemiesKilledLabel.Text = EnemiesDefeated.ToString();
+		Main.GameEndMenu.Show();
+		GetTree().Paused = true;
 	}
 
 	// Methods to get the closest Free Field to the Middle Point
@@ -187,6 +226,11 @@ public partial class Game : Node
 			activator.ActivateCalledFromGame();
 
 			GD.Print("Using " + manaCost + " Mana to summon " + activator.Type);
+
+			if (TutorialActive && Main.TutorialChatIndex == 5) {
+				Main.NextTutorial();
+			}
+
 			return true;
 		} else {
 			// ManaBar.NotEnoughManaAnimation();
@@ -229,6 +273,10 @@ public partial class Game : Node
 		}
 
 		if (Main.PauseMenu.Visible) {
+			return;
+		}
+
+		if (TutorialActive && !(Main.TutorialChatIndex == 5 || Main.TutorialChatIndex == 8)) {
 			return;
 		}
 
@@ -325,7 +373,9 @@ public partial class Game : Node
 
 	private Dictionary<Node, bool> _shakingNodes = new Dictionary<Node, bool>();
 
-	public async void ShakeNode(Node2D node, float duration, float intensity) {
+    public bool TutorialActive = true;
+
+    public async void ShakeNode(Node2D node, float duration, float intensity) {
 		if (_shakingNodes.ContainsKey(node)) {
 			return;
 		}

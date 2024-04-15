@@ -98,6 +98,27 @@ offset_bottom = 56.0
 text = "Start Game"
 label_settings = SubResource("LabelSettings_dq88l")
 
+[node name="StartTutorialButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 488.0
+offset_top = 168.0
+offset_right = 688.0
+offset_bottom = 238.0
+scale = Vector2(0.637623, 0.637623)
+texture_normal = ExtResource("8_qp7bs")
+texture_hover = ExtResource("9_2mdtn")
+stretch_mode = 0
+
+[node name="Start Game" type="Label" parent="StartTutorialButton"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "Tutorial"
+label_settings = SubResource("LabelSettings_dq88l")
+
 [node name="SettingsButton" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
@@ -228,6 +249,7 @@ visible = false
 visible = false
 
 [connection signal="pressed" from="StartGameButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="StartTutorialButton" to="." method="OnStartTutorialButton"]
 [connection signal="pressed" from="SettingsButton" to="." method="OnSettingsButtonPressed"]
 [connection signal="pressed" from="CreditsButton" to="." method="OnCreditsButtonPressed"]
 [connection signal="pressed" from="ExitButton" to="." method="OnQuitButtonPressed"]

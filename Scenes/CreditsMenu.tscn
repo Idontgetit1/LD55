@@ -36,6 +36,7 @@ texture = ExtResource("2_qrj83")
 
 [node name="CloseSettingsButton" type="TextureButton" parent="Control"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 728.0
 offset_top = 280.0
 offset_right = 872.0
