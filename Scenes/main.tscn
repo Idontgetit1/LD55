@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://wuxewyfflw1a"]
+[gd_scene load_steps=22 format=3 uid="uid://wuxewyfflw1a"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_5een2"]
 [ext_resource type="PackedScene" uid="uid://c02fi2bhqwuxc" path="res://Scenes/player.tscn" id="1_h6ddt"]
@@ -17,12 +17,21 @@
 [ext_resource type="Texture2D" uid="uid://ckq74j47nvywl" path="res://Resources/Assets/Textures/SfxOn.png" id="15_gqoht"]
 [ext_resource type="Texture2D" uid="uid://7kq04nf04h4e" path="res://Resources/Assets/Textures/SfxOff.png" id="16_jvmkc"]
 [ext_resource type="AudioStream" uid="uid://5jq4a1vcf514" path="res://Resources/Sounds/Jump.sfxr" id="17_pj6bw"]
+[ext_resource type="Texture2D" uid="uid://dwdtsxe5a56r7" path="res://Resources/Assets/Textures/StatPanel.png" id="18_w0yha"]
+[ext_resource type="Texture2D" uid="uid://c41drcy7u625u" path="res://Resources/Assets/Textures/Health.png" id="19_biu64"]
+[ext_resource type="FontFile" uid="uid://dhb0yf8ttqdj1" path="res://Resources/Assets/Fonts/sd_auto_pilot.ttf" id="20_peuye"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound", "TickTimer", "AtkTimer", "PauseMenu")]
+[sub_resource type="LabelSettings" id="LabelSettings_4anxe"]
+font = ExtResource("20_peuye")
+font_size = 20
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("LeftSummonMarker", "RightSummonMarker", "PlayerHealthLabel", "EnemyHealthLabel", "RuneSummoningCircleLeft", "RuneSummoningCircleRight", "FieldMarkers", "ClickSound", "HitSound", "DeathSound", "TickTimer", "AtkTimer", "PauseMenu")]
 texture_filter = 1
 script = ExtResource("1_5een2")
 LeftSummonMarker = NodePath("LeftSummonCircle")
 RightSummonMarker = NodePath("RightSummonCircle")
+PlayerHealthLabel = NodePath("StatPanel/Label")
+EnemyHealthLabel = NodePath("StatPanel2/Label")
 RuneSummoningCircleLeft = NodePath("RuneSummoningCircle")
 RuneSummoningCircleRight = NodePath("RuneSummoningCircle2")
 FieldMarkers = [NodePath("FieldMarkers/0"), NodePath("FieldMarkers/1"), NodePath("FieldMarkers/2"), NodePath("FieldMarkers/3"), NodePath("FieldMarkers/4"), NodePath("FieldMarkers/5"), NodePath("FieldMarkers/6"), NodePath("FieldMarkers/7"), NodePath("FieldMarkers/8"), NodePath("FieldMarkers/9")]
@@ -283,6 +292,44 @@ stretch_mode = 0
 stream = ExtResource("17_pj6bw")
 volume_db = -10.0
 bus = &"Sfx"
+
+[node name="StatPanel" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(40, 528)
+scale = Vector2(1.78731, 1.78731)
+texture = ExtResource("18_w0yha")
+
+[node name="Health" type="Sprite2D" parent="StatPanel"]
+position = Vector2(-8.95201, 5.72205e-06)
+scale = Vector2(0.436932, 0.436932)
+texture = ExtResource("19_biu64")
+
+[node name="Label" type="Label" parent="StatPanel"]
+offset_left = -8.95201
+offset_top = -6.71401
+offset_right = 31.048
+offset_bottom = 16.286
+text = "100"
+label_settings = SubResource("LabelSettings_4anxe")
+
+[node name="StatPanel2" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(928, 528)
+scale = Vector2(1.78731, 1.78731)
+texture = ExtResource("18_w0yha")
+
+[node name="Health2" type="Sprite2D" parent="StatPanel2"]
+position = Vector2(-8.95197, 0)
+scale = Vector2(0.436932, 0.436932)
+texture = ExtResource("19_biu64")
+
+[node name="Label" type="Label" parent="StatPanel2"]
+offset_left = -8.95203
+offset_top = -6.71402
+offset_right = 31.048
+offset_bottom = 16.286
+text = "100"
+label_settings = SubResource("LabelSettings_4anxe")
 
 [connection signal="timeout" from="TickTimer" to="." method="_OnTick"]
 [connection signal="timeout" from="AtkTimer" to="." method="_OnAtk"]

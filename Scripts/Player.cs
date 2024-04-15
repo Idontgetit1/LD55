@@ -113,6 +113,13 @@ public partial class Player : CharacterBody2D
     {
 		Health -= atkPower;
 		HealthUp(-atkPower);
+
+		if (IsPlayer) {
+			Game.Main.PlayerHealthLabel.Text = Health.ToString();
+		} else {
+			Game.Main.EnemyHealthLabel.Text = Health.ToString();
+		}
+
 		Game.Main.HitSound.Play();
 		Game.ShakeNode(this, 0.5f, 10f);
 		if (Health <= 0)

@@ -10,6 +10,9 @@ public partial class main : Node2D
 	[Export]
 	private Marker2D RightSummonMarker;
 
+	[Export] public Label PlayerHealthLabel;
+	[Export] public Label EnemyHealthLabel;
+
 	[Export]
 	public RuneSummoningCircle RuneSummoningCircleLeft;
 	[Export]
